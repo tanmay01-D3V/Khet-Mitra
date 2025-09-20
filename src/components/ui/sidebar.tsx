@@ -220,23 +220,22 @@ const Sidebar = React.forwardRef<
         {/* This is what handles the sidebar gap on desktop */}
         <div
           className={cn(
-            "duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear",
-            "group-data-[collapsible=icon]:w-[--sidebar-width-icon]"
+            "duration-200 relative h-svh bg-transparent transition-[width] ease-linear",
+            state === 'expanded' ? "w-[--sidebar-width]" : "w-[--sidebar-width-icon]"
           )}
         />
         <div
           className={cn(
-            "duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex",
+            "duration-200 fixed inset-y-0 z-10 hidden h-svh transition-[left,right,width] ease-linear md:flex",
              "left-0",
-             "group-data-[collapsible=icon]:w-[--sidebar-width-icon]",
-             "group-data-[state=collapsed]:w-0",
+             state === 'expanded' ? "w-[--sidebar-width]" : "w-[--sidebar-width-icon]",
              className
           )}
           {...props}
         >
           <div
             data-sidebar="sidebar"
-            className={cn("flex h-full w-full flex-col bg-sidebar group-data-[state=expanded]:w-[--sidebar-width] group-data-[state=collapsed]:w-0 overflow-hidden transition-all duration-300",
+            className={cn("flex h-full w-full flex-col bg-sidebar group-data-[state=expanded]:w-[--sidebar-width] overflow-hidden transition-all duration-300",
              "group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:shadow"
             )}
           >
@@ -244,11 +243,6 @@ const Sidebar = React.forwardRef<
             {children}
            </div>
           </div>
-           <div className={cn("absolute inset-y-0 left-0 w-12 bg-transparent z-20")}>
-              <div className="absolute top-1/2 left-2 -translate-y-1/2 p-2 rounded-full bg-primary/20 opacity-0 group-data-[state=collapsed]:opacity-100 transition-opacity">
-                  <PanelLeft className="h-6 w-6 text-primary"/>
-              </div>
-           </div>
         </div>
       </div>
     )
@@ -322,7 +316,7 @@ const SidebarInset = React.forwardRef<
       className={cn(
         "relative flex min-h-svh flex-1 flex-col bg-background transition-all duration-300",
         "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[state=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow",
-         "sm:pl-14",
+         "sm:pl-12", // Corresponds to sidebar icon width
          state === 'expanded' && 'sm:pl-[16rem]',
          className
       )}

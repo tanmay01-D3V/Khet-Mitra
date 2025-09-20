@@ -39,12 +39,12 @@ export function Header() {
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
                 <a href="/settings">
-                    <Settings className="mr-2" /> Settings
+                    <Settings className="mr-2 h-4 w-4" /> Settings
                 </a>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>
-                <LogOut className="mr-2" /> Logout
+                <LogOut className="mr-2 h-4 w-4" /> Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
