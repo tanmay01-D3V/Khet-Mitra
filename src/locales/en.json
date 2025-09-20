@@ -10,7 +10,8 @@
         "myPoll": "My Poll",
         "settings": "Settings",
         "profile": "Profile",
-        "chatroom": "Chatroom"
+        "chatroom": "Chatroom",
+        "theDevs": "The Devs"
     },
     "header": {
         "myAccount": "My Account",

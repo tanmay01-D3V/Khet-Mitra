@@ -28,6 +28,7 @@ import {
   CircleUser,
   LogOut,
   Users,
+  Code,
 } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { useAuth } from '@/context/auth-context';
@@ -58,6 +59,7 @@ export function AppSidebar() {
     { href: '/my-poll', label: t('myPoll'), icon: <RadioReceiver /> },
     { href: '/chatroom', label: t('chatroom'), icon: <Users /> },
     { href: '/settings', label: t('settings'), icon: <Settings /> },
+    { href: '/the-devs', label: t('theDevs'), icon: <Code /> },
   ];
 
   return (
