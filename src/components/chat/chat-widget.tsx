@@ -186,7 +186,7 @@ export function ChatWidget() {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-lg"
+        className="fixed bottom-24 right-6 h-16 w-16 rounded-full shadow-lg"
         size="icon"
       >
         <MessageCircle className="h-8 w-8" />
