@@ -95,7 +95,9 @@ export default function SoilAnalysisPage() {
         location: data.location
       });
       setAnalysisResult(result);
-    } catch (error)      toast({
+    } catch (error) {
+      console.error('Error analyzing data:', error);
+      toast({
         title: 'Analysis Failed',
         description: 'There was an error processing your request. Please try again.',
         variant: 'destructive',
