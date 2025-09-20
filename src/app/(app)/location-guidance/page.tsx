@@ -18,7 +18,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Trees, FlaskConical, Upload, LocateFixed } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { fileToDataUri } from '@/lib/utils';
-import { getAddressFromCoordinates } from '@/ai/tools/reverse-geocoding';
+import { getAddressFromCoordinates } from '@/ai/flows/get-address-from-coordinates-flow';
 
 const formSchema = z.object({
   soilReport: z.instanceof(File).refine((file) => file.size > 0, "Please upload your soil report."),
