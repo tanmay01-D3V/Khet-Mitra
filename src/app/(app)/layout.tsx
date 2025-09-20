@@ -1,7 +1,6 @@
 
 'use client';
 
-import { Navbar } from '@/components/layout/navbar';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -30,7 +29,6 @@ export default function AppLayout({
 
   return (
       <div className="min-h-screen w-full bg-muted/30">
-        <Navbar />
         <main className="flex-1 p-4 sm:p-6">{children}</main>
       </div>
   );
