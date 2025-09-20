@@ -35,6 +35,10 @@ const prompt = ai.definePrompt({
   name: 'extractAadhaarInfoPrompt',
   input: { schema: ExtractAadhaarInfoInputSchema },
   output: { schema: ExtractAadhaarInfoOutputSchema },
+  model: 'googleai/gemini-2.5-flash-image-preview',
+  config: {
+    responseModalities: ['TEXT', 'IMAGE'],
+  },
   prompt: `You are an expert OCR system. Analyze the provided image of an Indian Aadhaar card and extract the cardholder's full name, the 12-digit Aadhaar number, and crop the cardholder's photograph, returning it as a data URI.
 
   Image: {{media url=photoDataUri}}
