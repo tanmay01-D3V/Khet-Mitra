@@ -1,12 +1,7 @@
 
 'use client';
 
-import { Header } from '@/components/layout/header';
-import { AppSidebar } from '@/components/layout/sidebar';
-import {
-  SidebarProvider,
-  SidebarInset,
-} from '@/components/ui/sidebar';
+import { Navbar } from '@/components/layout/navbar';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -34,14 +29,9 @@ export default function AppLayout({
     }
 
   return (
-    <SidebarProvider>
       <div className="min-h-screen w-full bg-muted/30">
-        <AppSidebar />
-        <div className="flex flex-col md:pl-64">
-          <Header />
-            <main className="flex-1 p-4 sm:p-6">{children}</main>
-        </div>
+        <Navbar />
+        <main className="flex-1 p-4 sm:p-6">{children}</main>
       </div>
-    </SidebarProvider>
   );
 }
