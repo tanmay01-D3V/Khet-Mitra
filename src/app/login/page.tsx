@@ -89,7 +89,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-4xl">
         <CardHeader className="text-center">
             <div className="mx-auto mb-4">
                 <Logo />
@@ -100,76 +100,88 @@ export default function LoginPage() {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('form.nameLabel')}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t('form.namePlaceholder')} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="aadhaar"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t('form.aadhaarLabel')}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t('form.aadhaarPlaceholder')} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-2 text-muted-foreground">{t('or')}</span>
-                </div>
-              </div>
-
-              <div className='space-y-4'>
-                <div className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg border-2 border-dashed border-border flex items-center justify-center bg-muted/50">
-                    {imagePreview ? (
-                    <Image src={imagePreview} alt={t('form.aadhaarPreviewAlt')} layout="fill" objectFit="contain" />
-                    ) : (
-                    <div className="text-center text-muted-foreground">
-                        <Camera className="mx-auto h-8 w-8" />
-                        <p className="mt-2 text-sm">{t('form.scanPrompt')}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 md:gap-10 items-start">
+                    
+                    <div className="space-y-6">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t('form.nameLabel')}</FormLabel>
+                            <FormControl>
+                              <Input placeholder={t('form.namePlaceholder')} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="aadhaar"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t('form.aadhaarLabel')}</FormLabel>
+                            <FormControl>
+                              <Input placeholder={t('form.aadhaarPlaceholder')} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                       <Button type="submit" className="w-full" disabled={isLoggingIn || isScanning}>
+                         {isLoggingIn ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                        {t('form.loginButton')}
+                      </Button>
                     </div>
-                    )}
-                    {isScanning && (
-                        <div className="absolute inset-0 bg-background/80 flex items-center justify-center">
-                            <Loader2 className="h-8 w-8 animate-spin text-primary"/>
+
+                    <div className="relative flex flex-col items-center justify-center h-full">
+                        <div className="hidden md:block absolute inset-0 md:flex items-center -left-5">
+                          <div className="h-full w-px bg-border" />
+                           <div className="relative flex justify-center text-xs uppercase -ml-3">
+                              <span className="bg-card px-2 text-muted-foreground">{t('or')}</span>
+                            </div>
                         </div>
-                    )}
+                         <div className="block md:hidden relative py-4 w-full">
+                            <div className="absolute inset-0 flex items-center">
+                              <span className="w-full border-t" />
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                              <span className="bg-card px-2 text-muted-foreground">{t('or')}</span>
+                            </div>
+                        </div>
+
+                        <div className='space-y-4 w-full'>
+                            <div className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg border-2 border-dashed border-border flex items-center justify-center bg-muted/50">
+                                {imagePreview ? (
+                                <Image src={imagePreview} alt={t('form.aadhaarPreviewAlt')} layout="fill" objectFit="contain" />
+                                ) : (
+                                <div className="text-center text-muted-foreground">
+                                    <Camera className="mx-auto h-8 w-8" />
+                                    <p className="mt-2 text-sm">{t('form.scanPrompt')}</p>
+                                </div>
+                                )}
+                                {isScanning && (
+                                    <div className="absolute inset-0 bg-background/80 flex items-center justify-center">
+                                        <Loader2 className="h-8 w-8 animate-spin text-primary"/>
+                                    </div>
+                                )}
+                            </div>
+
+                            <Button type="button" variant="outline" className="w-full relative">
+                              <Upload className="mr-2 h-4 w-4" />
+                              {t('form.scanButton')}
+                              <input
+                                type="file"
+                                accept="image/jpeg,image/png,image/webp"
+                                onChange={handleFileChange}
+                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                disabled={isScanning}
+                              />
+                            </Button>
+                        </div>
+                    </div>
                 </div>
-
-                <Button type="button" variant="outline" className="w-full relative">
-                  <Upload className="mr-2 h-4 w-4" />
-                  {t('form.scanButton')}
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    onChange={handleFileChange}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    disabled={isScanning}
-                  />
-                </Button>
-              </div>
-
-              <Button type="submit" className="w-full" disabled={isLoggingIn || isScanning}>
-                 {isLoggingIn ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
-                {t('form.loginButton')}
-              </Button>
             </form>
           </Form>
         </CardContent>
