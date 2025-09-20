@@ -1,0 +1,241 @@
+
+{
+    "sidebar": {
+        "dashboard": "डैशबोर्ड",
+        "diseaseId": "रोग पहचान",
+        "soilAnalysis": "मृदा विश्लेषण",
+        "fertilizerAdvice": "उर्वरक सलाह",
+        "locationGuidance": "स्थान मार्गदर्शन",
+        "marketplace": "बाज़ार",
+        "myPoll": "माई पोल",
+        "settings": "सेटिंग्स"
+    },
+    "header": {
+        "myAccount": "मेरा खाता",
+        "settings": "सेटिंग्स",
+        "support": "समर्थन",
+        "logout": "लॉगआउट"
+    },
+    "dashboard": {
+        "welcomeTitle": "वापस स्वागत है, किसान!",
+        "welcomeDescription": "स्मार्ट खेती के लिए आपका डिजिटल टूलकिट। चलिए आज को उत्पादक बनाते हैं।",
+        "quickActions": {
+            "title": "त्वरित क्रियाएं",
+            "newScan": "नया स्कैन",
+            "soilTest": "मृदा परीक्षण",
+            "fertilizer": "उर्वरक",
+            "marketTrends": "बाजार के रुझान"
+        },
+        "mainFeatures": {
+            "identifyCropDisease": {
+                "title": "फसल रोग पहचानें",
+                "description": "तुरंत रोग निदान और उपचार सलाह पाने के लिए अपनी फसल की एक तस्वीर अपलोड करें।",
+                "cta": "स्कैनिंग शुरू करें"
+            },
+            "locationBasedGuidance": {
+                "title": "स्थान-आधारित मार्गदर्शन",
+                "description": "अपने क्षेत्र के लिए अनुकूलित फसल और मिट्टी की सलाह पाने के लिए अपने स्थान का उपयोग करें।",
+                "cta": "स्थानीय सलाह प्राप्त करें"
+            },
+            "fairPriceMarketplace": {
+                "title": "उचित मूल्य बाज़ार",
+                "description": "अपनी फसल को सीधे हमारे बाज़ार के माध्यम से एक उचित मूल्य पर बेचें जो आपको लाभ पहुंचाता है।",
+                "cta": "बाज़ार में प्रवेश करें"
+            },
+            "myPollSensor": {
+                "title": "मेरा पोल सेंसर",
+                "description": "वास्तविक समय में मिट्टी की निगरानी और विश्लेषण के लिए अपने हार्डवेयर से कनेक्ट करें।",
+                "cta": "डिवाइस कनेक्ट करें"
+            }
+        }
+    },
+    "disease-identification": {
+        "title": "रोग की पहचान",
+        "description": "संभावित रोगों की पहचान के लिए फसल की एक तस्वीर अपलोड करें।",
+        "uploadCard": {
+            "title": "फसल की छवि अपलोड करें",
+            "description": "अपने डिवाइस से प्रभावित फसल की एक छवि फ़ाइल चुनें।",
+            "form": {
+                "photoLabel": "फसल की तस्वीर",
+                "cropPreviewAlt": "फसल का पूर्वावलोकन",
+                "analyzeButton": "छवि का विश्लेषण करें",
+                "analyzingButton": "विश्लेषण हो रहा है..."
+            }
+        },
+        "resultsCard": {
+            "title": "विश्लेषण के परिणाम",
+            "diseaseDetected": {
+                "title": "रोग का पता चला",
+                "confidenceLabel": "आत्मविश्वास स्तर",
+                "actionsLabel": "सुझाए गए कार्य"
+            },
+            "noDiseaseDetected": {
+                "title": "कोई रोग नहीं मिला",
+                "description": "विश्लेषण के आधार पर फसल स्वस्थ दिखाई देती है।"
+            }
+        },
+        "toast": {
+            "analysisFailed": {
+                "title": "विश्लेषण विफल",
+                "description": "छवि का विश्लेषण करने में एक त्रुटि हुई। कृपया पुन: प्रयास करें।"
+            }
+        }
+    },
+    "soil-analysis": {
+        "title": "मृदा विश्लेषण और फसल सिफारिश",
+        "description": "विशेषज्ञ फसल सुझाव प्राप्त करने के लिए अपना मृदा डेटा दर्ज करें।",
+        "formCard": {
+            "title": "मृदा डेटा इनपुट",
+            "description": "अपने मृदा परीक्षण के परिणाम और स्थान प्रदान करें।",
+            "form": {
+                "soilTestResultsLabel": "मृदा परीक्षण के परिणाम",
+                "soilTestResultsPlaceholder": "उदा., पीएच: 6.5, नाइट्रोजन: 25ppm, फास्फोरस: 50ppm, पोटेशियम: 100ppm...",
+                "locationLabel": "आपका स्थान",
+                "locationPlaceholder": "अपना शहर या क्षेत्र दर्ज करें",
+                "getRecommendationsButton": "सिफारिशें प्राप्त करें",
+                "analyzingButton": "विश्लेषण हो रहा है..."
+            }
+        },
+        "resultsCard": {
+            "recommendedCrops": {
+                "title": "अनुशंसित फसलें",
+                "description": "आपके डेटा के आधार पर, ये फसलें अत्यधिक उपयुक्त हैं।",
+                "marketRateLabel": "थोक दर"
+            },
+            "soilInfo": {
+                "title": "मृदा सूचना सारांश",
+                "description": "आपकी मिट्टी की विशेषताओं का सारांश।"
+            }
+        },
+        "toast": {
+            "failed": {
+                "title": "विश्लेषण विफल",
+                "description": "आपके अनुरोध को संसाधित करने में एक त्रुटि हुई। कृपया पुन: प्रयास करें।"
+            }
+        }
+    },
+    "fertilizer-recommendation": {
+        "title": "उर्वरक सिफारिश",
+        "description": "अपने खेत के लिए व्यक्तिगत उर्वरक सलाह प्राप्त करें।",
+        "formCard": {
+            "title": "खेत का विवरण",
+            "description": "अपनी फसल, क्षेत्र दर्ज करें, और अपनी मृदा विश्लेषण रिपोर्ट अपलोड करें।",
+            "form": {
+                "cropTypeLabel": "फसल का प्रकार",
+                "cropTypePlaceholder": "उदा., गेहूं, मक्का, टमाटर",
+                "regionLabel": "क्षेत्र",
+                "regionPlaceholder": "उदा., नापा घाटी, कैलिफोर्निया",
+                "soilReportLabel": "मृदा रिपोर्ट",
+                "soilReportDescription": "अपनी मृदा विश्लेषण फ़ाइल (पीडीएफ, टीXT, या छवि) अपलोड करें।",
+                "getAdviceButton": "उर्वरक सलाह प्राप्त करें",
+                "generatingButton": "उत्पन्न हो रहा है..."
+            }
+        },
+        "recommendationCard": {
+            "title": "आपकी व्यक्तिगत उर्वरक सिफारिश",
+            "description": "इष्टतम पौधे के स्वास्थ्य और उपज के लिए इन सुझावों का पालन करें।"
+        },
+        "toast": {
+            "failed": {
+                "title": "सिफारिश विफल",
+                "description": "आपके अनुरोध को संसाधित करने में एक त्रुटि हुई। कृपया पुन: प्रयास करें।"
+            }
+        }
+    },
+    "location-guidance": {
+        "title": "स्थान-आधारित मार्गदर्शन",
+        "description": "अनुकूलित फसल सलाह प्राप्त करने के लिए अपने स्थान का उपयोग करें।",
+        "formCard": {
+            "title": "फसल सिफारिश प्रपत्र",
+            "description": "सटीक सिफारिशों के लिए अपने खेत का स्थान और मिट्टी का विवरण दर्ज करें।",
+            "form": {
+                "locationLabel": "आपका स्थान",
+                "locationPlaceholder": "अपना शहर या क्षेत्र दर्ज करें",
+                "soilTestResultsLabel": "मृदा परीक्षण के परिणाम",
+                "soilTestResultsPlaceholder": "उदा., पीएच: 6.5, नाइट्रोजन: 25ppm, फास्फोरस: 50ppm...",
+                "getRecommendationsButton": "सिफारिशें प्राप्त करें",
+                "analyzingButton": "विश्लेषण हो रहा है..."
+            }
+        },
+        "resultsCard": {
+            "recommendedCrops": {
+                "title": "अनुशंसित फसलें",
+                "description": "आपके स्थान और मिट्टी के लिए उपयुक्त फसलें।",
+                "marketRateLabel": "थोक दर"
+            },
+            "soilInfo": {
+                "title": "मृदा सूचना सारांश",
+                "description": "आपकी मिट्टी की विशेषताओं का सारांश।"
+            }
+        },
+        "toast": {
+            "failed": {
+                "title": "विश्लेषण विफल",
+                "description": "आपके अनुरोध को संसाधित करने में एक त्रुटि हुई। कृपया पुन: प्रयास करें।"
+            }
+        }
+    },
+    "marketplace": {
+        "title": "बाज़ार",
+        "description": "अपने अनाज को उचित मूल्य पर, सीधे खरीदारों को बेचें।",
+        "products": {
+            "wheatGrains": "गेहूं के दाने",
+            "basmatiRice": "बासमती चावल",
+            "yellowCorn": "पीला मक्का",
+            "barley": "जौ",
+            "soybeans": "सोयाबीन",
+            "sunflowerSeeds": "सूरजमुखी के बीज"
+        },
+        "viewDetailsButton": "विवरण देखें"
+    },
+    "my-poll": {
+        "title": "मेरा पोल डिवाइस",
+        "description": "आपके हार्डवेयर डिवाइस से वास्तविक समय में मिट्टी की निगरानी।",
+        "deviceStatusCard": {
+            "title": "डिवाइस की स्थिति",
+            "description": "अपने माई पोल सेंसर की वर्तमान स्थिति देखें।",
+            "status": {
+                "connecting": "कनेक्ट हो रहा है",
+                "online": "ऑनलाइन",
+                "offline": "ऑफलाइन"
+            }
+        },
+        "liveDataCard": {
+            "title": "लाइव मृदा डेटा",
+            "description": "ये आपके माई पोल डिवाइस से वास्तविक समय की रीडिंग हैं। डेटा स्वचालित रूप से ताज़ा होता है।",
+            "phLevel": "पीएच स्तर",
+            "nitrogen": "नाइट्रोजन (N)",
+            "phosphorus": "फास्फोरस (P)",
+            "potassium": "पोटेशियम (K)",
+            "soilMoisture": "मिट्टी की नमी"
+        },
+        "connectingCard": {
+            "title": "माई पोल से कनेक्ट हो रहा है...",
+            "description": "कृपया प्रतीक्षा करें जब तक हम आपके डिवाइस के साथ कनेक्शन स्थापित करते हैं।"
+        },
+        "offlineCard": {
+            "title": "डिवाइस ऑफलाइन",
+            "description": "हम आपके माई पोल डिवाइस से कनेक्ट नहीं हो सके। कृपया जांचें कि क्या यह चालू है और सीमा के भीतर है।"
+        }
+    },
+    "settings": {
+        "title": "सेटिंग्स",
+        "description": "अपनी एप्लिकेशन प्राथमिकताएं प्रबंधित करें।",
+        "languageCard": {
+            "title": "भाषा सेटिंग्स",
+            "description": "एप्लिकेशन के लिए अपनी पसंदीदा भाषा चुनें।",
+            "form": {
+                "label": "एप्लिकेशन भाषा",
+                "placeholder": "एक भाषा चुनें",
+                "saveButton": "प्राथमिकताएं सहेजें",
+                "savingButton": "सहेज रहा है..."
+            }
+        },
+        "toast": {
+            "saved": {
+                "title": "सेटिंग्स सहेजी गईं",
+                "description": "भाषा वरीयता {{language}} में अपडेट की गई।"
+            }
+        }
+    }
+}

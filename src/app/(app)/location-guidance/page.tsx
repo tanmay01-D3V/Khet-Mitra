@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -15,6 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Trees, FlaskConical } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
 const formSchema = z.object({
   soilTestResults: z.string().min(20, "Please provide detailed soil test results."),
@@ -27,6 +29,7 @@ export default function LocationGuidancePage() {
   const [analysisResult, setAnalysisResult] = useState<RecommendCropsBasedOnSoilAnalysisOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation('location-guidance');
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -49,8 +52,8 @@ export default function LocationGuidancePage() {
     } catch (error) {
       console.error('Error analyzing data:', error);
       toast({
-        title: 'Analysis Failed',
-        description: 'There was an error processing your request. Please try again.',
+        title: t('toast.failed.title'),
+        description: t('toast.failed.description'),
         variant: 'destructive',
       });
     } finally {
@@ -61,14 +64,14 @@ export default function LocationGuidancePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Location-Based Guidance</h1>
-        <p className="text-muted-foreground">Use your location to get tailored crop advice.</p>
+        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('description')}</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Crop Recommendation Form</CardTitle>
-          <CardDescription>Enter your farm's location and soil details for accurate recommendations.</CardDescription>
+          <CardTitle>{t('formCard.title')}</CardTitle>
+          <CardDescription>{t('formCard.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -79,9 +82,9 @@ export default function LocationGuidancePage() {
                 name="location"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Your Location</FormLabel>
+                    <FormLabel>{t('formCard.form.locationLabel')}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your city or region" {...field} />
+                      <Input placeholder={t('formCard.form.locationPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -93,10 +96,10 @@ export default function LocationGuidancePage() {
                 name="soilTestResults"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Soil Test Results</FormLabel>
+                    <FormLabel>{t('formCard.form.soilTestResultsLabel')}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="e.g., pH: 6.5, Nitrogen: 25ppm, Phosphorus: 50ppm..."
+                        placeholder={t('formCard.form.soilTestResultsPlaceholder')}
                         className="min-h-[120px]"
                         {...field}
                       />
@@ -110,10 +113,10 @@ export default function LocationGuidancePage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Analyzing...
+                    {t('formCard.form.analyzingButton')}
                   </>
                 ) : (
-                  'Get Recommendations'
+                  t('formCard.form.getRecommendationsButton')
                 )}
               </Button>
             </form>
@@ -127,8 +130,8 @@ export default function LocationGuidancePage() {
                 <CardHeader className='flex-row gap-4 items-center'>
                     <Trees className="h-10 w-10 text-primary" />
                     <div>
-                        <CardTitle>Recommended Crops</CardTitle>
-                        <CardDescription>Suitable crops for your location and soil.</CardDescription>
+                        <CardTitle>{t('resultsCard.recommendedCrops.title')}</CardTitle>
+                        <CardDescription>{t('resultsCard.recommendedCrops.description')}</CardDescription>
                     </div>
                 </CardHeader>
                 <CardContent>
@@ -137,7 +140,7 @@ export default function LocationGuidancePage() {
                           <li key={index} className="flex items-center gap-4 rounded-md bg-secondary/50 p-3">
                               <div className="flex-1">
                                   <p className="font-semibold text-lg">{crop.name}</p>
-                                  <p className="text-sm text-muted-foreground">Wholesale Rate: <span className='font-bold text-foreground'>{crop.marketRate}</span></p>
+                                  <p className="text-sm text-muted-foreground">{t('resultsCard.recommendedCrops.marketRateLabel')}: <span className='font-bold text-foreground'>{crop.marketRate}</span></p>
                               </div>
                           </li>
                       ))}
@@ -148,8 +151,8 @@ export default function LocationGuidancePage() {
                 <CardHeader className='flex-row gap-4 items-center'>
                     <FlaskConical className="h-10 w-10 text-accent" />
                     <div>
-                        <CardTitle>Soil Information Summary</CardTitle>
-                        <CardDescription>A summary of your soil's characteristics.</CardDescription>
+                        <CardTitle>{t('resultsCard.soilInfo.title')}</CardTitle>
+                        <CardDescription>{t('resultsCard.soilInfo.description')}</CardDescription>
                     </div>
                 </CardHeader>
                 <CardContent>

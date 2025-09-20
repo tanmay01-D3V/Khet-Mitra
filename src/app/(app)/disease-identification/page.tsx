@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -17,6 +18,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { useToast } from '@/hooks/use-toast';
 import { Upload, Loader2, Leaf, Siren, ShieldCheck, BarChart } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
+import { useTranslation } from '@/hooks/use-translation';
 
 
 const formSchema = z.object({
@@ -30,6 +32,7 @@ export default function DiseaseIdentificationPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation('disease-identification');
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -61,8 +64,8 @@ export default function DiseaseIdentificationPage() {
     } catch (error) {
       console.error('Error analyzing image:', error);
       toast({
-        title: 'Analysis Failed',
-        description: 'There was an error analyzing the image. Please try again.',
+        title: t('toast.analysisFailed.title'),
+        description: t('toast.analysisFailed.description'),
         variant: 'destructive',
       });
     } finally {
@@ -73,14 +76,14 @@ export default function DiseaseIdentificationPage() {
   return (
     <div className="space-y-8">
       <div>
-          <h1 className="text-3xl font-bold tracking-tight">Disease Identification</h1>
-          <p className="text-muted-foreground">Upload a photo of a crop to identify potential diseases.</p>
+          <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
+          <p className="text-muted-foreground">{t('description')}</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Upload Crop Image</CardTitle>
-          <CardDescription>Select an image file of the affected crop from your device.</CardDescription>
+          <CardTitle>{t('uploadCard.title')}</CardTitle>
+          <CardDescription>{t('uploadCard.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -90,12 +93,12 @@ export default function DiseaseIdentificationPage() {
                 name="photo"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Crop Photo</FormLabel>
+                    <FormLabel>{t('uploadCard.form.photoLabel')}</FormLabel>
                     <FormControl>
                       <div className="flex items-center gap-4">
                         <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-lg border-2 border-dashed border-border flex items-center justify-center bg-muted">
                            {imagePreview ? (
-                              <Image src={imagePreview} alt="Crop preview" layout="fill" objectFit="cover" />
+                              <Image src={imagePreview} alt={t('uploadCard.form.cropPreviewAlt')} layout="fill" objectFit="cover" />
                            ) : (
                               <Upload className="h-8 w-8 text-muted-foreground" />
                            )}
@@ -116,10 +119,10 @@ export default function DiseaseIdentificationPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Analyzing...
+                    {t('uploadCard.form.analyzingButton')}
                   </>
                 ) : (
-                  'Analyze Image'
+                  t('uploadCard.form.analyzeButton')
                 )}
               </Button>
             </form>
@@ -130,7 +133,7 @@ export default function DiseaseIdentificationPage() {
       {analysisResult && (
         <Card>
           <CardHeader>
-            <CardTitle>Analysis Results</CardTitle>
+            <CardTitle>{t('resultsCard.title')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
               {analysisResult.diseaseIdentification.diseaseDetected ? (
@@ -138,7 +141,7 @@ export default function DiseaseIdentificationPage() {
                       <div className="flex items-center gap-4 p-4 bg-destructive/10 rounded-lg">
                           <Siren className="h-8 w-8 text-destructive" />
                           <div>
-                              <h3 className="font-bold text-lg text-destructive">Disease Detected</h3>
+                              <h3 className="font-bold text-lg text-destructive">{t('resultsCard.diseaseDetected.title')}</h3>
                               <p className="font-semibold text-xl">{analysisResult.diseaseIdentification.likelyDisease}</p>
                           </div>
                       </div>
@@ -146,7 +149,7 @@ export default function DiseaseIdentificationPage() {
                       <div className="grid gap-4 md:grid-cols-2">
                           <Card className="bg-secondary/50">
                               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                  <CardTitle className="text-sm font-medium">Confidence Level</CardTitle>
+                                  <CardTitle className="text-sm font-medium">{t('resultsCard.diseaseDetected.confidenceLabel')}</CardTitle>
                                   <BarChart className="h-4 w-4 text-muted-foreground" />
                               </CardHeader>
                               <CardContent>
@@ -158,7 +161,7 @@ export default function DiseaseIdentificationPage() {
                           </Card>
                           <Card className="bg-secondary/50">
                               <CardHeader className="flex flex-row items-center justify-between pb-2">
-                                  <CardTitle className="text-sm font-medium">Suggested Actions</CardTitle>
+                                  <CardTitle className="text-sm font-medium">{t('resultsCard.diseaseDetected.actionsLabel')}</CardTitle>
                                   <ShieldCheck className="h-4 w-4 text-muted-foreground" />
                               </CardHeader>
                               <CardContent>
@@ -171,8 +174,8 @@ export default function DiseaseIdentificationPage() {
                   <div className="flex items-center gap-4 p-4 bg-primary/10 rounded-lg">
                       <Leaf className="h-8 w-8 text-primary" />
                        <div>
-                          <h3 className="font-bold text-lg text-primary">No Disease Detected</h3>
-                          <p>The crop appears to be healthy based on the analysis.</p>
+                          <h3 className="font-bold text-lg text-primary">{t('resultsCard.noDiseaseDetected.title')}</h3>
+                          <p>{t('resultsCard.noDiseaseDetected.description')}</p>
                       </div>
                   </div>
               )}

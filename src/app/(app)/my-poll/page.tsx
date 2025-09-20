@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -5,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Loader2, Signal, Wifi, WifiOff } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
+import { useTranslation } from '@/hooks/use-translation';
 
 type DeviceStatus = 'connecting' | 'online' | 'offline';
 
@@ -19,6 +21,7 @@ const initialSoilData = {
 export default function MyPollPage() {
   const [status, setStatus] = useState<DeviceStatus>('connecting');
   const [soilData, setSoilData] = useState(initialSoilData);
+  const { t } = useTranslation('my-poll');
 
   useEffect(() => {
     // Simulate initial connection attempt
@@ -67,20 +70,20 @@ export default function MyPollPage() {
   return (
     <div className="space-y-8">
        <div>
-        <h1 className="text-3xl font-bold tracking-tight">My Poll Device</h1>
-        <p className="text-muted-foreground">Real-time soil monitoring from your hardware device.</p>
+        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('description')}</p>
       </div>
 
       <Card>
         <CardHeader className='flex-row items-center justify-between'>
             <div>
-                <CardTitle>Device Status</CardTitle>
-                <CardDescription>View the current status of your My Poll sensor.</CardDescription>
+                <CardTitle>{t('deviceStatusCard.title')}</CardTitle>
+                <CardDescription>{t('deviceStatusCard.description')}</CardDescription>
             </div>
             <div className='flex items-center gap-2'>
                 {getStatusIndicator()}
                 <Badge variant={status === 'online' ? 'default' : status === 'offline' ? 'destructive' : 'secondary'} className="capitalize">
-                    {status}
+                    {t(`deviceStatusCard.status.${status}`)}
                 </Badge>
             </div>
         </CardHeader>
@@ -91,32 +94,32 @@ export default function MyPollPage() {
             <CardHeader>
                 <CardTitle className='flex items-center gap-3'>
                     <Signal className="h-6 w-6" />
-                    Live Soil Data
+                    {t('liveDataCard.title')}
                 </CardTitle>
                 <CardDescription>
-                    These are the real-time readings from your My Poll device. The data refreshes automatically.
+                    {t('liveDataCard.description')}
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <DataCard title="pH Level" value={soilData.ph.toFixed(1)} unit="" />
-                <DataCard title="Nitrogen (N)" value={soilData.nitrogen} unit="ppm" />
-                <DataCard title="Phosphorus (P)" value={soilData.phosphorus} unit="ppm" />
-                <DataCard title="Potassium (K)" value={soilData.potassium} unit="ppm" />
-                <DataCard title="Soil Moisture" value={soilData.moisture} unit="%" progress={soilData.moisture} />
+                <DataCard title={t('liveDataCard.phLevel')} value={soilData.ph.toFixed(1)} unit="" />
+                <DataCard title={t('liveDataCard.nitrogen')} value={soilData.nitrogen} unit="ppm" />
+                <DataCard title={t('liveDataCard.phosphorus')} value={soilData.phosphorus} unit="ppm" />
+                <DataCard title={t('liveDataCard.potassium')} value={soilData.potassium} unit="ppm" />
+                <DataCard title={t('liveDataCard.soilMoisture')} value={soilData.moisture} unit="%" progress={soilData.moisture} />
             </CardContent>
         </Card>
       ) : status === 'connecting' ? (
          <Card className="flex flex-col items-center justify-center p-12 text-center">
             <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
-            <CardTitle>Connecting to My Poll...</CardTitle>
-            <CardDescription>Please wait while we establish a connection with your device.</CardDescription>
+            <CardTitle>{t('connectingCard.title')}</CardTitle>
+            <CardDescription>{t('connectingCard.description')}</CardDescription>
          </Card>
       ) : (
          <Card className="flex flex-col items-center justify-center p-12 text-center bg-destructive/10">
             <WifiOff className="h-12 w-12 text-destructive mb-4" />
-            <CardTitle className="text-destructive">Device Offline</CardTitle>
+            <CardTitle className="text-destructive">{t('offlineCard.title')}</CardTitle>
             <CardDescription>
-                We couldn&apos;t connect to your My Poll device. Please check if it&apos;s powered on and within range.
+                {t('offlineCard.description')}
             </CardDescription>
          </Card>
       )}

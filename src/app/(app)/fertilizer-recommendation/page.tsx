@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -14,7 +15,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Sprout, FileText } from 'lucide-react';
+import { Loader2, Sprout } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
+
 
 const formSchema = z.object({
   cropType: z.string().min(3, "Please enter a valid crop type."),
@@ -28,6 +31,7 @@ export default function FertilizerRecommendationPage() {
   const [recommendation, setRecommendation] = useState<RecommendFertilizersOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation('fertilizer-recommendation');
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -61,8 +65,8 @@ export default function FertilizerRecommendationPage() {
     } catch (error) {
       console.error('Error getting fertilizer recommendation:', error);
       toast({
-        title: 'Recommendation Failed',
-        description: 'There was an error processing your request. Please try again.',
+        title: t('toast.failed.title'),
+        description: t('toast.failed.description'),
         variant: 'destructive',
       });
     } finally {
@@ -73,14 +77,14 @@ export default function FertilizerRecommendationPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Fertilizer Recommendation</h1>
-        <p className="text-muted-foreground">Get personalized fertilizer advice for your farm.</p>
+        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('description')}</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Farm Details</CardTitle>
-          <CardDescription>Enter your crop, region, and upload your soil analysis report.</CardDescription>
+          <CardTitle>{t('formCard.title')}</CardTitle>
+          <CardDescription>{t('formCard.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -91,9 +95,9 @@ export default function FertilizerRecommendationPage() {
                   name="cropType"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Crop Type</FormLabel>
+                      <FormLabel>{t('formCard.form.cropTypeLabel')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., Wheat, Corn, Tomato" {...field} />
+                        <Input placeholder={t('formCard.form.cropTypePlaceholder')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -104,9 +108,9 @@ export default function FertilizerRecommendationPage() {
                   name="region"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Region</FormLabel>
+                      <FormLabel>{t('formCard.form.regionLabel')}</FormLabel>
                       <FormControl>
-                        <Input placeholder="e.g., Napa Valley, California" {...field} />
+                        <Input placeholder={t('formCard.form.regionPlaceholder')} {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -118,7 +122,7 @@ export default function FertilizerRecommendationPage() {
                 name="soilReport"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Soil Report</FormLabel>
+                    <FormLabel>{t('formCard.form.soilReportLabel')}</FormLabel>
                     <FormControl>
                         <Input
                           type="file"
@@ -126,7 +130,7 @@ export default function FertilizerRecommendationPage() {
                           onChange={handleFileChange}
                         />
                     </FormControl>
-                     <FormDescription>Upload your soil analysis file (PDF, TXT, or image).</FormDescription>
+                     <FormDescription>{t('formCard.form.soilReportDescription')}</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -135,10 +139,10 @@ export default function FertilizerRecommendationPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Generating...
+                    {t('formCard.form.generatingButton')}
                   </>
                 ) : (
-                  'Get Fertilizer Advice'
+                  t('formCard.form.getAdviceButton')
                 )}
               </Button>
             </form>
@@ -151,8 +155,8 @@ export default function FertilizerRecommendationPage() {
             <CardHeader className='flex-row gap-4 items-center'>
                 <Sprout className="h-10 w-10 text-primary" />
                 <div>
-                    <CardTitle>Your Personalized Fertilizer Recommendation</CardTitle>
-                    <CardDescription>Follow these suggestions for optimal plant health and yield.</CardDescription>
+                    <CardTitle>{t('recommendationCard.title')}</CardTitle>
+                    <CardDescription>{t('recommendationCard.description')}</CardDescription>
                 </div>
             </CardHeader>
             <CardContent>

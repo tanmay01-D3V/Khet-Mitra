@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -23,53 +24,56 @@ import {
 } from 'lucide-react';
 import { Logo } from '../logo';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/use-translation';
 
-const menuItems = [
-  {
-    href: '/dashboard',
-    icon: LayoutDashboard,
-    label: 'Dashboard',
-  },
-  {
-    href: '/disease-identification',
-    icon: ScanLine,
-    label: 'Disease ID',
-  },
-  {
-    href: '/soil-analysis',
-    icon: Beaker,
-    label: 'Soil Analysis',
-  },
-  {
-    href: '/fertilizer-recommendation',
-    icon: Sprout,
-    label: 'Fertilizer Advice',
-  },
-  {
-    href: '/location-guidance',
-    icon: MapPin,
-    label: 'Location Guidance',
-  },
-  {
-    href: '/marketplace',
-    icon: ShoppingCart,
-    label: 'Marketplace',
-  },
-  {
-    href: '/my-poll',
-    icon: RadioReceiver,
-    label: 'My Poll',
-  },
-  {
-    href: '/settings',
-    icon: Settings,
-    label: 'Settings',
-  },
-];
 
 export function AppSidebar() {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
+  const { t } = useTranslation('sidebar');
+
+  const menuItems = [
+    {
+      href: '/dashboard',
+      icon: LayoutDashboard,
+      label: t('dashboard'),
+    },
+    {
+      href: '/disease-identification',
+      icon: ScanLine,
+      label: t('diseaseId'),
+    },
+    {
+      href: '/soil-analysis',
+      icon: Beaker,
+      label: t('soilAnalysis'),
+    },
+    {
+      href: '/fertilizer-recommendation',
+      icon: Sprout,
+      label: t('fertilizerAdvice'),
+    },
+    {
+      href: '/location-guidance',
+      icon: MapPin,
+      label: t('locationGuidance'),
+    },
+    {
+      href: '/marketplace',
+      icon: ShoppingCart,
+      label: t('marketplace'),
+    },
+    {
+      href: '/my-poll',
+      icon: RadioReceiver,
+      label: t('myPoll'),
+    },
+    {
+      href: '/settings',
+      icon: Settings,
+      label: t('settings'),
+    },
+  ];
 
   return (
     <Sidebar>

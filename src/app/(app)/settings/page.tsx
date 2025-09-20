@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Languages } from 'lucide-react';
+import { useLanguage } from '@/context/language-context';
+import { useTranslation } from '@/hooks/use-translation';
 
 const indianLanguages = [
     { value: 'en', label: 'English' },
@@ -25,18 +27,21 @@ const indianLanguages = [
 ];
 
 export default function SettingsPage() {
-    const [selectedLanguage, setSelectedLanguage] = useState('en');
+    const { language, setLanguage } = useLanguage();
+    const [selectedLanguage, setSelectedLanguage] = useState(language);
     const [isSaving, setIsSaving] = useState(false);
     const { toast } = useToast();
+    const { t } = useTranslation('settings');
 
     const handleSave = () => {
         setIsSaving(true);
+        setLanguage(selectedLanguage);
         // Simulate saving the preference
         setTimeout(() => {
             setIsSaving(false);
             toast({
-                title: 'Settings Saved',
-                description: `Language preference updated to ${indianLanguages.find(l => l.value === selectedLanguage)?.label}.`,
+                title: t('toast.saved.title'),
+                description: t('toast.saved.description', { language: indianLanguages.find(l => l.value === selectedLanguage)?.label }),
             });
         }, 1000);
     };
@@ -44,28 +49,28 @@ export default function SettingsPage() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
-                <p className="text-muted-foreground">Manage your application preferences.</p>
+                <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
+                <p className="text-muted-foreground">{t('description')}</p>
             </div>
 
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                         <Languages className="h-6 w-6" />
-                        Language Settings
+                        {t('languageCard.title')}
                     </CardTitle>
                     <CardDescription>
-                        Choose your preferred language for the application.
+                        {t('languageCard.description')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div className="space-y-2">
                         <label htmlFor="language-select" className="text-sm font-medium">
-                            Application Language
+                            {t('languageCard.form.label')}
                         </label>
                         <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
                             <SelectTrigger id="language-select" className="w-full md:w-1/2">
-                                <SelectValue placeholder="Select a language" />
+                                <SelectValue placeholder={t('languageCard.form.placeholder')} />
                             </SelectTrigger>
                             <SelectContent>
                                 {indianLanguages.map(lang => (
@@ -77,7 +82,7 @@ export default function SettingsPage() {
                         </Select>
                     </div>
                     <Button onClick={handleSave} disabled={isSaving}>
-                        {isSaving ? 'Saving...' : 'Save Preferences'}
+                        {isSaving ? t('languageCard.form.savingButton') : t('languageCard.form.saveButton')}
                     </Button>
                 </CardContent>
             </Card>
