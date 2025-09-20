@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useLanguage } from '@/context/language-context';
 import { useTranslation } from '@/hooks/use-translation';
-import { Loader2, MessageCircle, Send, Volume2, Mic, Pause } from 'lucide-react';
+import { Loader2, MessageCircle, Send, Volume2, Mic, Pause, Bot } from 'lucide-react';
 import { paramMitrChat } from '@/ai/flows/param-mitr-chat-flow';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '../ui/avatar';
@@ -198,6 +198,7 @@ export function ChatWidget() {
         <DialogContent className="sm:max-w-[425px] grid-rows-[auto_1fr_auto] p-0 max-h-[80vh]">
           <DialogHeader className="p-4 border-b">
             <DialogTitle className="flex items-center gap-2">
+                <Bot className="h-6 w-6" />
                 {t('title')}
             </DialogTitle>
           </DialogHeader>
@@ -207,8 +208,8 @@ export function ChatWidget() {
                 {messages.map((msg) => (
                     <div key={msg.id} className={cn("flex items-end gap-2", msg.sender === 'user' ? 'justify-end' : 'justify-start')}>
                         {msg.sender === 'bot' && (
-                            <Avatar className="h-8 w-8">
-                                <AvatarFallback>PM</AvatarFallback>
+                            <Avatar className="h-8 w-8 bg-primary text-primary-foreground flex items-center justify-center">
+                                <Bot className="h-5 w-5" />
                             </Avatar>
                         )}
                         <div className={cn("max-w-[75%] rounded-lg px-3 py-2 relative group", msg.sender === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
@@ -228,8 +229,8 @@ export function ChatWidget() {
                 ))}
                 {isLoading && (
                     <div className="flex items-end gap-2 justify-start">
-                        <Avatar className="h-8 w-8">
-                            <AvatarFallback>PM</AvatarFallback>
+                        <Avatar className="h-8 w-8 bg-primary text-primary-foreground flex items-center justify-center">
+                           <Bot className="h-5 w-5" />
                         </Avatar>
                         <div className="bg-muted rounded-lg px-3 py-2">
                            <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
