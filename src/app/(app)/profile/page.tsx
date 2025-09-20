@@ -14,6 +14,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { getAddressFromCoordinates } from '@/ai/flows/get-address-from-coordinates-flow';
 
+type Coordinates = {
+    latitude: number;
+    longitude: number;
+} | null;
+
+
 export default function ProfilePage() {
     const { user, updateProfilePhoto, updateUserLocation } = useAuth();
     const { toast } = useToast();
@@ -24,6 +30,7 @@ export default function ProfilePage() {
     const [isSavingPhoto, setIsSavingPhoto] = useState(false);
     
     const [location, setLocation] = useState(user?.location || '');
+    const [coordinates, setCoordinates] = useState<Coordinates>(null);
     const [isSavingLocation, setIsSavingLocation] = useState(false);
     const [isFetchingLocation, setIsFetchingLocation] = useState(false);
 
@@ -95,13 +102,14 @@ export default function ProfilePage() {
         }
 
         setIsFetchingLocation(true);
+        setCoordinates(null);
         navigator.geolocation.getCurrentPosition(
           async (position) => {
+            const { latitude, longitude } = position.coords;
+            setCoordinates({ latitude, longitude });
+
             try {
-              const address = await getAddressFromCoordinates({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-              });
+              const address = await getAddressFromCoordinates({ latitude, longitude });
               setLocation(address);
             } catch (error) {
                toast({
@@ -192,6 +200,12 @@ export default function ProfilePage() {
                                 <span className="ml-2 hidden sm:inline">Fetch</span>
                             </Button>
                         </div>
+                         {coordinates && (
+                            <div className="text-sm text-muted-foreground p-2 bg-muted rounded-md">
+                                <p>Latitude: <span className="font-mono">{coordinates.latitude.toFixed(6)}</span></p>
+                                <p>Longitude: <span className="font-mono">{coordinates.longitude.toFixed(6)}</span></p>
+                            </div>
+                        )}
                     </CardContent>
                     <CardFooter>
                         <Button onClick={handleLocationSave} disabled={isSavingLocation}>
