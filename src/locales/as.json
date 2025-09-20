@@ -1,2 +1,244 @@
 
-{}
+{
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "diseaseId": "Disease ID",
+        "soilAnalysis": "Soil Analysis",
+        "fertilizerAdvice": "Fertilizer Advice",
+        "locationGuidance": "Location Guidance",
+        "marketplace": "Marketplace",
+        "myPoll": "My Poll",
+        "settings": "Settings"
+    },
+    "header": {
+        "myAccount": "My Account",
+        "settings": "Settings",
+        "support": "Support",
+        "logout": "Logout"
+    },
+    "dashboard": {
+        "welcomeTitle": "Welcome Back, Farmer!",
+        "welcomeDescription": "Your digital toolkit for smarter farming. Let's make today productive.",
+        "quickActions": {
+            "title": "Quick Actions",
+            "newScan": "New Scan",
+            "soilTest": "Soil Test",
+            "fertilizer": "Fertilizer",
+            "marketTrends": "Market Trends"
+        },
+        "mainFeatures": {
+            "identifyCropDisease": {
+                "title": "Identify Crop Disease",
+                "description": "Upload a photo of your crop to get an instant disease diagnosis and treatment advice.",
+                "cta": "Start Scanning"
+            },
+            "locationBasedGuidance": {
+                "title": "Location-Based Guidance",
+                "description": "Use your location to get tailored crop and soil advice for your area.",
+                "cta": "Get Local Advice"
+            },
+            "fairPriceMarketplace": {
+                "title": "Fair Price Marketplace",
+                "description": "Sell your harvest directly through our marketplace for a fair price that benefits you.",
+                "cta": "Enter Marketplace"
+            },
+            "myPollSensor": {
+                "title": "My Poll Sensor",
+                "description": "Connect your hardware for real-time soil monitoring and analysis.",
+                "cta": "Connect Device"
+            }
+        }
+    },
+    "disease-identification": {
+        "title": "Disease Identification",
+        "description": "Upload a photo of a crop to identify potential diseases.",
+        "uploadCard": {
+            "title": "Upload Crop Image",
+            "description": "Select an image file of the affected crop from your device.",
+            "form": {
+                "photoLabel": "Crop Photo",
+                "cropPreviewAlt": "Crop preview",
+                "analyzeButton": "Analyze Image",
+                "analyzingButton": "Analyzing..."
+            }
+        },
+        "resultsCard": {
+            "title": "Analysis Results",
+            "diseaseDetected": {
+                "title": "Disease Detected",
+                "confidenceLabel": "Confidence Level",
+                "actionsLabel": "Suggested Actions"
+            },
+            "noDiseaseDetected": {
+                "title": "No Disease Detected",
+                "description": "The crop appears to be healthy based on the analysis."
+            }
+        },
+        "toast": {
+            "analysisFailed": {
+                "title": "Analysis Failed",
+                "description": "There was an error analyzing the image. Please try again."
+            }
+        }
+    },
+    "soil-analysis": {
+        "title": "Soil Analysis & Crop Recommendation",
+        "description": "Enter your soil data to get expert crop suggestions.",
+        "formCard": {
+            "title": "Soil Data Input",
+            "description": "Provide your soil test results and location.",
+            "form": {
+                "soilTestResultsLabel": "Soil Test Results",
+                "soilTestResultsPlaceholder": "e.g., pH: 6.5, Nitrogen: 25ppm, Phosphorus: 50ppm, Potassium: 100ppm...",
+                "locationLabel": "Your Location",
+                "locationPlaceholder": "Enter your city or region",
+                "getRecommendationsButton": "Get Recommendations",
+                "analyzingButton": "Analyzing..."
+            }
+        },
+        "resultsCard": {
+            "recommendedCrops": {
+                "title": "Recommended Crops",
+                "description": "Based on your data, these crops are highly suitable.",
+                "marketRateLabel": "Wholesale Rate"
+            },
+            "soilInfo": {
+                "title": "Soil Information Summary",
+                "description": "A summary of your soil's characteristics."
+            }
+        },
+        "toast": {
+            "failed": {
+                "title": "Analysis Failed",
+                "description": "There was an error processing your request. Please try again."
+            }
+        }
+    },
+    "fertilizer-recommendation": {
+        "title": "Fertilizer Recommendation",
+        "description": "Get personalized fertilizer advice for your farm.",
+        "formCard": {
+            "title": "Farm Details",
+            "description": "Enter your crop, region, and upload your soil analysis report.",
+            "form": {
+                "cropTypeLabel": "Crop Type",
+                "cropTypePlaceholder": "e.g., Wheat, Corn, Tomato",
+                "regionLabel": "Region",
+                "regionPlaceholder": "e.g., Napa Valley, California",
+                "soilReportLabel": "Soil Report",
+                "soilReportDescription": "Upload your soil analysis file (PDF, TXT, or image).",
+                "getAdviceButton": "Get Fertilizer Advice",
+                "generatingButton": "Generating..."
+            }
+        },
+        "recommendationCard": {
+            "title": "Your Personalized Fertilizer Recommendation",
+            "description": "Follow these suggestions for optimal plant health and yield."
+        },
+        "toast": {
+            "failed": {
+                "title": "Recommendation Failed",
+                "description": "There was an error processing your request. Please try again."
+            }
+        }
+    },
+    "location-guidance": {
+        "title": "Location-Based Guidance",
+        "description": "Use your location to get tailored crop advice.",
+        "formCard": {
+            "title": "Crop Recommendation Form",
+            "description": "Enter your farm's location and soil details for accurate recommendations.",
+            "form": {
+                "locationLabel": "Your Location",
+                "locationPlaceholder": "Enter your city or region",
+                "soilTestResultsLabel": "Soil Test Results",
+                "soilTestResultsPlaceholder": "e.g., pH: 6.5, Nitrogen: 25ppm, Phosphorus: 50ppm...",
+                "getRecommendationsButton": "Get Recommendations",
+                "analyzingButton": "Analyzing..."
+            }
+        },
+        "resultsCard": {
+            "recommendedCrops": {
+                "title": "Recommended Crops",
+                "description": "Suitable crops for your location and soil.",
+                "marketRateLabel": "Wholesale Rate"
+            },
+            "soilInfo": {
+                "title": "Soil Information Summary",
+                "description": "A summary of your soil's characteristics."
+            }
+        },
+        "toast": {
+            "failed": {
+                "title": "Analysis Failed",
+                "description": "There was an error processing your request. Please try again."
+            }
+        }
+    },
+    "marketplace": {
+        "title": "Marketplace",
+        "description": "Sell your grains at a fair price, directly to buyers.",
+        "products": {
+            "wheatGrains": "Wheat Grains",
+            "basmatiRice": "Basmati Rice",
+            "yellowCorn": "Yellow Corn",
+            "barley": "Barley",
+            "soybeans": "Soybeans",
+            "sunflowerSeeds": "Sunflower Seeds"
+        },
+        "units": {
+            "quintal": "quintal"
+        },
+        "viewDetailsButton": "View Details"
+    },
+    "my-poll": {
+        "title": "My Poll Device",
+        "description": "Real-time soil monitoring from your hardware device.",
+        "deviceStatusCard": {
+            "title": "Device Status",
+            "description": "View the current status of your My Poll sensor.",
+            "status": {
+                "connecting": "Connecting",
+                "online": "Online",
+                "offline": "Offline"
+            }
+        },
+        "liveDataCard": {
+            "title": "Live Soil Data",
+            "description": "These are the real-time readings from your My Poll device. The data refreshes automatically.",
+            "phLevel": "pH Level",
+            "nitrogen": "Nitrogen (N)",
+            "phosphorus": "Phosphorus (P)",
+            "potassium": "Potassium (K)",
+            "soilMoisture": "Soil Moisture"
+        },
+        "connectingCard": {
+            "title": "Connecting to My Poll...",
+            "description": "Please wait while we establish a connection with your device."
+        },
+        "offlineCard": {
+            "title": "Device Offline",
+            "description": "We couldn't connect to your My Poll device. Please check if it's powered on and within range."
+        }
+    },
+    "settings": {
+        "title": "Settings",
+        "description": "Manage your application preferences.",
+        "languageCard": {
+            "title": "Language Settings",
+            "description": "Choose your preferred language for the application.",
+            "form": {
+                "label": "Application Language",
+                "placeholder": "Select a language",
+                "saveButton": "Save Preferences",
+                "savingButton": "Saving..."
+            }
+        },
+        "toast": {
+            "saved": {
+                "title": "Settings Saved",
+                "description": "Language preference updated to {{language}}."
+            }
+        }
+    }
+}
