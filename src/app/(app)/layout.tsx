@@ -37,7 +37,7 @@ export default function AppLayout({
               <Sidebar>
                 <AppSidebar />
               </Sidebar>
-              <div className="flex flex-col sm:pl-14 h-screen">
+              <div className="flex flex-col sm:pl-14">
                   <Header />
                   <main className="p-4 sm:px-6 overflow-auto">
                     {children}
@@ -47,5 +47,3 @@ export default function AppLayout({
       </SidebarProvider>
   );
 }
-
-    

@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { CircleUser, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '@/context/auth-context';
-import { useSidebar } from '../ui/sidebar';
+import { useSidebar } from '@/context/sidebar-provider';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 
