@@ -8,11 +8,11 @@ body {
 
 @layer base {
   :root {
-    --background: 40 10% 98%; /* Lighter Beige */
+    --background: 90 20% 92%; /* Light Earthy Green */
     --foreground: 120 25% 15%; /* Dark Green */
-    --card: 0 0% 100%;
+    --card: 40 10% 98%; /* Lighter Beige */
     --card-foreground: 120 25% 15%;
-    --popover: 0 0% 100%;
+    --popover: 40 10% 98%;
     --popover-foreground: 120 25% 15%;
     --primary: 130 50% 40%; /* Forest Green */
     --primary-foreground: 130 50% 95%; /* Light Green */
@@ -44,9 +44,9 @@ body {
   }
 
   .dark {
-    --background: 20 10% 10%; /* Dark Brown */
+    --background: 120 25% 10%; /* Deep Forest Green */
     --foreground: 40 10% 85%; /* Light Beige */
-    --card: 20 5% 15%;
+    --card: 20 10% 12%; /* Dark Brown */
     --card-foreground: 40 10% 85%;
     --popover: 20 5% 15%;
     --popover-foreground: 40 10% 85%;
