@@ -15,9 +15,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Trees, FlaskConical, Upload } from 'lucide-react';
+import { Loader2, Trees, FlaskConical, Upload, LocateFixed } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { fileToDataUri } from '@/lib/utils';
+import { getAddressFromCoordinates } from '@/ai/tools/reverse-geocoding';
 
 const formSchema = z.object({
   soilReport: z.instanceof(File).refine((file) => file.size > 0, "Please upload your soil report."),
@@ -29,6 +30,7 @@ type FormValues = z.infer<typeof formSchema>;
 export default function LocationGuidancePage() {
   const [analysisResult, setAnalysisResult] = useState<RecommendCropsBasedOnSoilAnalysisOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetchingLocation, setIsFetchingLocation] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { toast } = useToast();
   const { t } = useTranslation('location-guidance');
@@ -52,6 +54,46 @@ export default function LocationGuidancePage() {
       reader.readAsDataURL(file);
     }
   };
+
+  const handleFetchLocation = async () => {
+    if (!navigator.geolocation) {
+      toast({
+        title: "Geolocation is not supported by your browser.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsFetchingLocation(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const address = await getAddressFromCoordinates({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+          form.setValue('location', address);
+        } catch (error) {
+           toast({
+            title: "Could not fetch address.",
+            description: "Please enter your location manually.",
+            variant: "destructive",
+          });
+        } finally {
+            setIsFetchingLocation(false);
+        }
+      },
+      () => {
+        toast({
+          title: "Unable to retrieve your location.",
+          description: "Please ensure location services are enabled and try again.",
+          variant: "destructive",
+        });
+        setIsFetchingLocation(false);
+      }
+    );
+  };
+
 
   async function onSubmit(data: FormValues) {
     setIsLoading(true);
@@ -98,9 +140,15 @@ export default function LocationGuidancePage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('formCard.form.locationLabel')}</FormLabel>
-                    <FormControl>
-                      <Input placeholder={t('formCard.form.locationPlaceholder')} {...field} />
-                    </FormControl>
+                    <div className="flex items-center gap-2">
+                        <FormControl>
+                          <Input placeholder={t('formCard.form.locationPlaceholder')} {...field} />
+                        </FormControl>
+                        <Button type="button" variant="outline" onClick={handleFetchLocation} disabled={isFetchingLocation}>
+                            {isFetchingLocation ? <Loader2 className="h-4 w-4 animate-spin" /> : <LocateFixed className="h-4 w-4" />}
+                            <span className="ml-2 hidden sm:inline">Fetch My Location</span>
+                        </Button>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
