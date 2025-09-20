@@ -56,7 +56,7 @@ export default function SoilAnalysisPage() {
     }
   };
   
-  const handleFetchLocation = async () => {
+  const handleFetchLocation = () => {
     if (!navigator.geolocation) {
       toast({
         title: "Geolocation is not supported by your browser.",
@@ -67,22 +67,10 @@ export default function SoilAnalysisPage() {
 
     setIsFetchingLocation(true);
     navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        try {
-          const address = await getAddressFromCoordinates({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-          form.setValue('location', address);
-        } catch (error) {
-           toast({
-            title: "Could not fetch address.",
-            description: "Please enter your location manually.",
-            variant: "destructive",
-          });
-        } finally {
-            setIsFetchingLocation(false);
-        }
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        form.setValue('location', `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`);
+        setIsFetchingLocation(false);
       },
       () => {
         toast({
