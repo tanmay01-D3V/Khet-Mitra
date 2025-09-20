@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 export function Logo({ className }: { className?: string }) {
   return (
     <div className={cn('flex items-center gap-2', className)}>
-      <Sprout className="h-6 w-6 text-primary" />
+      <Sprout className="h-6 w-6 text-green-600" />
       <h1 className="text-xl font-bold text-sidebar-foreground">KhetMitr</h1>
     </div>
   );
