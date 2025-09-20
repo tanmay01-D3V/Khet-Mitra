@@ -16,9 +16,26 @@ const RecommendCropsBasedOnSoilAnalysisInputSchema = z.object({
 });
 export type RecommendCropsBasedOnSoilAnalysisInput = z.infer<typeof RecommendCropsBasedOnSoilAnalysisInputSchema>;
 
+const RecommendedCropSchema = z.object({
+  name: z.string().describe('The name of the recommended crop.'),
+  marketRate: z.string().describe("The current wholesale market rate for the crop, in USD per quintal. e.g. '$25.50'"),
+  imageUrl: z
+    .string()
+    .url()
+    .describe('A placeholder image URL for the crop from https://picsum.photos.'),
+});
+
 const RecommendCropsBasedOnSoilAnalysisOutputSchema = z.object({
-  recommendedCrops: z.array(z.string()).describe('A list of recommended crops suitable for the given soil conditions, location, and climate.'),
-  soilInfo: z.string().describe('A summary of the soil analysis results, highlighting key characteristics and deficiencies.'),
+  recommendedCrops: z
+    .array(RecommendedCropSchema)
+    .describe(
+      'A list of recommended crops suitable for the given soil conditions, location, and climate.'
+    ),
+  soilInfo: z
+    .string()
+    .describe(
+      'A summary of the soil analysis results, highlighting key characteristics and deficiencies.'
+    ),
 });
 export type RecommendCropsBasedOnSoilAnalysisOutput = z.infer<typeof RecommendCropsBasedOnSoilAnalysisOutputSchema>;
 
@@ -39,6 +56,8 @@ const prompt = ai.definePrompt({
 
   Infer the climatic conditions (like temperature, rainfall, and sunlight hours) from the location.
   Consider all factors, including soil pH, nutrient levels, and the inferred climate when making your recommendations.
+
+  For each recommended crop, provide its name, its current wholesale market rate, and a random placeholder image URL from https://picsum.photos.
 
   Provide a list of recommended crops and a summary of the soil analysis results.
   Format the response as a JSON object.

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -172,11 +173,14 @@ export default function SoilAnalysisPage() {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <ul className="space-y-2">
+                    <ul className="space-y-4">
                         {analysisResult.recommendedCrops.map((crop, index) => (
-                            <li key={index} className="flex items-center gap-3 rounded-md bg-secondary/50 p-3">
-                                <span className="flex h-2 w-2 translate-y-px shrink-0 rounded-full bg-primary" />
-                                <span className="font-medium">{crop}</span>
+                            <li key={index} className="flex items-center gap-4 rounded-md bg-secondary/50 p-3">
+                                <Image src={crop.imageUrl} alt={crop.name} width={64} height={64} className="rounded-md object-cover h-16 w-16" />
+                                <div className="flex-1">
+                                    <p className="font-semibold text-lg">{crop.name}</p>
+                                    <p className="text-sm text-muted-foreground">Wholesale Rate: <span className='font-bold text-foreground'>{crop.marketRate}</span></p>
+                                </div>
                             </li>
                         ))}
                     </ul>

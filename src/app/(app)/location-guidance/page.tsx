@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -78,7 +79,10 @@ export default function LocationGuidancePage() {
     setAnalysisResult(null);
 
     try {
-      const result = await recommendCropsBasedOnSoilAnalysis(data);
+      const result = await recommendCropsBasedOnSoilAnalysis({
+        soilTestResults: data.soilTestResults,
+        location: data.location,
+      });
       setAnalysisResult(result);
     } catch (error) {
       console.error('Error analyzing data:', error);
@@ -187,14 +191,17 @@ export default function LocationGuidancePage() {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <ul className="space-y-2">
-                        {analysisResult.recommendedCrops.map((crop, index) => (
-                            <li key={index} className="flex items-center gap-3 rounded-md bg-secondary/50 p-3">
-                                <span className="flex h-2 w-2 translate-y-px shrink-0 rounded-full bg-primary" />
-                                <span className="font-medium">{crop}</span>
-                            </li>
-                        ))}
-                    </ul>
+                  <ul className="space-y-4">
+                      {analysisResult.recommendedCrops.map((crop, index) => (
+                          <li key={index} className="flex items-center gap-4 rounded-md bg-secondary/50 p-3">
+                              <Image src={crop.imageUrl} alt={crop.name} width={64} height={64} className="rounded-md object-cover h-16 w-16" />
+                              <div className="flex-1">
+                                  <p className="font-semibold text-lg">{crop.name}</p>
+                                  <p className="text-sm text-muted-foreground">Wholesale Rate: <span className='font-bold text-foreground'>{crop.marketRate}</span></p>
+                              </div>
+                          </li>
+                      ))}
+                  </ul>
                 </CardContent>
             </Card>
             <Card>
@@ -207,6 +214,7 @@ export default function LocationGuidancePage() {
                 </CardHeader>
                 <CardContent>
                     <p className="text-sm text-foreground leading-relaxed">{analysisResult.soilInfo}</p>
+
                 </CardContent>
             </Card>
         </div>
