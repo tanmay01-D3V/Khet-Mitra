@@ -32,13 +32,7 @@ export default function RootLayout({
   }, []);
 
   if (isSplashVisible) {
-      return (
-        <html lang="en" suppressHydrationWarning>
-            <body>
-                 <SplashScreen className="bg-black" />
-            </body>
-        </html>
-      )
+      return <SplashScreen />;
   }
 
   return (
