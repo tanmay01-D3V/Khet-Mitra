@@ -9,13 +9,13 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
-export const GetAddressFromCoordinatesInputSchema = z.object({
+const GetAddressFromCoordinatesInputSchema = z.object({
   latitude: z.number().describe('The latitude of the location.'),
   longitude: z.number().describe('The longitude of the location.'),
 });
 export type GetAddressFromCoordinatesInput = z.infer<typeof GetAddressFromCoordinatesInputSchema>;
 
-export const getAddressFromCoordinatesTool = ai.defineTool(
+const getAddressFromCoordinatesTool = ai.defineTool(
   {
     name: 'getAddressFromCoordinates',
     description: 'Returns a human-readable address from geographic coordinates.',
