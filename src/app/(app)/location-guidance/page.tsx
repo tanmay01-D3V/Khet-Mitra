@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -9,13 +8,14 @@ import {
   recommendCropsBasedOnSoilAnalysis,
   type RecommendCropsBasedOnSoilAnalysisOutput,
 } from '@/ai/flows/recommend-crops-based-on-soil-analysis';
+import { getAddressFromCoordinates, GetAddressFromCoordinatesInput } from '@/ai/tools/reverse-geocoding';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, MapPin, LocateFixed, AlertTriangle, Trees, FlaskConical } from 'lucide-react';
+import { Loader2, Trees, FlaskConical, LocateFixed, AlertTriangle } from 'lucide-react';
 
 const formSchema = z.object({
   soilTestResults: z.string().min(20, "Please provide detailed soil test results."),
@@ -51,15 +51,28 @@ export default function LocationGuidancePage() {
     setLocationError(null);
 
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      async (position) => {
         const { latitude, longitude } = position.coords;
-        const locationString = `Lat: ${latitude.toFixed(4)}, Lon: ${longitude.toFixed(4)}`;
-        form.setValue('location', locationString);
-        setIsLocating(false);
-        toast({
-            title: "Location Fetched",
-            description: `Your location has been set to: ${locationString}`,
-        })
+        const coords: GetAddressFromCoordinatesInput = { latitude, longitude };
+        
+        try {
+          const address = await getAddressFromCoordinates(coords);
+          form.setValue('location', address);
+          toast({
+              title: "Location Fetched",
+              description: `Your location has been set to: ${address}`,
+          });
+        } catch (error) {
+           const locationString = `Lat: ${latitude.toFixed(4)}, Lon: ${longitude.toFixed(4)}`;
+           form.setValue('location', locationString);
+           toast({
+              title: "Location Fetched",
+              description: "Could not fetch address, using coordinates.",
+              variant: 'destructive'
+           });
+        } finally {
+          setIsLocating(false);
+        }
       },
       (error) => {
         setLocationError(`Error getting location: ${error.message}`);
@@ -194,7 +207,7 @@ export default function LocationGuidancePage() {
                   <ul className="space-y-4">
                       {analysisResult.recommendedCrops.map((crop, index) => (
                           <li key={index} className="flex items-center gap-4 rounded-md bg-secondary/50 p-3">
-                              <Image src={crop.imageUrl} alt={crop.name} width={64} height={64} className="rounded-md object-cover h-16 w-16" />
+                              <span className="text-4xl">{crop.emoji}</span>
                               <div className="flex-1">
                                   <p className="font-semibold text-lg">{crop.name}</p>
                                   <p className="text-sm text-muted-foreground">Wholesale Rate: <span className='font-bold text-foreground'>{crop.marketRate}</span></p>

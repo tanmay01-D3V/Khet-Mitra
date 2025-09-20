@@ -9,20 +9,20 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { getAddressFromCoordinates } from '@/ai/tools/reverse-geocoding';
 
 const RecommendCropsBasedOnSoilAnalysisInputSchema = z.object({
   soilTestResults: z.string().describe('The laboratory test results of the soil, including pH, nitrogen, phosphorus, potassium, and micronutrient levels.'),
-  location: z.string().describe('The geographical location of the farm (can be coordinates).'),
+  location: z.string().describe('The geographical location of the farm (can be "Lat: XX.XXXX, Lon: YY.YYYY" or a city name).'),
 });
 export type RecommendCropsBasedOnSoilAnalysisInput = z.infer<typeof RecommendCropsBasedOnSoilAnalysisInputSchema>;
 
 const RecommendedCropSchema = z.object({
   name: z.string().describe('The name of the recommended crop.'),
   marketRate: z.string().describe("The current wholesale market rate for the crop, in USD per quintal. e.g. '$25.50'"),
-  imageUrl: z
+  emoji: z
     .string()
-    .url()
-    .describe('A placeholder image URL for the crop from https://picsum.photos.'),
+    .describe('A single iOS-style emoji representing the crop.'),
 });
 
 const RecommendCropsBasedOnSoilAnalysisOutputSchema = z.object({
@@ -49,15 +49,17 @@ const prompt = ai.definePrompt({
   name: 'recommendCropsBasedOnSoilAnalysisPrompt',
   input: {schema: RecommendCropsBasedOnSoilAnalysisInputSchema},
   output: {schema: RecommendCropsBasedOnSoilAnalysisOutputSchema},
+  tools: [getAddressFromCoordinates],
   prompt: `You are an expert agricultural advisor. Based on the soil test results and location provided, identify the local climatic conditions and recommend the most suitable crops to grow.
 
   Soil Test Results: {{{soilTestResults}}}
   Location: {{{location}}}
 
-  Infer the climatic conditions (like temperature, rainfall, and sunlight hours) from the location.
+  If the location is in coordinates, use the getAddressFromCoordinates tool to find the address and infer the climate. Otherwise, infer the climatic conditions (like temperature, rainfall, and sunlight hours) from the location name.
+  
   Consider all factors, including soil pH, nutrient levels, and the inferred climate when making your recommendations.
 
-  For each recommended crop, provide its name, its current wholesale market rate, and a random placeholder image URL from https://picsum.photos.
+  For each recommended crop, provide its name, its current wholesale market rate, and a single appropriate iOS-style emoji.
 
   Provide a list of recommended crops and a summary of the soil analysis results.
   Format the response as a JSON object.
