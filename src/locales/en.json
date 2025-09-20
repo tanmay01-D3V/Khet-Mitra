@@ -117,8 +117,8 @@
         }
     },
     "fertilizer-recommendation": {
-        "title": "Fertilizer Recommendation",
-        "description": "Get personalized fertilizer advice for your farm.",
+        "title": "Fertilizer & Insecticide Recommendation",
+        "description": "Get personalized advice for your farm's needs.",
         "formCard": {
             "title": "Farm Details",
             "description": "You can provide the crop type and region manually, or just upload your soil report and let our AI extract the details for you.",
@@ -129,13 +129,19 @@
                 "regionPlaceholder": "e.g., Satara, Maharashtra",
                 "soilReportLabel": "Soil Report",
                 "soilReportDescription": "Upload your soil analysis file (PDF, TXT, or image).",
-                "getAdviceButton": "Get Fertilizer Advice",
+                "getAdviceButton": "Get Advice",
                 "generatingButton": "Generating..."
             }
         },
         "recommendationCard": {
-            "title": "Your Personalized Fertilizer Recommendation",
-            "description": "Follow these suggestions for optimal plant health and yield."
+             "fertilizer": {
+                "title": "Personalized Fertilizer Recommendation",
+                "description": "Follow these suggestions for optimal plant health and yield."
+            },
+            "insecticide": {
+                "title": "Personalized Insecticide Recommendation",
+                "description": "Use these suggestions to protect your crops from pests and diseases."
+            }
         },
         "toast": {
             "failed": {

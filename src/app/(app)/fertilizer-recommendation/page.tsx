@@ -6,8 +6,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import {
-  recommendFertilizers,
-  type RecommendFertilizersOutput,
+  recommendFertilizersAndInsecticides,
+  type RecommendFertilizersAndInsecticidesOutput,
 } from '@/ai/flows/recommend-fertilizers';
 import { fileToDataUri } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Sprout } from 'lucide-react';
+import { Loader2, Sprout, ShieldAlert } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 
 
@@ -28,7 +28,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function FertilizerRecommendationPage() {
-  const [recommendation, setRecommendation] = useState<RecommendFertilizersOutput | null>(null);
+  const [recommendation, setRecommendation] = useState<RecommendFertilizersAndInsecticidesOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const { t } = useTranslation('fertilizer-recommendation');
@@ -56,14 +56,14 @@ export default function FertilizerRecommendationPage() {
 
     try {
       const dataUri = await fileToDataUri(data.soilReport);
-      const result = await recommendFertilizers({ 
+      const result = await recommendFertilizersAndInsecticides({ 
         soilReportDataUri: dataUri,
         cropType: data.cropType,
         region: data.region
       });
       setRecommendation(result);
     } catch (error) {
-      console.error('Error getting fertilizer recommendation:', error);
+      console.error('Error getting recommendation:', error);
       toast({
         title: t('toast.failed.title'),
         description: t('toast.failed.description'),
@@ -151,20 +151,37 @@ export default function FertilizerRecommendationPage() {
       </Card>
       
       {recommendation && (
-        <Card>
-            <CardHeader className='flex-row gap-4 items-center'>
-                <Sprout className="h-10 w-10 text-primary" />
-                <div>
-                    <CardTitle>{t('recommendationCard.title')}</CardTitle>
-                    <CardDescription>{t('recommendationCard.description')}</CardDescription>
-                </div>
-            </CardHeader>
-            <CardContent>
-                <div className="prose prose-sm max-w-none text-foreground">
-                    <p>{recommendation.fertilizerRecommendations}</p>
-                </div>
-            </CardContent>
-        </Card>
+        <div className="grid gap-8 md:grid-cols-2">
+            <Card>
+                <CardHeader className='flex-row gap-4 items-center'>
+                    <Sprout className="h-10 w-10 text-primary" />
+                    <div>
+                        <CardTitle>{t('recommendationCard.fertilizer.title')}</CardTitle>
+                        <CardDescription>{t('recommendationCard.fertilizer.description')}</CardDescription>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <div className="prose prose-sm max-w-none text-foreground">
+                        <p>{recommendation.fertilizerRecommendations}</p>
+                    </div>
+                </CardContent>
+            </Card>
+
+             <Card>
+                <CardHeader className='flex-row gap-4 items-center'>
+                    <ShieldAlert className="h-10 w-10 text-destructive" />
+                    <div>
+                        <CardTitle>{t('recommendationCard.insecticide.title')}</CardTitle>
+                        <CardDescription>{t('recommendationCard.insecticide.description')}</CardDescription>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <div className="prose prose-sm max-w-none text-foreground">
+                        <p>{recommendation.insecticideRecommendations}</p>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
       )}
     </div>
   );
