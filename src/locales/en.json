@@ -8,13 +8,15 @@
         "locationGuidance": "Location Guidance",
         "marketplace": "Marketplace",
         "myPoll": "My Poll",
-        "settings": "Settings"
+        "settings": "Settings",
+        "profile": "Profile"
     },
     "header": {
         "myAccount": "My Account",
         "settings": "Settings",
         "support": "Support",
-        "logout": "Logout"
+        "logout": "Logout",
+        "profile": "Profile"
     },
     "dashboard": {
         "welcomeTitle": "Welcome Back, Farmer!",

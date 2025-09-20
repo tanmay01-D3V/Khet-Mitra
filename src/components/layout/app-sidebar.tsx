@@ -39,6 +39,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
+import Link from 'next/link';
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -53,7 +54,6 @@ export function AppSidebar() {
     { href: '/location-guidance', label: t('locationGuidance'), icon: <MapPin /> },
     { href: '/marketplace', label: t('marketplace'), icon: <ShoppingCart /> },
     { href: '/my-poll', label: t('myPoll'), icon: <RadioReceiver /> },
-    { href: '/settings', label: t('settings'), icon: <Settings /> },
   ];
 
   return (
@@ -96,11 +96,17 @@ export function AppSidebar() {
           <DropdownMenuContent side="right" align="start" className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
+             <DropdownMenuItem asChild>
+              <Link href="/profile">
+                <CircleUser className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <a href="/settings">
+              <Link href="/settings">
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Settings</span>
-              </a>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>

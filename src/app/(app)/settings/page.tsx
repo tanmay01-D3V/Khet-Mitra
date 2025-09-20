@@ -6,14 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Languages, User as UserIcon, Upload } from 'lucide-react';
+import { Languages } from 'lucide-react';
 import { useLanguage } from '@/context/language-context';
 import { useTranslation } from '@/hooks/use-translation';
-import { useAuth } from '@/context/auth-context';
-import Image from 'next/image';
-import { fileToDataUri } from '@/lib/utils';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Input } from '@/components/ui/input';
 
 const indianLanguages = [
     { value: 'en', label: 'English' },
@@ -33,15 +28,11 @@ const indianLanguages = [
 
 export default function SettingsPage() {
     const { language, setLanguage } = useLanguage();
-    const { user, updateProfilePhoto } = useAuth();
     const [selectedLanguage, setSelectedLanguage] = useState(language);
     const [isSaving, setIsSaving] = useState(false);
     const { toast } = useToast();
     const { t } = useTranslation('settings');
 
-    const [imagePreview, setImagePreview] = useState<string | null>(user?.photo || null);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [isSavingPhoto, setIsSavingPhoto] = useState(false);
 
     const handleLanguageSave = () => {
         setIsSaving(true);
@@ -55,39 +46,6 @@ export default function SettingsPage() {
         }, 1000);
     };
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            setSelectedFile(file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImagePreview(reader.result as string);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handlePhotoSave = async () => {
-        if (!selectedFile) return;
-        setIsSavingPhoto(true);
-        try {
-            const dataUri = await fileToDataUri(selectedFile);
-            updateProfilePhoto(dataUri);
-            toast({
-                title: "Profile Photo Updated",
-                description: "Your new photo has been saved.",
-            });
-        } catch (error) {
-            toast({
-                title: "Error",
-                description: "Could not save the new photo. Please try again.",
-                variant: 'destructive',
-            });
-        } finally {
-            setIsSavingPhoto(false);
-        }
-    };
-
 
     return (
         <div className="space-y-8">
@@ -97,44 +55,6 @@ export default function SettingsPage() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
-                 <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                            <UserIcon className="h-6 w-6" />
-                            Profile Photo
-                        </CardTitle>
-                        <CardDescription>
-                            Update your profile picture.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className='flex items-center gap-4'>
-                            <Avatar className="h-20 w-20">
-                                <AvatarImage src={imagePreview || `https://avatar.vercel.sh/${user?.name}.png`} />
-                                <AvatarFallback>{user?.name?.[0].toUpperCase()}</AvatarFallback>
-                            </Avatar>
-                            <div className="relative">
-                                <Button variant="outline">
-                                    <Upload className="mr-2 h-4 w-4" />
-                                    Upload New Photo
-                                </Button>
-                                <Input
-                                    type="file"
-                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                    accept="image/png, image/jpeg, image/webp"
-                                    onChange={handleFileChange}
-                                />
-                            </div>
-                        </div>
-
-                    </CardContent>
-                    <CardFooter>
-                         <Button onClick={handlePhotoSave} disabled={isSavingPhoto || !selectedFile}>
-                            {isSavingPhoto ? "Saving Photo..." : "Save Photo"}
-                        </Button>
-                    </CardFooter>
-                </Card>
-
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">

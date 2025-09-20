@@ -7,6 +7,7 @@ interface User {
   name: string;
   aadhaar: string;
   photo?: string;
+  location?: string;
 }
 
 interface AuthContextType {
@@ -14,7 +15,8 @@ interface AuthContextType {
   loading: boolean;
   login: (user: User) => void;
   logout: () => void;
-  updateProfilePhoto: (photo: string) => void;
+  updateProfilePhoto: (photo: string) => Promise<void>;
+  updateUserLocation: (location: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -38,16 +40,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = (userData: User) => {
-    setUser(userData);
-    localStorage.setItem('khetmitr_user', JSON.stringify(userData));
+    const userWithDefaults = {
+        ...userData,
+        photo: userData.photo || '',
+        location: userData.location || ''
+    }
+    setUser(userWithDefaults);
+    localStorage.setItem('khetmitr_user', JSON.stringify(userWithDefaults));
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('khetmitr_user');
+    window.location.href = '/login';
   };
 
-  const updateProfilePhoto = (photo: string) => {
+  const updateProfilePhoto = async (photo: string) => {
     if (user) {
         const updatedUser = { ...user, photo };
         setUser(updatedUser);
@@ -55,8 +63,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const updateUserLocation = async (location: string) => {
+    if (user) {
+        const updatedUser = { ...user, location };
+        setUser(updatedUser);
+        localStorage.setItem('khetmitr_user', JSON.stringify(updatedUser));
+    }
+  };
+
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, updateProfilePhoto }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, updateProfilePhoto, updateUserLocation }}>
       {children}
     </AuthContext.Provider>
   );

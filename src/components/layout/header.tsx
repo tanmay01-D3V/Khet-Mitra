@@ -14,6 +14,7 @@ import { CircleUser, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '@/context/auth-context';
 import { useSidebar } from '@/context/sidebar-provider';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import Link from 'next/link';
 
 
 export function Header() {
@@ -44,9 +45,14 @@ export function Header() {
             <DropdownMenuLabel>{user?.name || 'My Account'}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-                <a href="/settings">
+                <Link href="/profile">
+                    <CircleUser className="mr-2 h-4 w-4" /> Profile
+                </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+                <Link href="/settings">
                     <Settings className="mr-2 h-4 w-4" /> Settings
-                </a>
+                </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>
