@@ -281,6 +281,8 @@
         "form": {
             "nameLabel": "पूरा नाम",
             "namePlaceholder": "अपना पूरा नाम दर्ज करें",
+            "mobileNumberLabel": "मोबाइल नंबर",
+            "mobileNumberPlaceholder": "अपना 10 अंकों का मोबाइल नंबर दर्ज करें",
             "aadhaarLabel": "आधार संख्या",
             "aadhaarPlaceholder": "अपना 12 अंकों का आधार नंबर दर्ज करें",
             "scanButton": "आधार कार्ड स्कैन करें",

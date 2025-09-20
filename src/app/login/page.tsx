@@ -21,6 +21,7 @@ import { Logo } from '@/components/logo';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Please enter a valid name.'),
+  mobileNumber: z.string().regex(/^\d{10}$/, 'Please enter a valid 10-digit mobile number.'),
   aadhaar: z.string().regex(/^\d{12}$/, 'Please enter a valid 12-digit Aadhaar number.'),
 });
 
@@ -40,6 +41,7 @@ export default function LoginPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
+      mobileNumber: '',
       aadhaar: '',
     },
   });
@@ -83,7 +85,7 @@ export default function LoginPage() {
     setIsLoggingIn(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    login({ name: data.name, aadhaar: data.aadhaar });
+    login({ name: data.name, aadhaar: data.aadhaar, mobileNumber: data.mobileNumber });
     toast({
         title: "Logged in successfully!",
     });
@@ -115,6 +117,19 @@ export default function LoginPage() {
                             <FormLabel>{t('form.nameLabel')}</FormLabel>
                             <FormControl>
                               <Input placeholder={t('form.namePlaceholder')} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="mobileNumber"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t('form.mobileNumberLabel')}</FormLabel>
+                            <FormControl>
+                              <Input placeholder={t('form.mobileNumberPlaceholder')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>

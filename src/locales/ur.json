@@ -254,5 +254,11 @@
                 "description": "Language preference updated to {{language}}."
             }
         }
+    },
+    "login": {
+        "form": {
+            "mobileNumberLabel": "Mobile Number",
+            "mobileNumberPlaceholder": "Enter your 10-digit mobile number"
+        }
     }
 }

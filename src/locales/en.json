@@ -281,6 +281,8 @@
         "form": {
             "nameLabel": "Full Name",
             "namePlaceholder": "Enter your full name",
+            "mobileNumberLabel": "Mobile Number",
+            "mobileNumberPlaceholder": "Enter your 10-digit mobile number",
             "aadhaarLabel": "Aadhaar Number",
             "aadhaarPlaceholder": "Enter your 12-digit Aadhaar number",
             "scanButton": "Scan Aadhaar Card",
