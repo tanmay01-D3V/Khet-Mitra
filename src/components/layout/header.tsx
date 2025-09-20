@@ -15,6 +15,7 @@ import { useAuth } from '@/context/auth-context';
 import { useSidebar } from '@/context/sidebar-provider';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import Link from 'next/link';
+import { ThemeToggle } from '../theme-toggle';
 
 
 export function Header() {
@@ -28,6 +29,7 @@ export function Header() {
             <span className="sr-only">Toggle Menu</span>
         </Button>
       <div className="ml-auto flex items-center gap-4">
+        <ThemeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
