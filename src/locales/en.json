@@ -5,7 +5,7 @@
         "diseaseId": "Disease ID",
         "soilAnalysis": "Soil Analysis",
         "fertilizerAdvice": "Fertilizer Advice",
-        "locationGuidance": "Location Guidance",
+        "locationGuidance": "Weather Forecast",
         "marketplace": "Marketplace",
         "myPoll": "My Poll",
         "settings": "Settings",
@@ -35,9 +35,9 @@
                 "cta": "Start Scanning"
             },
             "locationBasedGuidance": {
-                "title": "Location-Based Guidance",
-                "description": "Use your location to get tailored crop and soil advice for your area.",
-                "cta": "Get Local Advice"
+                "title": "Weather Forecast",
+                "description": "Get a 7-day weather forecast for your location to plan your farming activities.",
+                "cta": "Check Weather"
             },
             "fairPriceMarketplace": {
                 "title": "Fair Price Marketplace",
@@ -121,12 +121,12 @@
         "description": "Get personalized fertilizer advice for your farm.",
         "formCard": {
             "title": "Farm Details",
-            "description": "Enter your crop, region, and upload your soil analysis report.",
+            "description": "You can provide the crop type and region manually, or just upload your soil report and let our AI extract the details for you.",
             "form": {
-                "cropTypeLabel": "Crop Type",
+                "cropTypeLabel": "Crop Type (Optional)",
                 "cropTypePlaceholder": "e.g., Wheat, Corn, Tomato",
-                "regionLabel": "Region",
-                "regionPlaceholder": "e.g., Napa Valley, California",
+                "regionLabel": "Region (Optional)",
+                "regionPlaceholder": "e.g., Satara, Maharashtra",
                 "soilReportLabel": "Soil Report",
                 "soilReportDescription": "Upload your soil analysis file (PDF, TXT, or image).",
                 "getAdviceButton": "Get Fertilizer Advice",
@@ -145,35 +145,26 @@
         }
     },
     "location-guidance": {
-        "title": "Location-Based Guidance",
-        "description": "Use your location to get tailored crop advice.",
+        "title": "Weather Forecast",
+        "description": "Get a 7-day weather forecast for your location to help plan your farming activities.",
         "formCard": {
-            "title": "Crop Recommendation Form",
-            "description": "Enter your farm's location and soil details for accurate recommendations.",
+            "title": "Location Input",
+            "description": "Enter your farm's location to get the weather forecast.",
             "form": {
                 "locationLabel": "Your Location",
-                "locationPlaceholder": "Enter your city or region",
-                "soilTestResultsLabel": "Soil Test Results",
-                "soilTestResultsPlaceholder": "e.g., pH: 6.5, Nitrogen: 25ppm, Phosphorus: 50ppm...",
-                "getRecommendationsButton": "Get Recommendations",
-                "analyzingButton": "Analyzing..."
+                "locationPlaceholder": "Enter your city, region, or coordinates",
+                "getForecastButton": "Get Forecast",
+                "fetchingButton": "Fetching..."
             }
         },
         "resultsCard": {
-            "recommendedCrops": {
-                "title": "Recommended Crops",
-                "description": "Suitable crops for your location and soil.",
-                "marketRateLabel": "Wholesale Rate"
-            },
-            "soilInfo": {
-                "title": "Soil Information Summary",
-                "description": "A summary of your soil's characteristics."
-            }
+            "title": "7-Day Forecast for {{location}}",
+            "description": "Here is the weather forecast for the upcoming week."
         },
         "toast": {
             "failed": {
-                "title": "Analysis Failed",
-                "description": "There was an error processing your request. Please try again."
+                "title": "Forecast Failed",
+                "description": "There was an error fetching the weather data. Please try again."
             }
         }
     },
