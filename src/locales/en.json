@@ -259,13 +259,13 @@
         },
         "reviewCard": {
             "title": "Give us a review",
-            "description": "Your feedback helps us improve KhetMitr.",
+            "description": "Your feedback helps us improve Khet-Mitra.",
             "submitButton": "Submit Review"
         },
         "donationCard": {
-            "title": "Support KhetMitr",
+            "title": "Support Khet-Mitra",
             "description": "Help us grow and support more farmers like you.",
-            "content": "KhetMitr is a free app built to empower farmers. If you find it useful, please consider donating to support our development and server costs. Every contribution, big or small, makes a difference.",
+            "content": "Khet-Mitra is a free app built to empower farmers. If you find it useful, please consider donating to support our development and server costs. Every contribution, big or small, makes a difference.",
             "donateButton": "Donate"
         },
         "toast": {
@@ -276,7 +276,7 @@
         }
     },
     "login": {
-        "title": "Welcome to KhetMitr",
+        "title": "Welcome to Khet-Mitra",
         "description": "Login using your Aadhaar details to continue.",
         "form": {
             "nameLabel": "Full Name",

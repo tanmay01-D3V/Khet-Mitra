@@ -65,7 +65,7 @@ export default function SettingsPage() {
     const handleDonation = () => {
         toast({
             title: "Thank you for your support!",
-            description: "Your generosity helps us keep KhetMitr running.",
+            description: "Your generosity helps us keep Khet-Mitra running.",
         });
     }
 

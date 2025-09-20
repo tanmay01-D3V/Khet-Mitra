@@ -28,13 +28,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     try {
-        const storedUser = localStorage.getItem('khetmitr_user');
+        const storedUser = localStorage.getItem('khet-mitra_user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
     } catch (error) {
         console.error("Failed to parse user from localStorage", error);
-        localStorage.removeItem('khetmitr_user');
+        localStorage.removeItem('khet-mitra_user');
     }
     setLoading(false);
   }, []);
@@ -46,12 +46,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         location: userData.location || ''
     }
     setUser(userWithDefaults);
-    localStorage.setItem('khetmitr_user', JSON.stringify(userWithDefaults));
+    localStorage.setItem('khet-mitra_user', JSON.stringify(userWithDefaults));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('khetmitr_user');
+    localStorage.removeItem('khet-mitra_user');
     window.location.href = '/login';
   };
 
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (user) {
         const updatedUser = { ...user, photo };
         setUser(updatedUser);
-        localStorage.setItem('khetmitr_user', JSON.stringify(updatedUser));
+        localStorage.setItem('khet-mitra_user', JSON.stringify(updatedUser));
     }
   };
 
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (user) {
         const updatedUser = { ...user, location };
         setUser(updatedUser);
-        localStorage.setItem('khetmitr_user', JSON.stringify(updatedUser));
+        localStorage.setItem('khet-mitra_user', JSON.stringify(updatedUser));
     }
   };
 

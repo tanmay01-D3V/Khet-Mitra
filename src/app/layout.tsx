@@ -11,7 +11,7 @@ import { SplashScreen } from '@/components/splash-screen';
 
 // This is a temporary solution to satisfy the Metadata type which is not designed for client components.
 const metadata: Metadata = {
-  title: 'KhetMitr',
+  title: 'Khet-Mitra',
   description: 'Your friendly farming companion',
 };
 
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>KhetMitr</title>
+        <title>Khet-Mitra</title>
         <meta name="description" content="Your friendly farming companion" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

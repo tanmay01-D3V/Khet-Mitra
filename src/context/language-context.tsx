@@ -16,7 +16,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>('en');
 
   useEffect(() => {
-    const storedLanguage = localStorage.getItem('khetmitr_language') as Language;
+    const storedLanguage = localStorage.getItem('khet-mitra_language') as Language;
     if (storedLanguage) {
       setLanguage(storedLanguage);
     }
@@ -24,7 +24,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);
-    localStorage.setItem('khetmitr_language', lang);
+    localStorage.setItem('khet-mitra_language', lang);
   };
 
   return (
