@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -14,12 +14,11 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Trees, FlaskConical } from 'lucide-react';
+import { Loader2, Trees, FlaskConical, LocateFixed, AlertTriangle } from 'lucide-react';
 
 const formSchema = z.object({
   soilTestResults: z.string().min(20, "Please provide detailed soil test results."),
   location: z.string().min(3, "Please provide your farm's location."),
-  climaticConditions: z.string().min(10, "Please describe the climatic conditions."),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -27,6 +26,8 @@ type FormValues = z.infer<typeof formSchema>;
 export default function SoilAnalysisPage() {
   const [analysisResult, setAnalysisResult] = useState<RecommendCropsBasedOnSoilAnalysisOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -34,16 +35,51 @@ export default function SoilAnalysisPage() {
     defaultValues: {
       soilTestResults: '',
       location: '',
-      climaticConditions: '',
     },
   });
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationError("Geolocation is not supported by your browser.");
+      return;
+    }
+    
+    setIsLocating(true);
+    setLocationError(null);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const locationString = `Lat: ${latitude.toFixed(4)}, Lon: ${longitude.toFixed(4)}`;
+        form.setValue('location', locationString);
+        setIsLocating(false);
+        toast({
+            title: "Location Fetched",
+            description: `Your location has been set to: ${locationString}`,
+        })
+      },
+      (error) => {
+        setLocationError(`Error getting location: ${error.message}`);
+        setIsLocating(false);
+      }
+    );
+  };
+
+  useEffect(() => {
+    getLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   async function onSubmit(data: FormValues) {
     setIsLoading(true);
     setAnalysisResult(null);
 
     try {
-      const result = await recommendCropsBasedOnSoilAnalysis(data);
+      const result = await recommendCropsBasedOnSoilAnalysis({
+        soilTestResults: data.soilTestResults,
+        location: data.location
+      });
       setAnalysisResult(result);
     } catch (error) {
       console.error('Error analyzing soil data:', error);
@@ -67,7 +103,7 @@ export default function SoilAnalysisPage() {
       <Card>
         <CardHeader>
           <CardTitle>Soil Data Input</CardTitle>
-          <CardDescription>Provide your soil test results, location, and climate information.</CardDescription>
+          <CardDescription>Provide your soil test results and location. We'll determine the climate for you.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -89,34 +125,27 @@ export default function SoilAnalysisPage() {
                   </FormItem>
                 )}
               />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="location"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Location</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., Punjab, India" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="climaticConditions"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Climatic Conditions</FormLabel>
-                      <FormControl>
-                        <Input placeholder="e.g., Hot summers, moderate rainfall" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <FormField
+                    control={form.control}
+                    name="location"
+                    render={({ field }) => (
+                      <FormItem className="flex-grow w-full">
+                        <FormLabel>Your Location</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Click 'Fetch Location' or enter manually" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="button" variant="outline" onClick={getLocation} disabled={isLocating} className="w-full sm:w-auto mt-2 sm:mt-8">
+                      {isLocating ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <LocateFixed className="mr-2 h-4 w-4"/>}
+                      Fetch Location
+                  </Button>
               </div>
+              {locationError && <p className="text-sm font-medium text-destructive flex items-center gap-2"><AlertTriangle className="h-4 w-4" /> {locationError}</p>}
+              
               <Button type="submit" disabled={isLoading}>
                 {isLoading ? (
                   <>

@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview This file defines a Genkit flow for recommending crops based on soil analysis, location, and climatic conditions.
+ * @fileOverview This file defines a Genkit flow for recommending crops based on soil analysis and location.
  *
  * - recommendCropsBasedOnSoilAnalysis - A function that takes soil analysis data and returns crop recommendations.
  * - RecommendCropsBasedOnSoilAnalysisInput - The input type for the recommendCropsBasedOnSoilAnalysis function.
@@ -12,8 +12,7 @@ import {z} from 'genkit';
 
 const RecommendCropsBasedOnSoilAnalysisInputSchema = z.object({
   soilTestResults: z.string().describe('The laboratory test results of the soil, including pH, nitrogen, phosphorus, potassium, and micronutrient levels.'),
-  location: z.string().describe('The geographical location of the farm.'),
-  climaticConditions: z.string().describe('The climatic conditions of the region, including temperature, rainfall, and sunlight hours.'),
+  location: z.string().describe('The geographical location of the farm (can be coordinates).'),
 });
 export type RecommendCropsBasedOnSoilAnalysisInput = z.infer<typeof RecommendCropsBasedOnSoilAnalysisInputSchema>;
 
@@ -33,13 +32,13 @@ const prompt = ai.definePrompt({
   name: 'recommendCropsBasedOnSoilAnalysisPrompt',
   input: {schema: RecommendCropsBasedOnSoilAnalysisInputSchema},
   output: {schema: RecommendCropsBasedOnSoilAnalysisOutputSchema},
-  prompt: `You are an expert agricultural advisor. Based on the soil test results, location, and climatic conditions provided, recommend the most suitable crops to grow.
+  prompt: `You are an expert agricultural advisor. Based on the soil test results and location provided, identify the local climatic conditions and recommend the most suitable crops to grow.
 
   Soil Test Results: {{{soilTestResults}}}
   Location: {{{location}}}
-  Climatic Conditions: {{{climaticConditions}}}
 
-  Consider factors such as soil pH, nutrient levels, rainfall, temperature, and sunlight hours when making your recommendations.
+  Infer the climatic conditions (like temperature, rainfall, and sunlight hours) from the location.
+  Consider all factors, including soil pH, nutrient levels, and the inferred climate when making your recommendations.
 
   Provide a list of recommended crops and a summary of the soil analysis results.
   Format the response as a JSON object.
