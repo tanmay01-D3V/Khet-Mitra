@@ -15,7 +15,7 @@ import {
   ShoppingCart,
   TrendingUp,
   Settings,
-  HelpCircle,
+  RadioReceiver,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -65,11 +65,11 @@ const mainFeatures = [
     cta: 'Enter Marketplace',
   },
    {
-    title: 'Settings',
-    description: 'Customize your application preferences and account details.',
-    icon: <Settings className="h-10 w-10 text-primary" />,
-    href: '#', // Update with settings page if it exists
-    cta: 'Go to Settings',
+    title: 'My Poll Sensor',
+    description: 'Connect your hardware for real-time soil monitoring and analysis.',
+    icon: <RadioReceiver className="h-10 w-10 text-primary" />,
+    href: '/my-poll', 
+    cta: 'Connect Device',
   },
 ];
 

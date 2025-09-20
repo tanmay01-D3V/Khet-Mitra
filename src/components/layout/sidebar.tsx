@@ -18,6 +18,7 @@ import {
   Sprout,
   MapPin,
   ShoppingCart,
+  RadioReceiver,
 } from 'lucide-react';
 import { Logo } from '../logo';
 import { cn } from '@/lib/utils';
@@ -52,6 +53,11 @@ const menuItems = [
     href: '/marketplace',
     icon: ShoppingCart,
     label: 'Marketplace',
+  },
+  {
+    href: '/my-poll',
+    icon: RadioReceiver,
+    label: 'My Poll',
   },
 ];
 
