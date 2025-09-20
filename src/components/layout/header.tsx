@@ -18,10 +18,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 export function Header() {
   const { user, logout } = useAuth();
-  const { isMobile } = useSidebar();
+  const { toggleSidebar } = useSidebar();
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+        <Button size="icon" variant="outline" onClick={toggleSidebar} className="sm:hidden">
+            <CircleUser className="h-5 w-5" />
+            <span className="sr-only">Toggle Menu</span>
+        </Button>
       <div className="ml-auto flex items-center gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -31,7 +35,7 @@ export function Header() {
               className="overflow-hidden rounded-full"
             >
               <Avatar className="h-9 w-9">
-                  <AvatarImage src={user?.photoUrl || `https://avatar.vercel.sh/${user?.name}.png`} alt={user?.name || 'User'} />
+                  <AvatarImage src={`https://avatar.vercel.sh/${user?.name}.png`} alt={user?.name || 'User'} />
                   <AvatarFallback>{user?.name?.[0].toUpperCase() || <CircleUser/>}</AvatarFallback>
                 </Avatar>
             </Button>

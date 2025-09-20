@@ -6,7 +6,6 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 interface User {
   name: string;
   aadhaar: string;
-  photoUrl?: string;
 }
 
 interface AuthContextType {
