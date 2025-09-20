@@ -35,7 +35,7 @@ export default function RootLayout({
       return (
         <html lang="en" suppressHydrationWarning>
             <body>
-                 <SplashScreen />
+                 <SplashScreen className="bg-black" />
             </body>
         </html>
       )
