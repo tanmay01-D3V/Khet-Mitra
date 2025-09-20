@@ -99,7 +99,7 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'splash-in-out': 'splash-in-out 4s ease-in-out forwards',
+        'splash-in-out': 'splash-in-out 3.5s ease-in-out forwards',
       },
     },
   },

@@ -3,7 +3,7 @@
 
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { Header } from '@/components/layout/header';
 import { SidebarProvider } from '@/context/sidebar-provider';
@@ -18,15 +18,6 @@ export default function AppLayout({
 }>) {
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
-    const [isSplashVisible, setIsSplashVisible] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsSplashVisible(false);
-        }, 4000); // Match animation duration
-
-        return () => clearTimeout(timer);
-    }, []);
 
     useEffect(() => {
         if (!authLoading && !user) {
@@ -34,7 +25,7 @@ export default function AppLayout({
         }
     }, [user, authLoading, router]);
 
-    if (isSplashVisible || authLoading || !user) {
+    if (authLoading || !user) {
         return (
             <SplashScreen />
         );
