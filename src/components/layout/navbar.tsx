@@ -99,8 +99,8 @@ export function Navbar() {
                 {menuItems.map(item => (
                    <NavigationMenuItem key={item.href}>
                     <Link href={item.href} legacyBehavior passHref>
-                      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()} active={pathname === item.href}>
-                        <a>{item.label}</a>
+                      <NavigationMenuLink active={pathname === item.href} className={navigationMenuTriggerStyle()}>
+                        {item.label}
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>
