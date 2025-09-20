@@ -184,7 +184,21 @@
             "yellowCorn": "Yellow Corn",
             "barley": "Barley",
             "soybeans": "Soybeans",
-            "sunflowerSeeds": "Sunflower Seeds"
+            "sunflowerSeeds": "Sunflower Seeds",
+            "sugarcane": "Sugarcane",
+            "cotton": "Cotton",
+            "chickpeas": "Chickpeas"
+        },
+        "descriptions": {
+            "wheatDescription": "High-quality wheat, ideal for flour and baking. High demand in local and national markets.",
+            "riceDescription": "Aromatic Basmati rice, prized for its fragrance and long grains. Strong export potential.",
+            "cornDescription": "Versatile yellow corn, used for animal feed and food processing. Consistent demand year-round.",
+            "barleyDescription": "Nutritious barley, suitable for malting, feed, and food. Growing demand in health food sector.",
+            "soybeansDescription": "Protein-rich soybeans, essential for oil production and animal feed. A staple in the global market.",
+            "sunflowerDescription": "High-yield sunflower seeds for oil extraction. Market is driven by edible oil consumption.",
+            "sugarcaneDescription": "Primary source of sugar and biofuel. A major commercial crop with stable government-backed pricing.",
+            "cottonDescription": "High-quality fiber for the textile industry. Prices fluctuate based on global demand and quality.",
+            "chickpeasDescription": "A key pulse crop in India, used in a wide variety of culinary dishes. High domestic demand."
         },
         "units": {
             "quintal": "quintal"
@@ -242,4 +256,3 @@
         }
     }
 }
-

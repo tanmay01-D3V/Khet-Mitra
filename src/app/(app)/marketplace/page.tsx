@@ -7,6 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/hooks/use-translation';
@@ -22,37 +23,63 @@ const products = [
     price: '2275',
     unit: 'quintal',
     icon: <Wheat className="h-12 w-12 text-primary" />,
+    descriptionKey: 'wheatDescription',
   },
   {
     nameKey: 'basmatiRice',
     price: '4500',
     unit: 'quintal',
-    // Using a simple text symbol as a fallback when no direct icon is available
     icon: <span className="text-4xl">🌾</span>,
+    descriptionKey: 'riceDescription',
   },
   {
     nameKey: 'yellowCorn',
     price: '2150',
     unit: 'quintal',
     icon: <span className="text-4xl">🌽</span>,
+    descriptionKey: 'cornDescription',
   },
   {
     nameKey: 'barley',
     price: '2000',
     unit: 'quintal',
     icon: <Wind className="h-12 w-12 text-primary" />,
+    descriptionKey: 'barleyDescription',
   },
   {
     nameKey: 'soybeans',
     price: '4800',
     unit: 'quintal',
     icon: <Bean className="h-12 w-12 text-primary" />,
+    descriptionKey: 'soybeansDescription',
   },
   {
     nameKey: 'sunflowerSeeds',
     price: '5500',
     unit: 'quintal',
     icon: <Sun className="h-12 w-12 text-primary" />,
+    descriptionKey: 'sunflowerDescription',
+  },
+   {
+    nameKey: 'sugarcane',
+    price: '340',
+    unit: 'quintal',
+    icon: <span className="text-4xl">🎋</span>,
+    descriptionKey: 'sugarcaneDescription',
+  },
+  {
+    nameKey: 'cotton',
+    price: '7000',
+    unit: 'quintal',
+    icon: <span className="text-4xl">☁️</span>,
+    descriptionKey: 'cottonDescription',
+  },
+   {
+    nameKey: 'chickpeas',
+    price: '5200',
+    unit: 'quintal',
+    icon: <span className="text-4xl">🌱</span>,
+    descriptionKey: 'chickpeasDescription',
   },
 ];
 
@@ -70,17 +97,20 @@ export default function MarketplacePage() {
         {products.map((product) => {
           return (
             <Card key={product.nameKey} className="flex flex-col overflow-hidden transition-all hover:shadow-xl">
-              <CardHeader className="flex-grow items-center justify-center p-6 text-center">
+              <CardHeader className="flex-row items-start gap-4 space-y-0 p-6">
                  {product.icon || <FallbackIcon />}
-              </CardHeader>
-              <CardContent className="p-6 pt-0 text-center">
-                 <CardTitle className="mb-2">{t(`products.${product.nameKey}`)}</CardTitle>
-                 <div className="flex items-baseline justify-center gap-2">
-                    <span className="text-3xl font-bold">Rs {product.price}</span>
-                    <span className="text-muted-foreground">/ {t(`units.${product.unit}`)}</span>
+                 <div className="flex-1">
+                    <CardTitle className="mb-1">{t(`products.${product.nameKey}`)}</CardTitle>
+                     <div className="flex items-baseline gap-2">
+                        <span className="text-2xl font-bold">Rs {product.price}</span>
+                        <span className="text-sm text-muted-foreground">/ {t(`units.${product.unit}`)}</span>
+                     </div>
                  </div>
+              </CardHeader>
+              <CardContent className="p-6 pt-0">
+                 <CardDescription>{t(`descriptions.${product.descriptionKey}`)}</CardDescription>
               </CardContent>
-              <CardFooter className="p-6 pt-0">
+              <CardFooter className="p-6 pt-0 mt-auto">
                 <Button className="w-full" variant="outline">{t('viewDetailsButton')}</Button>
               </CardFooter>
             </Card>
