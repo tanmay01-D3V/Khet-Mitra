@@ -84,28 +84,12 @@ export function AppSidebar() {
       </SidebarContent>
        <SidebarFooter>
         <SidebarSeparator />
-         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="flex items-center gap-3 cursor-pointer p-2 data-[collapsible=icon]:justify-center data-[collapsible=icon]:p-1.5 rounded-md hover:bg-sidebar-accent">
-                <Avatar className="h-9 w-9">
-                  <AvatarImage src={user?.photo || `https://avatar.vercel.sh/${user?.name}.png`} alt={user?.name || 'User'} />
-                  <AvatarFallback>{user?.name?.[0].toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-                    <span className="text-sm font-semibold text-sidebar-foreground truncate">{user?.name}</span>
-                    <span className="text-xs text-sidebar-foreground/70 truncate">Farmer</span>
-                </div>
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent side="right" align="start" className="w-56">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={logout}>
-              <LogOut className="mr-2 h-4 w-4" />
-              <span>Log out</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="p-2">
+            <Button onClick={logout} className="w-full justify-center group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:w-auto">
+                <LogOut className="h-5 w-5" />
+                <span className="group-data-[collapsible=icon]:hidden ml-2">Log out</span>
+            </Button>
+        </div>
       </SidebarFooter>
     </Sidebar>
   );
