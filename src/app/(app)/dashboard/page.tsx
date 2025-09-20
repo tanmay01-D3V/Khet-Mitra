@@ -33,12 +33,21 @@ const slogans = [
     "🌍 Working the land, feeding the world. ❤️"
 ];
 
+const emojiPairs = [
+    ["🌾", "🚜"],
+    ["🌱", "🌻"],
+    ["🌽", "🐮"],
+    ["🇮🇳", "💪"],
+];
+
 
 export default function DashboardPage() {
   const { t } = useTranslation('dashboard');
   const { user } = useAuth();
   const [currentSloganIndex, setCurrentSloganIndex] = useState(0);
   const [isSloganVisible, setIsSloganVisible] = useState(true);
+  const [currentEmojiIndex, setCurrentEmojiIndex] = useState(0);
+  const [isEmojiVisible, setIsEmojiVisible] = useState(true);
   
   const firstName = user?.name.split(' ')[0] || 'Farmer';
 
@@ -56,6 +65,19 @@ export default function DashboardPage() {
         clearInterval(sloganInterval);
     }
   }, []);
+
+  useEffect(() => {
+      const emojiInterval = setInterval(() => {
+        setIsEmojiVisible(false);
+        setTimeout(() => {
+            setCurrentEmojiIndex(prevIndex => (prevIndex + 1) % emojiPairs.length);
+            setIsEmojiVisible(true);
+        }, 500);
+      }, 5000);
+
+      return () => clearInterval(emojiInterval);
+  }, []);
+
 
   const quickActions = [
     {
@@ -111,16 +133,19 @@ export default function DashboardPage() {
     },
   ];
 
+  const [startEmoji, endEmoji] = emojiPairs[currentEmojiIndex];
+
   return (
     <div className="flex flex-col gap-8">
       <Card className="bg-card/50 border-2 border-primary/20 shadow-lg">
         <CardHeader>
           <CardTitle className="text-4xl font-bold tracking-tight text-foreground">{t('welcomeTitle', { name: firstName })}</CardTitle>
-          <CardDescription
-            className="text-lg text-muted-foreground mt-2"
-            dangerouslySetInnerHTML={{ __html: t('welcomeDescription') }}
-          />
-          <p className={`text-md text-muted-foreground mt-2 transition-opacity duration-500 min-h-[24px] ${isSloganVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <CardDescription className="text-lg text-muted-foreground mt-2 flex items-center justify-start gap-2">
+            <span className={`transition-opacity duration-500 ${isEmojiVisible ? 'opacity-100' : 'opacity-0'}`}>{startEmoji}</span>
+            <span dangerouslySetInnerHTML={{ __html: t('welcomeDescription') }} />
+            <span className={`transition-opacity duration-500 ${isEmojiVisible ? 'opacity-100' : 'opacity-0'}`}>{endEmoji}</span>
+          </CardDescription>
+          <p className={`text-md text-muted-foreground mt-2 transition-opacity duration-500 min-h-[48px] ${isSloganVisible ? 'opacity-100' : 'opacity-0'}`}>
             {slogans[currentSloganIndex]}
           </p>
         </CardHeader>
