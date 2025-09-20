@@ -28,16 +28,16 @@ type Message = {
 };
 
 const mockUsers = [
-    { name: 'Rajesh Kumar', avatar: 'https://avatar.vercel.sh/rajesh.png' },
-    { name: 'Sita Devi', avatar: 'https://avatar.vercel.sh/sita.png' },
-    { name: 'Amit Singh', avatar: 'https://avatar.vercel.sh/amit.png' },
+    { name: 'राजेश कुमार', avatar: 'https://avatar.vercel.sh/rajesh.png' },
+    { name: 'सीता देवी', avatar: 'https://avatar.vercel.sh/sita.png' },
+    { name: 'अमित सिंह', avatar: 'https://avatar.vercel.sh/amit.png' },
 ];
 
 const mockMessages: Omit<Message, 'isSelf'>[] = [
-    { id: 1, user: mockUsers[0], text: 'Has anyone seen issues with pests on their tomato plants this week?', timestamp: '10:30 AM' },
-    { id: 2, user: mockUsers[1], text: 'Yes, Rajesh! I had to use a neem oil spray this morning. It seems to be helping.', timestamp: '10:32 AM' },
-    { id: 3, user: mockUsers[2], text: 'Good to know, Sita. I will try that. Also, the weather forecast shows rain tomorrow, so be prepared.', timestamp: '10:35 AM' },
-    { id: 4, user: mockUsers[0], text: 'Thanks for the heads-up, Amit. I was just about to irrigate.', timestamp: '10:36 AM' },
+    { id: 1, user: mockUsers[0], text: 'नमस्ते भाई, इस हफ्ते किसी के टमाटर के पौधों में कीड़े लगे हैं क्या?', timestamp: '10:30 AM' },
+    { id: 2, user: mockUsers[1], text: 'हाँ राजेश भाई! Maine aaj subah neem oil spray kiya. Usse fayda ho raha hai.', timestamp: '10:32 AM' },
+    { id: 3, user: mockUsers[2], text: 'Accha, ye to badiya hai. Kal mausam vibhag ne बारिश की chetavani di hai, taiyaar rehna.', timestamp: '10:35 AM' },
+    { id: 4, user: mockUsers[0], text: 'Shukriya, Amit bhai. Main abhi sinchai karne hi wala tha.', timestamp: '10:36 AM' },
 ];
 
 
