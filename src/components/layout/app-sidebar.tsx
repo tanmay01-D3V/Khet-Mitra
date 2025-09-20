@@ -41,6 +41,7 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import Link from 'next/link';
+import { Button } from '../ui/button';
 
 export function AppSidebar() {
   const pathname = usePathname();
