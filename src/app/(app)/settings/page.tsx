@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Languages, Star, Heart } from 'lucide-react';
+import { Languages, Star, Heart, LifeBuoy } from 'lucide-react';
 import { useLanguage } from '@/context/language-context';
 import { useTranslation } from '@/hooks/use-translation';
 import { cn } from '@/lib/utils';
@@ -69,6 +69,13 @@ export default function SettingsPage() {
         });
     }
 
+    const handleSupport = () => {
+        toast({
+            title: "Support Request",
+            description: "We've received your request. Our team will get back to you shortly.",
+        });
+    }
+
     return (
         <div className="space-y-8">
             <div>
@@ -109,6 +116,26 @@ export default function SettingsPage() {
                     <CardFooter>
                         <Button onClick={handleLanguageSave} disabled={isSaving}>
                             {isSaving ? t('languageCard.form.savingButton') : t('languageCard.form.saveButton')}
+                        </Button>
+                    </CardFooter>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <LifeBuoy className="h-6 w-6" />
+                            {t('supportCard.title')}
+                        </CardTitle>
+                        <CardDescription>
+                            {t('supportCard.description')}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p className='text-sm text-muted-foreground'>{t('supportCard.content')}</p>
+                    </CardContent>
+                    <CardFooter>
+                        <Button onClick={handleSupport}>
+                            {t('supportCard.contactButton')}
                         </Button>
                     </CardFooter>
                 </Card>
