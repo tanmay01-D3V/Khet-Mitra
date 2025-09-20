@@ -14,10 +14,20 @@ import { Button } from '../ui/button';
 import { CircleUser } from 'lucide-react';
 import { SidebarTrigger } from '../ui/sidebar';
 import { useTranslation } from '@/hooks/use-translation';
+import { useAuth } from '@/context/auth-context';
+import { useRouter } from 'next/navigation';
 
 
 export function Header() {
   const { t } = useTranslation('header');
+  const { user, logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
+
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-card px-4 lg:h-[60px] lg:px-6">
        <div className="md:hidden">
@@ -34,14 +44,14 @@ export function Header() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>{t('myAccount')}</DropdownMenuLabel>
+          <DropdownMenuLabel>{user?.name || t('myAccount')}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link href="/settings">{t('settings')}</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>{t('support')}</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>{t('logout')}</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>{t('logout')}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

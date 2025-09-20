@@ -254,5 +254,28 @@
                 "description": "Language preference updated to {{language}}."
             }
         }
+    },
+    "login": {
+        "title": "Welcome to KhetMitr",
+        "description": "Login using your Aadhaar details to continue.",
+        "form": {
+            "nameLabel": "Full Name",
+            "namePlaceholder": "Enter your full name",
+            "aadhaarLabel": "Aadhaar Number",
+            "aadhaarPlaceholder": "Enter your 12-digit Aadhaar number",
+            "scanButton": "Scan Aadhaar Card",
+            "scanPrompt": "Scan your Aadhaar Card",
+            "aadhaarPreviewAlt": "Aadhaar card preview",
+            "loginButton": "Login"
+        },
+        "or": "or",
+        "scanSuccess": {
+            "title": "Scan Successful",
+            "description": "Aadhaar details extracted. Please verify and login."
+        },
+        "scanFailed": {
+            "title": "Scan Failed",
+            "description": "Could not extract details from the image. Please try again or enter manually."
+        }
     }
 }
