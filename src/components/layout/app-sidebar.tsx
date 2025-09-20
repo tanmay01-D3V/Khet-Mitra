@@ -82,7 +82,7 @@ export function AppSidebar() {
         <SidebarSeparator />
          <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <div className="flex items-center gap-3 cursor-pointer p-2 rounded-md hover:bg-sidebar-accent">
+            <div className="flex items-center gap-3 cursor-pointer p-2 data-[collapsible=icon]:justify-center data-[collapsible=icon]:p-1.5 rounded-md hover:bg-sidebar-accent">
                 <Avatar className="h-9 w-9">
                   <AvatarImage src={user?.photo || `https://avatar.vercel.sh/${user?.name}.png`} alt={user?.name || 'User'} />
                   <AvatarFallback>{user?.name?.[0].toUpperCase()}</AvatarFallback>
