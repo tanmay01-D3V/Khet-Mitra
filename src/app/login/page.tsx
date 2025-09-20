@@ -88,8 +88,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
-      <Card className="w-full max-w-md">
+    <div className="relative flex min-h-screen items-center justify-center p-4">
+       <video autoPlay loop muted className="absolute z-[-1] w-auto min-w-full min-h-full max-w-none">
+            <source src="/login-bg.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+       </video>
+
+      <Card className="w-full max-w-md bg-background/80 backdrop-blur-sm">
         <CardHeader className="text-center">
             <div className="mx-auto mb-4">
                 <Logo />
@@ -132,12 +137,12 @@ export default function LoginPage() {
                   <span className="w-full border-t" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background px-2 text-muted-foreground">{t('or')}</span>
+                  <span className="bg-background/80 px-2 text-muted-foreground">{t('or')}</span>
                 </div>
               </div>
 
               <div className='space-y-4'>
-                <div className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg border-2 border-dashed border-border flex items-center justify-center bg-muted">
+                <div className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg border-2 border-dashed border-border flex items-center justify-center bg-muted/50">
                     {imagePreview ? (
                     <Image src={imagePreview} alt={t('form.aadhaarPreviewAlt')} layout="fill" objectFit="contain" />
                     ) : (
