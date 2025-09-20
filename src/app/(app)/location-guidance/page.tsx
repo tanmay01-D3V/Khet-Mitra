@@ -14,7 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, LocateFixed, Sun, Cloud, CloudRain, Wind } from 'lucide-react';
+import { Loader2, LocateFixed, Sun, Cloud, CloudRain, Wind, Trees } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 
 const formSchema = z.object({
@@ -145,27 +145,50 @@ export default function LocationGuidancePage() {
       </Card>
       
       {weatherResult && (
-        <Card>
-            <CardHeader>
-                <CardTitle>{t('resultsCard.title', { location: form.getValues('location') })}</CardTitle>
-                <CardDescription>{t('resultsCard.description')}</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-                    {weatherResult.forecast.map((day, index) => (
-                        <Card key={index} className="flex flex-col items-center justify-center p-4 text-center bg-secondary/50">
-                           <p className="font-bold text-lg">{day.day}</p>
-                           <div className="my-2">
-                            {getWeatherIcon(day.condition)}
-                           </div>
-                           <p className="font-semibold text-xl">{day.temperature}</p>
-                           <p className="text-sm text-muted-foreground">{day.condition}</p>
-                           <p className="text-xs text-muted-foreground mt-1">Humidity: {day.humidity}</p>
-                        </Card>
-                    ))}
-                </div>
-            </CardContent>
-        </Card>
+        <div className="space-y-8">
+            <Card>
+                <CardHeader>
+                    <CardTitle>{t('resultsCard.title', { location: form.getValues('location') })}</CardTitle>
+                    <CardDescription>{t('resultsCard.description')}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                        {weatherResult.forecast.map((day, index) => (
+                            <Card key={index} className="flex flex-col items-center justify-center p-4 text-center bg-secondary/50">
+                               <p className="font-bold text-lg">{day.day}</p>
+                               <div className="my-2">
+                                {getWeatherIcon(day.condition)}
+                               </div>
+                               <p className="font-semibold text-xl">{day.temperature}</p>
+                               <p className="text-sm text-muted-foreground">{day.condition}</p>
+                               <p className="text-xs text-muted-foreground mt-1">Humidity: {day.humidity}</p>
+                            </Card>
+                        ))}
+                    </div>
+                </CardContent>
+            </Card>
+
+            {weatherResult.cropRecommendations && weatherResult.cropRecommendations.length > 0 && (
+                <Card>
+                    <CardHeader className='flex-row gap-4 items-center'>
+                        <Trees className="h-10 w-10 text-primary" />
+                        <div>
+                            <CardTitle>{t('cropRecommendations.title')}</CardTitle>
+                            <CardDescription>{t('cropRecommendations.description')}</CardDescription>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <ul className="space-y-2 list-disc list-inside">
+                            {weatherResult.cropRecommendations.map((crop, index) => (
+                                <li key={index} className="text-foreground">
+                                    {crop}
+                                </li>
+                            ))}
+                        </ul>
+                    </CardContent>
+                </Card>
+            )}
+        </div>
       )}
     </div>
   );

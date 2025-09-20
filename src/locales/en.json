@@ -151,21 +151,25 @@
         }
     },
     "location-guidance": {
-        "title": "Weather Forecast",
-        "description": "Get a 7-day weather forecast for your location to help plan your farming activities.",
+        "title": "Weather Forecast & Crop Advisory",
+        "description": "Get a 7-day weather forecast and crop recommendations for your location.",
         "formCard": {
             "title": "Location Input",
-            "description": "Enter your farm's location to get the weather forecast.",
+            "description": "Enter your farm's location to get the weather forecast and crop advice.",
             "form": {
                 "locationLabel": "Your Location",
                 "locationPlaceholder": "Enter your city, region, or coordinates",
-                "getForecastButton": "Get Forecast",
+                "getForecastButton": "Get Forecast & Advice",
                 "fetchingButton": "Fetching..."
             }
         },
         "resultsCard": {
             "title": "7-Day Forecast for {{location}}",
             "description": "Here is the weather forecast for the upcoming week."
+        },
+        "cropRecommendations": {
+            "title": "Crop Recommendations for this Weather",
+            "description": "Based on the forecast, here are some suitable crops to consider."
         },
         "toast": {
             "failed": {
