@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "wheat-grains",
+      "description": "A close-up of wheat grains",
+      "imageUrl": "https://picsum.photos/seed/101/400/300",
+      "imageHint": "wheat grains"
+    },
+    {
+      "id": "rice-paddy",
+      "description": "A vibrant green rice paddy field",
+      "imageUrl": "https://picsum.photos/seed/102/400/300",
+      "imageHint": "rice paddy"
+    },
+    {
+      "id": "corn-field",
+      "description": "A field of tall corn stalks",
+      "imageUrl": "https://picsum.photos/seed/103/400/300",
+      "imageHint": "corn field"
+    },
+    {
+      "id": "barley-field",
+      "description": "A golden field of barley at sunset",
+      "imageUrl": "https://picsum.photos/seed/104/400/300",
+      "imageHint": "barley field"
+    },
+    {
+      "id": "soybean-field",
+      "description": "Lush green soybean plants in a field",
+      "imageUrl": "https://picsum.photos/seed/105/400/300",
+      "imageHint": "soybean field"
+    },
+    {
+      "id": "sunflower-field",
+      "description": "A field of bright yellow sunflowers",
+      "imageUrl": "https://picsum.photos/seed/106/400/300",
+      "imageHint": "sunflower field"
+    }
+  ]
 }
