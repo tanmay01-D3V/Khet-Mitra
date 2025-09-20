@@ -9,11 +9,10 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { getAddressFromCoordinatesTool } from '@/ai/tools/reverse-geocoding';
 
 const RecommendCropsBasedOnSoilAnalysisInputSchema = z.object({
   soilTestResults: z.string().describe('The laboratory test results of the soil, including pH, nitrogen, phosphorus, potassium, and micronutrient levels.'),
-  location: z.string().describe('The geographical location of the farm (can be "Lat: XX.XXXX, Lon: YY.YYYY" or a city name).'),
+  location: z.string().describe('The geographical location of the farm (can be a city name or region).'),
 });
 export type RecommendCropsBasedOnSoilAnalysisInput = z.infer<typeof RecommendCropsBasedOnSoilAnalysisInputSchema>;
 
@@ -46,13 +45,10 @@ const prompt = ai.definePrompt({
   name: 'recommendCropsBasedOnSoilAnalysisPrompt',
   input: {schema: RecommendCropsBasedOnSoilAnalysisInputSchema},
   output: {schema: RecommendCropsBasedOnSoilAnalysisOutputSchema},
-  tools: [getAddressFromCoordinatesTool],
-  prompt: `You are an expert agricultural advisor. Based on the soil test results and location provided, identify the local climatic conditions and recommend the most suitable crops to grow.
+  prompt: `You are an expert agricultural advisor. Based on the soil test results and location provided, infer the local climatic conditions and recommend the most suitable crops to grow.
 
   Soil Test Results: {{{soilTestResults}}}
   Location: {{{location}}}
-
-  If the location is in coordinates, use the getAddressFromCoordinates tool to find the address and infer the climate. Otherwise, infer the climatic conditions (like temperature, rainfall, and sunlight hours) from the location name.
   
   Consider all factors, including soil pH, nutrient levels, and the inferred climate when making your recommendations.
 
