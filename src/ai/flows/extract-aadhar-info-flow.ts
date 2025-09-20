@@ -35,7 +35,7 @@ const prompt = ai.definePrompt({
   name: 'extractAadhaarInfoPrompt',
   input: { schema: ExtractAadhaarInfoInputSchema },
   output: { schema: ExtractAadhaarInfoOutputSchema },
-  model: 'googleai/gemini-2.5-flash-image-preview',
+  model: 'googleai/gemini-2.5-flash',
   config: {
     responseModalities: ['TEXT', 'IMAGE'],
   },
