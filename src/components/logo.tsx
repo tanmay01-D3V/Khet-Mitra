@@ -3,9 +3,11 @@ import { cn } from '@/lib/utils';
 
 export function Logo({ className }: { className?: string }) {
   return (
-    <div className={cn('flex items-center gap-2', className)}>
-      <Sprout className="h-6 w-6 text-green-600" />
-      <h1 className="text-xl font-bold text-sidebar-foreground">KhetMitr</h1>
+    <div className={cn('flex items-center gap-3', className)}>
+      <div className="bg-primary p-2 rounded-lg">
+        <Sprout className="h-6 w-6 text-primary-foreground" />
+      </div>
+      <h1 className="text-xl font-bold text-foreground">KhetMitr</h1>
     </div>
   );
 }

@@ -76,7 +76,7 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar>
+    <Sidebar className='border-r-0'>
       <SidebarHeader>
         <Logo />
       </SidebarHeader>
@@ -90,9 +90,9 @@ export function AppSidebar() {
                 isActive={pathname === item.href}
                 tooltip={item.label}
                 onClick={() => setOpenMobile(false)}
-                className={cn(pathname === item.href && 'font-semibold')}
+                className={cn('justify-start', pathname === item.href && 'font-semibold bg-primary/10 text-primary hover:bg-primary/20')}
               >
-                <item.icon />
+                <item.icon className="h-5 w-5" />
                 <span>{item.label}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
