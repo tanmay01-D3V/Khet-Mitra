@@ -39,7 +39,6 @@ export function ChatWidget() {
   const [isRecording, setIsRecording] = useState(false);
   const recognitionRef = useRef<any>(null);
 
-  // SpeechRecognition might be prefixed in some browsers. Moved inside component to avoid SSR errors.
   const SpeechRecognition =
     typeof window !== 'undefined'
       ? (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
@@ -52,71 +51,16 @@ export function ChatWidget() {
     }
   }, []);
 
-  useEffect(() => {
-    if (!SpeechRecognition) {
-      console.warn('Speech recognition not supported in this browser.');
-      return;
-    }
+    const handleSend = useCallback(async (messageText: string) => {
+    if (!messageText.trim()) return;
 
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = true;
-    recognition.lang = language;
-
-    recognition.onresult = (event: any) => {
-      let finalTranscript = '';
-      let interimTranscript = '';
-
-      for (let i = event.resultIndex; i < event.results.length; ++i) {
-        if (event.results[i].isFinal) {
-          finalTranscript += event.results[i][0].transcript;
-        } else {
-          interimTranscript += event.results[i][0].transcript;
-        }
-      }
-      setInput(finalTranscript + interimTranscript);
-    };
-
-    recognition.onend = () => {
-      setIsRecording(false);
-    };
-    
-    recognition.onerror = (event: any) => {
-      console.error('Speech recognition error:', event.error);
-      setIsRecording(false);
-    };
-
-    recognitionRef.current = recognition;
-  }, [language, SpeechRecognition]);
-
-
-  useEffect(() => {
-    if (isOpen) {
-        setMessages([{
-            text: t('welcomeMessage'),
-            sender: 'bot',
-            id: Date.now(),
-        }]);
-    }
-  }, [isOpen, t]);
-
-  useEffect(() => {
-    // Scroll to the bottom when a new message is added
-    if (scrollAreaRef.current) {
-        scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
-    }
-  }, [messages]);
-
-  const handleSend = async () => {
-    if (!input.trim()) return;
-
-    const userMessage: Message = { text: input, sender: 'user', id: Date.now() };
+    const userMessage: Message = { text: messageText, sender: 'user', id: Date.now() };
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
     try {
-      const result = await paramMitrChat({ message: input, language });
+      const result = await paramMitrChat({ message: messageText, language });
       const botMessage: Message = { 
           text: result.response, 
           sender: 'bot',
@@ -134,7 +78,62 @@ export function ChatWidget() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [language, playAudio, t]);
+
+  useEffect(() => {
+    if (!SpeechRecognition) {
+      console.warn('Speech recognition not supported in this browser.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = language;
+
+    recognition.onresult = (event: any) => {
+      let interimTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          const finalTranscript = event.results[i][0].transcript;
+           if (finalTranscript) {
+             handleSend(finalTranscript);
+           }
+        } else {
+          interimTranscript += event.results[i][0].transcript;
+        }
+      }
+      setInput(interimTranscript);
+    };
+
+    recognition.onend = () => {
+      setIsRecording(false);
+    };
+    
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
+      setIsRecording(false);
+    };
+
+    recognitionRef.current = recognition;
+  }, [language, SpeechRecognition, handleSend]);
+
+
+  useEffect(() => {
+    if (isOpen) {
+        setMessages([{
+            text: t('welcomeMessage'),
+            sender: 'bot',
+            id: Date.now(),
+        }]);
+    }
+  }, [isOpen, t]);
+
+  useEffect(() => {
+    if (scrollAreaRef.current) {
+        scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
+    }
+  }, [messages]);
 
   const toggleRecording = () => {
     if (!recognitionRef.current) return;
@@ -142,6 +141,7 @@ export function ChatWidget() {
     if (isRecording) {
       recognitionRef.current.stop();
     } else {
+      setInput(''); // Clear input when starting recording
       recognitionRef.current.start();
     }
     setIsRecording(!isRecording);
@@ -209,22 +209,22 @@ export function ChatWidget() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleSend();
+                handleSend(input);
               }}
               className="flex w-full items-center gap-2"
             >
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder={t('inputPlaceholder')}
+                placeholder={isRecording ? "Listening..." : t('inputPlaceholder')}
                 autoComplete="off"
-                disabled={isLoading}
+                disabled={isLoading || isRecording}
               />
                <Button type="button" size="icon" onClick={toggleRecording} variant={isRecording ? 'destructive' : 'outline'} disabled={isLoading || !SpeechRecognition}>
                     <Mic className="h-4 w-4" />
                     <span className="sr-only">{isRecording ? 'Stop recording' : 'Start recording'}</span>
                 </Button>
-              <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
+              <Button type="submit" size="icon" disabled={isLoading || !input.trim() || isRecording}>
                 <Send className="h-4 w-4" />
                 <span className="sr-only">{t('sendButton')}</span>
               </Button>
@@ -235,3 +235,4 @@ export function ChatWidget() {
     </>
   );
 }
+ 
