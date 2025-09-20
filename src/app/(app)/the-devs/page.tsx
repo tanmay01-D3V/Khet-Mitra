@@ -32,7 +32,7 @@ export default function TheDevsPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-4xl font-bold font-headline">Tanmay Sherkhar</p>
+            <p className="text-4xl font-bold font-headline">Tanmay Sherkar</p>
           </CardContent>
         </Card>
 
