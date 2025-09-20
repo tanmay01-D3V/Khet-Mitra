@@ -18,7 +18,7 @@ export type RecommendCropsBasedOnSoilAnalysisInput = z.infer<typeof RecommendCro
 
 const RecommendedCropSchema = z.object({
   name: z.string().describe('The name of the recommended crop.'),
-  marketRate: z.string().describe("The current wholesale market rate for the crop, in USD per quintal. e.g. '$25.50'"),
+  marketRate: z.string().describe("The current wholesale market rate for the crop, in INR per quintal. e.g. '₹2275'"),
 });
 
 const RecommendCropsBasedOnSoilAnalysisOutputSchema = z.object({
@@ -45,14 +45,14 @@ const prompt = ai.definePrompt({
   name: 'recommendCropsBasedOnSoilAnalysisPrompt',
   input: {schema: RecommendCropsBasedOnSoilAnalysisInputSchema},
   output: {schema: RecommendCropsBasedOnSoilAnalysisOutputSchema},
-  prompt: `You are an expert agricultural advisor. Based on the soil test results and location provided, infer the local climatic conditions and recommend the most suitable crops to grow.
+  prompt: `You are an expert agricultural advisor. Based on the soil test results and location provided, infer the local climatic conditions and recommend the most suitable crops to grow in India.
 
   Soil Test Results: {{{soilTestResults}}}
   Location: {{{location}}}
   
   Consider all factors, including soil pH, nutrient levels, and the inferred climate when making your recommendations.
 
-  For each recommended crop, provide its name, and its current wholesale market rate.
+  For each recommended crop, provide its name, and its current wholesale market rate in Indian Rupees (INR).
 
   Provide a list of recommended crops and a summary of the soil analysis results.
   Format the response as a JSON object.
