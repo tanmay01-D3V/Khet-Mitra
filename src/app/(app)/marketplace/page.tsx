@@ -1,8 +1,6 @@
 
 'use client';
 
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import {
   Card,
   CardContent,
@@ -12,51 +10,53 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/hooks/use-translation';
+import { Wheat, Bean, Sun, Wind, Leaf } from 'lucide-react';
+import React from 'react';
 
+// A simple component to render a fallback icon
+const FallbackIcon = () => <Leaf className="h-12 w-12 text-primary" />;
 
 const products = [
   {
     nameKey: 'wheatGrains',
     price: '2275',
     unit: 'quintal',
-    imageId: 'wheat-grains',
+    icon: <Wheat className="h-12 w-12 text-primary" />,
   },
   {
     nameKey: 'basmatiRice',
     price: '4500',
     unit: 'quintal',
-    imageId: 'rice-paddy',
+    // Using a simple text symbol as a fallback when no direct icon is available
+    icon: <span className="text-4xl">🌾</span>,
   },
   {
     nameKey: 'yellowCorn',
     price: '2150',
     unit: 'quintal',
-    imageId: 'corn-field',
+    icon: <span className="text-4xl">🌽</span>,
   },
   {
     nameKey: 'barley',
     price: '2000',
     unit: 'quintal',
-    imageId: 'barley-field',
+    icon: <Wind className="h-12 w-12 text-primary" />,
   },
   {
     nameKey: 'soybeans',
     price: '4800',
     unit: 'quintal',
-    imageId: 'soybean-field',
+    icon: <Bean className="h-12 w-12 text-primary" />,
   },
   {
     nameKey: 'sunflowerSeeds',
     price: '5500',
     unit: 'quintal',
-    imageId: 'sunflower-field',
+    icon: <Sun className="h-12 w-12 text-primary" />,
   },
 ];
 
 export default function MarketplacePage() {
-  const imageMap = new Map(
-    PlaceHolderImages.map((img) => [img.id, img])
-  );
   const { t } = useTranslation('marketplace');
 
   return (
@@ -68,27 +68,14 @@ export default function MarketplacePage() {
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => {
-          const image = imageMap.get(product.imageId);
           return (
             <Card key={product.nameKey} className="flex flex-col overflow-hidden transition-all hover:shadow-xl">
-              <CardHeader className="p-0">
-                {image && (
-                  <div className="relative aspect-[4/3] w-full">
-                    <Image
-                      src={image.imageUrl}
-                      alt={image.description}
-                      data-ai-hint={image.imageHint}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-                <div className="p-6 pb-2">
-                    <CardTitle>{t(`products.${product.nameKey}`)}</CardTitle>
-                </div>
+              <CardHeader className="flex-grow items-center justify-center p-6 text-center">
+                 {product.icon || <FallbackIcon />}
               </CardHeader>
-              <CardContent className="flex-grow p-6 pt-0">
-                 <div className="flex items-baseline gap-2">
+              <CardContent className="p-6 pt-0 text-center">
+                 <CardTitle className="mb-2">{t(`products.${product.nameKey}`)}</CardTitle>
+                 <div className="flex items-baseline justify-center gap-2">
                     <span className="text-3xl font-bold">₹{product.price}</span>
                     <span className="text-muted-foreground">/ {t(`units.${product.unit}`)}</span>
                  </div>
@@ -103,4 +90,3 @@ export default function MarketplacePage() {
     </div>
   );
 }
-
