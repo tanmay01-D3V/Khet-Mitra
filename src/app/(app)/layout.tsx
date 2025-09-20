@@ -4,10 +4,11 @@
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { SidebarProvider } from '@/context/sidebar-provider';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { Header } from '@/components/layout/header';
-import { Sidebar } from '@/components/ui/sidebar';
+import { SidebarProvider } from '@/context/sidebar-provider';
+import { ChatWidget } from '@/components/chat/chat-widget';
+
 
 export default function AppLayout({
   children,
@@ -34,14 +35,13 @@ export default function AppLayout({
   return (
       <SidebarProvider>
           <div className="w-full bg-muted/30">
-              <Sidebar>
-                <AppSidebar />
-              </Sidebar>
+              <AppSidebar />
               <div className="flex flex-col sm:pl-14">
                   <Header />
-                  <main className="p-4 sm:px-6 overflow-auto">
+                  <main className="p-4 sm:px-6">
                     {children}
                   </main>
+                  <ChatWidget />
               </div>
           </div>
       </SidebarProvider>

@@ -277,5 +277,13 @@
             "title": "Scan Failed",
             "description": "Could not extract details from the image. Please try again or enter manually."
         }
+    },
+    "chat": {
+        "title": "Param-Mitr",
+        "openChat": "Open Chat",
+        "welcomeMessage": "Hello! I am Param-Mitr, your AI farming assistant. How can I help you today?",
+        "inputPlaceholder": "Ask me anything about farming...",
+        "sendButton": "Send",
+        "errorMessage": "Sorry, I couldn't process that. Please try again."
     }
 }
