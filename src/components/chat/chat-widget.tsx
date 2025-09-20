@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useLanguage } from '@/context/language-context';
 import { useTranslation } from '@/hooks/use-translation';
-import { Loader2, MessageCircle, Send, Volume2, Mic } from 'lucide-react';
+import { Loader2, MessageCircle, Send, Volume2, Mic, Pause } from 'lucide-react';
 import { paramMitrChat } from '@/ai/flows/param-mitr-chat-flow';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '../ui/avatar';
@@ -38,18 +38,34 @@ export function ChatWidget() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const recognitionRef = useRef<any>(null);
+  const [currentlyPlaying, setCurrentlyPlaying] = useState<number | null>(null);
+
 
   const SpeechRecognition =
     typeof window !== 'undefined'
       ? (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
       : null;
-  
-  const playAudio = useCallback((audioDataUri: string) => {
+
+  const stopAudio = useCallback(() => {
     if (audioRef.current) {
-        audioRef.current.src = audioDataUri;
-        audioRef.current.play().catch(e => console.error("Audio playback failed", e));
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        setCurrentlyPlaying(null);
     }
   }, []);
+
+  const playAudio = useCallback((audioDataUri: string, messageId: number) => {
+    stopAudio();
+    if (audioRef.current) {
+        audioRef.current.src = audioDataUri;
+        audioRef.current.play().then(() => {
+            setCurrentlyPlaying(messageId);
+        }).catch(e => {
+            console.error("Audio playback failed", e);
+            setCurrentlyPlaying(null);
+        });
+    }
+  }, [stopAudio]);
 
     const handleSend = useCallback(async (messageText: string) => {
     if (!messageText.trim()) return;
@@ -69,7 +85,7 @@ export function ChatWidget() {
       };
       setMessages((prev) => [...prev, botMessage]);
       if (result.audioDataUri) {
-        playAudio(result.audioDataUri);
+        playAudio(result.audioDataUri, botMessage.id);
       }
     } catch (error) {
       console.error('Chatbot error:', error);
@@ -118,16 +134,27 @@ export function ChatWidget() {
     recognitionRef.current = recognition;
   }, [language, SpeechRecognition, handleSend]);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    const handleAudioEnd = () => setCurrentlyPlaying(null);
+    if (audio) {
+      audio.addEventListener('ended', handleAudioEnd);
+      return () => {
+        audio.removeEventListener('ended', handleAudioEnd);
+      };
+    }
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
+        stopAudio();
         setMessages([{
             text: t('welcomeMessage'),
             sender: 'bot',
             id: Date.now(),
         }]);
     }
-  }, [isOpen, t]);
+  }, [isOpen, t, stopAudio]);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -145,6 +172,14 @@ export function ChatWidget() {
       recognitionRef.current.start();
     }
     setIsRecording(!isRecording);
+  };
+
+  const togglePlayback = (audioDataUri: string, messageId: number) => {
+    if (currentlyPlaying === messageId) {
+        stopAudio();
+    } else {
+        playAudio(audioDataUri, messageId);
+    }
   };
 
   return (
@@ -184,9 +219,9 @@ export function ChatWidget() {
                                     variant="ghost"
                                     size="icon"
                                     className="absolute -right-10 top-1/2 -translate-y-1/2 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity"
-                                    onClick={() => playAudio(msg.audioDataUri!)}
+                                    onClick={() => togglePlayback(msg.audioDataUri!, msg.id)}
                                 >
-                                    <Volume2 className="h-4 w-4" />
+                                    {currentlyPlaying === msg.id ? <Pause className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
                                 </Button>
                             )}
                         </div>
@@ -206,33 +241,39 @@ export function ChatWidget() {
           </ScrollArea>
 
           <DialogFooter className="p-4 border-t">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSend(input);
-              }}
-              className="flex w-full items-center gap-2"
-            >
-              <Input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder={isRecording ? "Listening..." : t('inputPlaceholder')}
-                autoComplete="off"
-                disabled={isLoading || isRecording}
-              />
-               <Button type="button" size="icon" onClick={toggleRecording} variant={isRecording ? 'destructive' : 'outline'} disabled={isLoading || !SpeechRecognition}>
-                    <Mic className="h-4 w-4" />
-                    <span className="sr-only">{isRecording ? 'Stop recording' : 'Start recording'}</span>
-                </Button>
-              <Button type="submit" size="icon" disabled={isLoading || !input.trim() || isRecording}>
-                <Send className="h-4 w-4" />
-                <span className="sr-only">{t('sendButton')}</span>
-              </Button>
-            </form>
+             <div className="w-full space-y-2">
+                 {currentlyPlaying && (
+                    <Button variant="outline" className='w-full' onClick={stopAudio}>
+                        <Pause className="mr-2 h-4 w-4" /> Stop Audio
+                    </Button>
+                 )}
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSend(input);
+                  }}
+                  className="flex w-full items-center gap-2"
+                >
+                  <Input
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder={isRecording ? "Listening..." : t('inputPlaceholder')}
+                    autoComplete="off"
+                    disabled={isLoading || isRecording}
+                  />
+                   <Button type="button" size="icon" onClick={toggleRecording} variant={isRecording ? 'destructive' : 'outline'} disabled={isLoading || !SpeechRecognition}>
+                        <Mic className="h-4 w-4" />
+                        <span className="sr-only">{isRecording ? 'Stop recording' : 'Start recording'}</span>
+                    </Button>
+                  <Button type="submit" size="icon" disabled={isLoading || !input.trim() || isRecording}>
+                    <Send className="h-4 w-4" />
+                    <span className="sr-only">{t('sendButton')}</span>
+                  </Button>
+                </form>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
   );
 }
- 
