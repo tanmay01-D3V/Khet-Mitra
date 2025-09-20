@@ -11,7 +11,11 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const RecommendCropsBasedOnSoilAnalysisInputSchema = z.object({
-  soilTestResults: z.string().describe('The laboratory test results of the soil, including pH, nitrogen, phosphorus, potassium, and micronutrient levels.'),
+  soilReportDataUri: z
+    .string()
+    .describe(
+      "A photo of the soil test report, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+    ),
   location: z.string().describe('The geographical location of the farm (can be a city name or region).'),
 });
 export type RecommendCropsBasedOnSoilAnalysisInput = z.infer<typeof RecommendCropsBasedOnSoilAnalysisInputSchema>;
@@ -45,12 +49,12 @@ const prompt = ai.definePrompt({
   name: 'recommendCropsBasedOnSoilAnalysisPrompt',
   input: {schema: RecommendCropsBasedOnSoilAnalysisInputSchema},
   output: {schema: RecommendCropsBasedOnSoilAnalysisOutputSchema},
-  prompt: `You are an expert agricultural advisor. Based on the soil test results and location provided, infer the local climatic conditions and recommend the most suitable crops to grow in India.
+  prompt: `You are an expert agricultural advisor. Extract the soil test results from the provided image and, based on the location provided, infer the local climatic conditions and recommend the most suitable crops to grow in India.
 
-  Soil Test Results: {{{soilTestResults}}}
+  Soil Test Report Image: {{media url=soilReportDataUri}}
   Location: {{{location}}}
   
-  Consider all factors, including soil pH, nutrient levels, and the inferred climate when making your recommendations.
+  Analyze the image to determine soil pH, nutrient levels, and other relevant data. Consider all factors, including the extracted soil data and the inferred climate when making your recommendations.
 
   For each recommended crop, provide its name, and its current wholesale market rate in Indian Rupees (INR) using the rupee symbol (e.g., ₹2275).
 

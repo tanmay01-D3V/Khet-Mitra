@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -12,15 +13,15 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Trees, FlaskConical } from 'lucide-react';
+import { Loader2, Trees, FlaskConical, Upload } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
+import { fileToDataUri } from '@/lib/utils';
 
 
 const formSchema = z.object({
-  soilTestResults: z.string().min(20, "Please provide detailed soil test results."),
+  soilReport: z.instanceof(File).refine((file) => file.size > 0, "Please upload your soil report."),
   location: z.string().min(3, "Please provide your farm's location."),
 });
 
@@ -29,24 +30,38 @@ type FormValues = z.infer<typeof formSchema>;
 export default function SoilAnalysisPage() {
   const [analysisResult, setAnalysisResult] = useState<RecommendCropsBasedOnSoilAnalysisOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { toast } = useToast();
   const { t } = useTranslation('soil-analysis');
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      soilTestResults: '',
+      soilReport: undefined,
       location: '',
     },
   });
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      form.setValue('soilReport', file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   async function onSubmit(data: FormValues) {
     setIsLoading(true);
     setAnalysisResult(null);
 
     try {
+      const dataUri = await fileToDataUri(data.soilReport);
       const result = await recommendCropsBasedOnSoilAnalysis({
-        soilTestResults: data.soilTestResults,
+        soilReportDataUri: dataUri,
         location: data.location
       });
       setAnalysisResult(result);
@@ -79,17 +94,28 @@ export default function SoilAnalysisPage() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
-                name="soilTestResults"
+                name="soilReport"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('formCard.form.soilTestResultsLabel')}</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder={t('formCard.form.soilTestResultsPlaceholder')}
-                        className="min-h-[120px]"
-                        {...field}
-                      />
+                      <div className="flex items-center gap-4">
+                        <div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-lg border-2 border-dashed border-border flex items-center justify-center bg-muted">
+                           {imagePreview ? (
+                              <Image src={imagePreview} alt="Soil report preview" layout="fill" objectFit="cover" />
+                           ) : (
+                              <Upload className="h-8 w-8 text-muted-foreground" />
+                           )}
+                        </div>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFileChange}
+                          className="max-w-xs"
+                        />
+                      </div>
                     </FormControl>
+                    <FormDescription>Upload a picture of your soil analysis report.</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
