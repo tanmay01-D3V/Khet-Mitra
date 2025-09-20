@@ -27,10 +27,6 @@ type Message = {
   id: number;
 };
 
-// SpeechRecognition might be prefixed in some browsers
-const SpeechRecognition =
-  (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -42,6 +38,12 @@ export function ChatWidget() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const recognitionRef = useRef<any>(null);
+
+  // SpeechRecognition might be prefixed in some browsers. Moved inside component to avoid SSR errors.
+  const SpeechRecognition =
+    typeof window !== 'undefined'
+      ? (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+      : null;
   
   const playAudio = useCallback((audioDataUri: string) => {
     if (audioRef.current) {
@@ -85,7 +87,7 @@ export function ChatWidget() {
     };
 
     recognitionRef.current = recognition;
-  }, [language]);
+  }, [language, SpeechRecognition]);
 
 
   useEffect(() => {
