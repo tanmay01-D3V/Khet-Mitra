@@ -13,6 +13,8 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const RecommendFertilizersInputSchema = z.object({
+  cropType: z.string().optional().describe('The type of crop being grown.'),
+  region: z.string().optional().describe('The geographical region of the farm.'),
   soilReportDataUri: z
     .string()
     .describe(
@@ -36,12 +38,21 @@ const prompt = ai.definePrompt({
   name: 'recommendFertilizersPrompt',
   input: {schema: RecommendFertilizersInputSchema},
   output: {schema: RecommendFertilizersOutputSchema},
-  prompt: `You are an expert agricultural advisor. Analyze the provided soil report image to identify the crop type and the region. Based on this extracted information and the soil analysis data in the report, provide specific fertilizer recommendations to optimize plant health and yield.
+  prompt: `You are an expert agricultural advisor. Analyze the provided soil report image and other details to provide specific fertilizer recommendations.
 
 Soil Report: {{media url=soilReportDataUri}}
+{{#if cropType}}
+Crop Type: {{{cropType}}}
+{{/if}}
+{{#if region}}
+Region: {{{region}}}
+{{/if}}
 
-First, extract the crop type and region from the document.
-Then, provide detailed recommendations, including types of fertilizers, application methods, and timing.`,
+Your primary goal is to provide fertilizer recommendations based on the soil analysis.
+- If the user provides a Crop Type and/or Region, use that information to tailor your advice.
+- If the user does NOT provide a Crop Type or Region, you MUST first extract the crop type and region from the soil report document.
+- After determining the crop and region (either from the input or the document), analyze the soil data in the report.
+- Provide detailed recommendations, including types of fertilizers, application methods, and timing to optimize plant health and yield.`,
 });
 
 const recommendFertilizersFlow = ai.defineFlow(
