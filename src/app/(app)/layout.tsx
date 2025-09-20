@@ -4,9 +4,10 @@
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { SidebarProvider, Sidebar } from '@/components/ui/sidebar';
+import { SidebarProvider } from '@/context/sidebar-provider';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { Header } from '@/components/layout/header';
+import { Sidebar } from '@/components/ui/sidebar';
 
 export default function AppLayout({
   children,
