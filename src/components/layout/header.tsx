@@ -35,7 +35,7 @@ export function Header() {
               className="overflow-hidden rounded-full"
             >
               <Avatar className="h-9 w-9">
-                  <AvatarImage src={`https://avatar.vercel.sh/${user?.name}.png`} alt={user?.name || 'User'} />
+                  <AvatarImage src={user?.photo || `https://avatar.vercel.sh/${user?.name}.png`} alt={user?.name || 'User'} />
                   <AvatarFallback>{user?.name?.[0].toUpperCase() || <CircleUser/>}</AvatarFallback>
                 </Avatar>
             </Button>
