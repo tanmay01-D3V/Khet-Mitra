@@ -22,7 +22,7 @@ export type ParamMitrChatInput = z.infer<typeof ParamMitrChatInputSchema>;
 
 const ParamMitrChatOutputSchema = z.object({
   response: z.string().describe('The chatbot\'s response to the user.'),
-  audioDataUri: z.string().describe('The chatbot\'s response as a data URI for the audio.'),
+  audioDataUri: z.string().optional().describe('The chatbot\'s response as a data URI for the audio.'),
 });
 export type ParamMitrChatOutput = z.infer<typeof ParamMitrChatOutputSchema>;
 
@@ -91,31 +91,40 @@ const paramMitrChatFlow = ai.defineFlow(
   async (input) => {
     const { output } = await prompt(input);
     const textResponse = output!.response;
-
-    const { media } = await ai.generate({
-      model: googleAI.model('gemini-2.5-flash-preview-tts'),
-      config: {
-        responseModalities: ['AUDIO'],
-        speechConfig: {
-          voiceConfig: {
-            prebuiltVoiceConfig: { voiceName: 'Algenib' },
+    
+    try {
+        const { media } = await ai.generate({
+          model: googleAI.model('gemini-2.5-flash-preview-tts'),
+          config: {
+            responseModalities: ['AUDIO'],
+            speechConfig: {
+              voiceConfig: {
+                prebuiltVoiceConfig: { voiceName: 'Algenib' },
+              },
+            },
           },
-        },
-      },
-      prompt: textResponse,
-    });
-    if (!media) {
-      throw new Error('no media returned');
-    }
-    const audioBuffer = Buffer.from(
-      media.url.substring(media.url.indexOf(',') + 1),
-      'base64'
-    );
-    const wavBase64 = await toWav(audioBuffer);
+          prompt: textResponse,
+        });
 
-    return {
-      response: textResponse,
-      audioDataUri: 'data:audio/wav;base64,' + wavBase64,
-    };
+        if (!media) {
+          throw new Error('no media returned');
+        }
+
+        const audioBuffer = Buffer.from(
+          media.url.substring(media.url.indexOf(',') + 1),
+          'base64'
+        );
+        const wavBase64 = await toWav(audioBuffer);
+
+        return {
+          response: textResponse,
+          audioDataUri: 'data:audio/wav;base64,' + wavBase64,
+        };
+    } catch (error) {
+        console.error("Error generating TTS audio, returning text only:", error);
+        return {
+            response: textResponse
+        };
+    }
   }
 );
