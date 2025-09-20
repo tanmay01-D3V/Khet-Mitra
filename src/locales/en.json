@@ -186,6 +186,9 @@
             "soybeans": "Soybeans",
             "sunflowerSeeds": "Sunflower Seeds"
         },
+        "units": {
+            "quintal": "quintal"
+        },
         "viewDetailsButton": "View Details"
     },
     "my-poll": {
@@ -239,3 +242,4 @@
         }
     }
 }
+

@@ -17,37 +17,37 @@ import { useTranslation } from '@/hooks/use-translation';
 const products = [
   {
     nameKey: 'wheatGrains',
-    price: '18.50',
+    price: '2275',
     unit: 'quintal',
     imageId: 'wheat-grains',
   },
   {
     nameKey: 'basmatiRice',
-    price: '32.00',
+    price: '4500',
     unit: 'quintal',
     imageId: 'rice-paddy',
   },
   {
     nameKey: 'yellowCorn',
-    price: '15.75',
+    price: '2150',
     unit: 'quintal',
     imageId: 'corn-field',
   },
   {
     nameKey: 'barley',
-    price: '21.00',
+    price: '2000',
     unit: 'quintal',
     imageId: 'barley-field',
   },
   {
     nameKey: 'soybeans',
-    price: '45.30',
+    price: '4800',
     unit: 'quintal',
     imageId: 'soybean-field',
   },
   {
     nameKey: 'sunflowerSeeds',
-    price: '55.00',
+    price: '5500',
     unit: 'quintal',
     imageId: 'sunflower-field',
   },
@@ -89,8 +89,8 @@ export default function MarketplacePage() {
               </CardHeader>
               <CardContent className="flex-grow p-6 pt-0">
                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-bold">${product.price}</span>
-                    <span className="text-muted-foreground">/ {product.unit}</span>
+                    <span className="text-3xl font-bold">₹{product.price}</span>
+                    <span className="text-muted-foreground">/ {t(`units.${product.unit}`)}</span>
                  </div>
               </CardContent>
               <CardFooter className="p-6 pt-0">
@@ -103,3 +103,4 @@ export default function MarketplacePage() {
     </div>
   );
 }
+

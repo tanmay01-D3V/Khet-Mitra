@@ -186,6 +186,9 @@
             "soybeans": "सोयाबीन",
             "sunflowerSeeds": "सूरजमुखी के बीज"
         },
+        "units": {
+            "quintal": "क्विंटल"
+        },
         "viewDetailsButton": "विवरण देखें"
     },
     "my-poll": {
