@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useLanguage } from '@/context/language-context';
 import { useTranslation } from '@/hooks/use-translation';
-import { Loader2, MessageCircle, Send, Volume2 } from 'lucide-react';
+import { Loader2, MessageCircle, Send, Volume2, Mic } from 'lucide-react';
 import { paramMitrChat } from '@/ai/flows/param-mitr-chat-flow';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '../ui/avatar';
@@ -27,6 +27,10 @@ type Message = {
   id: number;
 };
 
+// SpeechRecognition might be prefixed in some browsers
+const SpeechRecognition =
+  (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -36,6 +40,8 @@ export function ChatWidget() {
   const { t } = useTranslation('chat');
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const recognitionRef = useRef<any>(null);
   
   const playAudio = useCallback((audioDataUri: string) => {
     if (audioRef.current) {
@@ -43,6 +49,44 @@ export function ChatWidget() {
         audioRef.current.play().catch(e => console.error("Audio playback failed", e));
     }
   }, []);
+
+  useEffect(() => {
+    if (!SpeechRecognition) {
+      console.warn('Speech recognition not supported in this browser.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = language;
+
+    recognition.onresult = (event: any) => {
+      let finalTranscript = '';
+      let interimTranscript = '';
+
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        } else {
+          interimTranscript += event.results[i][0].transcript;
+        }
+      }
+      setInput(finalTranscript + interimTranscript);
+    };
+
+    recognition.onend = () => {
+      setIsRecording(false);
+    };
+    
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
+      setIsRecording(false);
+    };
+
+    recognitionRef.current = recognition;
+  }, [language]);
+
 
   useEffect(() => {
     if (isOpen) {
@@ -88,6 +132,17 @@ export function ChatWidget() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const toggleRecording = () => {
+    if (!recognitionRef.current) return;
+
+    if (isRecording) {
+      recognitionRef.current.stop();
+    } else {
+      recognitionRef.current.start();
+    }
+    setIsRecording(!isRecording);
   };
 
   return (
@@ -163,6 +218,10 @@ export function ChatWidget() {
                 autoComplete="off"
                 disabled={isLoading}
               />
+               <Button type="button" size="icon" onClick={toggleRecording} variant={isRecording ? 'destructive' : 'outline'} disabled={isLoading || !SpeechRecognition}>
+                    <Mic className="h-4 w-4" />
+                    <span className="sr-only">{isRecording ? 'Stop recording' : 'Start recording'}</span>
+                </Button>
               <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
                 <Send className="h-4 w-4" />
                 <span className="sr-only">{t('sendButton')}</span>
