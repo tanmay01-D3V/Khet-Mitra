@@ -51,11 +51,6 @@ export function Header() {
                     <CircleUser className="mr-2 h-4 w-4" /> Profile
                 </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-                <Link href="/settings">
-                    <Settings className="mr-2 h-4 w-4" /> Settings
-                </Link>
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>
                 <LogOut className="mr-2 h-4 w-4" /> Logout

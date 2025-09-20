@@ -54,6 +54,7 @@ export function AppSidebar() {
     { href: '/location-guidance', label: t('locationGuidance'), icon: <MapPin /> },
     { href: '/marketplace', label: t('marketplace'), icon: <ShoppingCart /> },
     { href: '/my-poll', label: t('myPoll'), icon: <RadioReceiver /> },
+    { href: '/settings', label: t('settings'), icon: <Settings /> },
   ];
 
   return (
@@ -70,6 +71,7 @@ export function AppSidebar() {
                 href={item.href}
                 isActive={pathname === item.href}
                 tooltip={item.label}
+                size="lg"
               >
                 {item.icon}
                 <span>{item.label}</span>
@@ -100,12 +102,6 @@ export function AppSidebar() {
               <Link href="/profile">
                 <CircleUser className="mr-2 h-4 w-4" />
                 <span>Profile</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href="/settings">
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
