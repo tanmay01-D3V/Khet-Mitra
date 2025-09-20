@@ -19,7 +19,7 @@
         "profile": "प्रोफ़ाइल"
     },
     "dashboard": {
-        "welcomeTitle": "वापस स्वागत है, किसान!",
+        "welcomeTitle": "वापस स्वागत है, {{name}}!",
         "welcomeDescription": "स्मार्ट खेती के लिए आपका डिजिटल टूलकिट। चलिए आज को उत्पादक बनाते हैं।",
         "quickActions": {
             "title": "त्वरित क्रियाएं",

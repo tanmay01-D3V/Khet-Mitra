@@ -17,7 +17,7 @@
         "logout": "Logout"
     },
     "dashboard": {
-        "welcomeTitle": "Welcome Back, Farmer!",
+        "welcomeTitle": "Welcome Back, {{name}}!",
         "welcomeDescription": "Your digital toolkit for smarter farming. Let's make today productive.",
         "quickActions": {
             "title": "Quick Actions",

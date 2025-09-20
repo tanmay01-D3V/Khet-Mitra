@@ -22,9 +22,13 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/hooks/use-translation';
+import { useAuth } from '@/context/auth-context';
 
 export default function DashboardPage() {
   const { t } = useTranslation('dashboard');
+  const { user } = useAuth();
+  
+  const firstName = user?.name.split(' ')[0] || 'Farmer';
 
   const quickActions = [
     {
@@ -84,7 +88,7 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-8">
       <Card className="bg-card/50 border-2 border-primary/20 shadow-lg">
         <CardHeader>
-          <CardTitle className="text-4xl font-bold tracking-tight text-foreground">{t('welcomeTitle')}</CardTitle>
+          <CardTitle className="text-4xl font-bold tracking-tight text-foreground">{t('welcomeTitle', { name: firstName })}</CardTitle>
           <CardDescription className="text-lg text-muted-foreground">
             {t('welcomeDescription')}
           </CardDescription>
