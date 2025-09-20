@@ -76,7 +76,7 @@ export default function SettingsPage() {
                 <p className="text-muted-foreground">{t('description')}</p>
             </div>
 
-            <div className="grid gap-8 md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-lg mx-auto">
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
