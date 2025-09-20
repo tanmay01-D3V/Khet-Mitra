@@ -89,17 +89,10 @@ export default {
             height: '0',
           },
         },
-        'splash-in-out': {
-            '0%': { opacity: '0', transform: 'scale(0.9)' },
-            '25%': { opacity: '1', transform: 'scale(1)' },
-            '75%': { opacity: '1', transform: 'scale(1)' },
-            '100%': { opacity: '0', transform: 'scale(0.95)' },
-        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'splash-in-out': 'splash-in-out 3.5s ease-in-out forwards',
       },
     },
   },

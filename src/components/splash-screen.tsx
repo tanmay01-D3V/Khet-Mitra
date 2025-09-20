@@ -7,7 +7,7 @@ export function SplashScreen({ className }: { className?: string }) {
     <html lang="en" suppressHydrationWarning>
       <body className="bg-background">
         <div className={cn("flex h-screen w-full items-center justify-center", className)}>
-          <div className="animate-splash-in-out">
+          <div className="animate-pulse">
             <Logo className="h-24 w-auto" />
           </div>
         </div>

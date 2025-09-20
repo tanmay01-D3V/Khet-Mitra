@@ -7,7 +7,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/context/language-context';
 import { AuthProvider } from '@/context/auth-context';
 import { ThemeProvider } from '@/context/theme-provider';
-import { useState, useEffect } from 'react';
 import { SplashScreen } from '@/components/splash-screen';
 
 // This is a temporary solution to satisfy the Metadata type which is not designed for client components.
@@ -21,20 +20,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isSplashVisible, setIsSplashVisible] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-        setIsSplashVisible(false);
-    }, 3500); // 3.5 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isSplashVisible) {
-      return <SplashScreen />;
-  }
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
