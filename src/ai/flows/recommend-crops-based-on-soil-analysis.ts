@@ -52,7 +52,7 @@ const prompt = ai.definePrompt({
   
   Consider all factors, including soil pH, nutrient levels, and the inferred climate when making your recommendations.
 
-  For each recommended crop, provide its name, and its current wholesale market rate in Indian Rupees (INR).
+  For each recommended crop, provide its name, and its current wholesale market rate in Indian Rupees (INR) using the rupee symbol (e.g., ₹2275).
 
   Provide a list of recommended crops and a summary of the soil analysis results.
   Format the response as a JSON object.
