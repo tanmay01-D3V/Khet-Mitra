@@ -36,9 +36,9 @@ export default function AppLayout({
               <Sidebar>
                 <AppSidebar />
               </Sidebar>
-              <div className="flex flex-col sm:pl-14">
+              <div className="flex flex-col sm:pl-14 h-screen">
                   <Header />
-                  <main className="p-4 sm:px-6">
+                  <main className="p-4 sm:px-6 overflow-auto">
                     {children}
                   </main>
               </div>
@@ -46,3 +46,5 @@ export default function AppLayout({
       </SidebarProvider>
   );
 }
+
+    
