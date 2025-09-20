@@ -89,7 +89,7 @@ body {
   }
 }
 
-#login-bg video {
+#login-bg {
     position: fixed;
     right: 0;
     bottom: 0;
@@ -99,6 +99,10 @@ body {
     height: auto;
     z-index: -100;
     background-color: #0c0a09;
-    opacity: 0.8;
+    background-image:
+        radial-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px),
+        radial-gradient(hsl(var(--primary) / 0.1) 1px, transparent 1px);
+    background-position: 0 0, 25px 25px;
+    background-size: 50px 50px;
+    opacity: 0.5;
 }
-

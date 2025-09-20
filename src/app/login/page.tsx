@@ -89,11 +89,7 @@ export default function LoginPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center p-4">
-      <div id="login-bg">
-        <video autoPlay loop muted>
-            <source src="/login-bg.mp4" type="video/mp4" />
-        </video>
-      </div>
+      <div id="login-bg"></div>
 
       <Card className="w-full max-w-md bg-background/80 backdrop-blur-sm">
         <CardHeader className="text-center">
