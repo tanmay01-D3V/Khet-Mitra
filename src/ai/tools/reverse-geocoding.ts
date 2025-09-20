@@ -3,6 +3,7 @@
  * @fileOverview A tool for converting geographic coordinates to a human-readable address.
  *
  * - getAddressFromCoordinates - A function that takes latitude and longitude and returns an address.
+ * - getAddressFromCoordinatesTool - The Genkit tool definition.
  * - GetAddressFromCoordinatesInput - The input type for the getAddressFromCoordinates function.
  */
 
