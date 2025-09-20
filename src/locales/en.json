@@ -20,7 +20,7 @@
     },
     "dashboard": {
         "welcomeTitle": "Welcome Back, {{name}}!",
-        "welcomeDescription": "Your digital toolkit for smarter farming. Let's make today productive.",
+        "welcomeDescription": "<strong>Jai Jawan, Jai Kisan</strong> 🌱🌾",
         "quickActions": {
             "title": "Quick Actions",
             "newScan": "New Scan",

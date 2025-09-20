@@ -112,9 +112,10 @@ export default function DashboardPage() {
       <Card className="bg-card/50 border-2 border-primary/20 shadow-lg">
         <CardHeader>
           <CardTitle className="text-4xl font-bold tracking-tight text-foreground">{t('welcomeTitle', { name: firstName })}</CardTitle>
-          <CardDescription className="text-lg text-muted-foreground mt-2">
-            {t('welcomeDescription')}
-          </CardDescription>
+          <CardDescription
+            className="text-lg text-muted-foreground mt-2"
+            dangerouslySetInnerHTML={{ __html: t('welcomeDescription') }}
+          />
           <p className={`text-md text-muted-foreground mt-2 transition-opacity duration-500 ${isSloganVisible ? 'opacity-100' : 'opacity-0'}`}>
             {slogans[currentSloganIndex]}
           </p>
