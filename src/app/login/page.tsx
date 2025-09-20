@@ -60,7 +60,11 @@ export default function LoginPage() {
             description: t('scanSuccess.description'),
           });
         } else {
-          throw new Error('Could not extract details.');
+            toast({
+                title: t('scanFailed.title'),
+                description: t('scanFailed.description'),
+                variant: 'destructive',
+            });
         }
       } catch (error) {
         console.error('Error scanning Aadhaar card:', error);
