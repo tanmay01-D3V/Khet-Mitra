@@ -6,9 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Languages } from 'lucide-react';
+import { Languages, Star, Heart } from 'lucide-react';
 import { useLanguage } from '@/context/language-context';
 import { useTranslation } from '@/hooks/use-translation';
+import { cn } from '@/lib/utils';
 
 const indianLanguages = [
     { value: 'en', label: 'English' },
@@ -32,7 +33,8 @@ export default function SettingsPage() {
     const [isSaving, setIsSaving] = useState(false);
     const { toast } = useToast();
     const { t } = useTranslation('settings');
-
+    const [rating, setRating] = useState(0);
+    const [hoverRating, setHoverRating] = useState(0);
 
     const handleLanguageSave = () => {
         setIsSaving(true);
@@ -46,6 +48,26 @@ export default function SettingsPage() {
         }, 1000);
     };
 
+    const handleRatingSubmit = () => {
+        if (rating === 0) {
+            toast({
+                title: "Please select a rating",
+                variant: "destructive",
+            });
+            return;
+        }
+        toast({
+            title: "Thank you for your feedback!",
+            description: `You rated us ${rating} out of 5 stars.`,
+        });
+    };
+    
+    const handleDonation = () => {
+        toast({
+            title: "Thank you for your support!",
+            description: "Your generosity helps us keep KhetMitr running.",
+        });
+    }
 
     return (
         <div className="space-y-8">
@@ -87,6 +109,57 @@ export default function SettingsPage() {
                     <CardFooter>
                         <Button onClick={handleLanguageSave} disabled={isSaving}>
                             {isSaving ? t('languageCard.form.savingButton') : t('languageCard.form.saveButton')}
+                        </Button>
+                    </CardFooter>
+                </Card>
+
+                 <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Star className="h-6 w-6" />
+                            {t('reviewCard.title')}
+                        </CardTitle>
+                        <CardDescription>
+                            {t('reviewCard.description')}
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex justify-center space-x-2">
+                       {[1, 2, 3, 4, 5].map((star) => (
+                           <Star
+                                key={star}
+                                className={cn(
+                                    "h-10 w-10 cursor-pointer transition-colors",
+                                    (hoverRating >= star || rating >= star) 
+                                        ? "text-yellow-400 fill-yellow-400" 
+                                        : "text-muted-foreground"
+                                )}
+                                onMouseEnter={() => setHoverRating(star)}
+                                onMouseLeave={() => setHoverRating(0)}
+                                onClick={() => setRating(star)}
+                           />
+                       ))}
+                    </CardContent>
+                    <CardFooter>
+                        <Button onClick={handleRatingSubmit}>{t('reviewCard.submitButton')}</Button>
+                    </CardFooter>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Heart className="h-6 w-6 text-red-500" />
+                            {t('donationCard.title')}
+                        </CardTitle>
+                        <CardDescription>
+                            {t('donationCard.description')}
+                        </CardDescription>
+                    </CardHeader>
+                     <CardContent>
+                        <p className='text-sm text-muted-foreground'>{t('donationCard.content')}</p>
+                    </CardContent>
+                    <CardFooter>
+                        <Button onClick={handleDonation}>
+                            {t('donationCard.donateButton')}
                         </Button>
                     </CardFooter>
                 </Card>

@@ -247,6 +247,17 @@
                 "savingButton": "Saving..."
             }
         },
+        "reviewCard": {
+            "title": "Give us a review",
+            "description": "Your feedback helps us improve KhetMitr.",
+            "submitButton": "Submit Review"
+        },
+        "donationCard": {
+            "title": "Support KhetMitr",
+            "description": "Help us grow and support more farmers like you.",
+            "content": "KhetMitr is a free app built to empower farmers. If you find it useful, please consider donating to support our development and server costs. Every contribution, big or small, makes a difference.",
+            "donateButton": "Donate"
+        },
         "toast": {
             "saved": {
                 "title": "Settings Saved",
