@@ -189,7 +189,6 @@ export default function SoilAnalysisPage() {
                     <ul className="space-y-4">
                         {analysisResult.recommendedCrops.map((crop, index) => (
                             <li key={index} className="flex items-center gap-4 rounded-md bg-secondary/50 p-3">
-                                <span className="text-4xl">{crop.emoji}</span>
                                 <div className="flex-1">
                                     <p className="font-semibold text-lg">{crop.name}</p>
                                     <p className="text-sm text-muted-foreground">Wholesale Rate: <span className='font-bold text-foreground'>{crop.marketRate}</span></p>
