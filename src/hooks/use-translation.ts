@@ -15,6 +15,7 @@ import or from '@/locales/or.json';
 import ml from '@/locales/ml.json';
 import pa from '@/locales/pa.json';
 import as from '@/locales/as.json';
+import { useCallback } from 'react';
 
 const translations = {
   en,
@@ -41,7 +42,7 @@ function getNestedValue(obj: any, path: string): string {
 export const useTranslation = (namespace: TranslationKey) => {
   const { language } = useLanguage();
   
-  const t = (key: string, options?: { [key: string]: string | number }): string => {
+  const t = useCallback((key: string, options?: { [key: string]: string | number }): string => {
     const translationNamespace = (translations[language] as any)[namespace] || (translations['en'] as any)[namespace];
     let translation = getNestedValue(translationNamespace, key) || `${namespace}.${key}`;
 
@@ -52,7 +53,7 @@ export const useTranslation = (namespace: TranslationKey) => {
     }
 
     return translation;
-  };
+  }, [language, namespace]);
 
   return { t };
 };
