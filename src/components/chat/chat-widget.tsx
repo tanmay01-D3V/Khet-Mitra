@@ -198,7 +198,6 @@ export function ChatWidget() {
         <DialogContent className="sm:max-w-[425px] grid-rows-[auto_1fr_auto] p-0 max-h-[80vh]">
           <DialogHeader className="p-4 border-b">
             <DialogTitle className="flex items-center gap-2">
-                <Logo />
                 {t('title')}
             </DialogTitle>
           </DialogHeader>
