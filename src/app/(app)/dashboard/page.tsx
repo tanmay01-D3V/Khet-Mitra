@@ -23,12 +23,35 @@ import {
 import { Button } from '@/components/ui/button';
 import { useTranslation } from '@/hooks/use-translation';
 import { useAuth } from '@/context/auth-context';
+import { useState, useEffect } from 'react';
+
+const slogans = [
+    "Sowing seeds of success, reaping fields of dreams. 🌱🌾",
+    "The backbone of our nation, the pride of our land. 🇮🇳💪",
+    "Cultivating with passion, growing with purpose. 🌻🚜",
+    "From soil to soul, the farmer's story unfolds. 📖✨",
+    "Working the land, feeding the world. 🌍❤️"
+];
 
 export default function DashboardPage() {
   const { t } = useTranslation('dashboard');
   const { user } = useAuth();
+  const [currentSloganIndex, setCurrentSloganIndex] = useState(0);
+  const [isSloganVisible, setIsSloganVisible] = useState(true);
   
   const firstName = user?.name.split(' ')[0] || 'Farmer';
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+        setIsSloganVisible(false); // Start fade out
+        setTimeout(() => {
+            setCurrentSloganIndex((prevIndex) => (prevIndex + 1) % slogans.length);
+            setIsSloganVisible(true); // Start fade in
+        }, 500); // Time for fade-out transition
+    }, 15000); // Change slogan every 15 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   const quickActions = [
     {
@@ -89,9 +112,12 @@ export default function DashboardPage() {
       <Card className="bg-card/50 border-2 border-primary/20 shadow-lg">
         <CardHeader>
           <CardTitle className="text-4xl font-bold tracking-tight text-foreground">{t('welcomeTitle', { name: firstName })}</CardTitle>
-          <CardDescription className="text-lg text-muted-foreground">
+          <CardDescription className="text-lg text-muted-foreground mt-2">
             {t('welcomeDescription')}
           </CardDescription>
+          <p className={`text-md text-muted-foreground mt-2 transition-opacity duration-500 ${isSloganVisible ? 'opacity-100' : 'opacity-0'}`}>
+            {slogans[currentSloganIndex]}
+          </p>
         </CardHeader>
       </Card>
       
