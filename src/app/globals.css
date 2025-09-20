@@ -44,7 +44,7 @@ body {
   }
 
   .dark {
-    --background: 120 25% 10%; /* Deep Forest Green */
+    --background: 0 0% 0%; /* Black */
     --foreground: 40 10% 85%; /* Light Beige */
     --card: 20 10% 12%; /* Dark Brown */
     --card-foreground: 40 10% 85%;
