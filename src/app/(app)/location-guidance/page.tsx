@@ -20,7 +20,6 @@ import { Loader2, Trees, FlaskConical, LocateFixed, AlertTriangle } from 'lucide
 const formSchema = z.object({
   soilTestResults: z.string().min(20, "Please provide detailed soil test results."),
   location: z.string().min(3, "Please provide your farm's location."),
-  climaticConditions: z.string().min(10, "Please describe the climatic conditions."),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -37,7 +36,6 @@ export default function LocationGuidancePage() {
     defaultValues: {
       soilTestResults: '',
       location: '',
-      climaticConditions: '',
     },
   });
 
@@ -119,7 +117,7 @@ export default function LocationGuidancePage() {
       <Card>
         <CardHeader>
           <CardTitle>Crop Recommendation Form</CardTitle>
-          <CardDescription>We've fetched your location. Now, please provide your soil and climate details for accurate recommendations.</CardDescription>
+          <CardDescription>We've fetched your location. Now, please provide your soil details for accurate recommendations.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -146,20 +144,6 @@ export default function LocationGuidancePage() {
               </div>
               {locationError && <p className="text-sm font-medium text-destructive flex items-center gap-2"><AlertTriangle className="h-4 w-4" /> {locationError}</p>}
               
-              <FormField
-                control={form.control}
-                name="climaticConditions"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Climatic Conditions</FormLabel>
-                    <FormControl>
-                        <Input placeholder="e.g., Tropical, dry winters, average 1500mm rainfall" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                    </FormItem>
-                )}
-                />
-
               <FormField
                 control={form.control}
                 name="soilTestResults"
