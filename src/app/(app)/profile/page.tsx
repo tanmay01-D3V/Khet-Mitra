@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Languages, User as UserIcon, Upload, LocateFixed, Loader2, MapPin } from 'lucide-react';
+import { Languages, User as UserIcon, Upload, LocateFixed, Loader2, MapPin, Phone, Shield } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { useAuth } from '@/context/auth-context';
 import Image from 'next/image';
@@ -13,6 +13,7 @@ import { fileToDataUri } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import { getAddressFromCoordinates } from '@/ai/flows/get-address-from-coordinates-flow';
+import { Label } from '@/components/ui/label';
 
 type Coordinates = {
     latitude: number;
@@ -140,6 +141,32 @@ export default function ProfilePage() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
+                 <Card className="md:col-span-2">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <UserIcon className="h-6 w-6" />
+                            Personal Information
+                        </CardTitle>
+                        <CardDescription>
+                            Your personal details are used for identification and are not shared publicly.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid md:grid-cols-3 gap-6">
+                        <div className="space-y-2">
+                            <Label htmlFor="name">Full Name</Label>
+                            <Input id="name" value={user?.name || ''} readOnly />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="mobile">Mobile Number</Label>
+                            <Input id="mobile" value={user?.mobileNumber || ''} readOnly />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="aadhaar">Aadhaar Number</Label>
+                            <Input id="aadhaar" value={user?.aadhaar ? `**** **** ${user.aadhaar.slice(-4)}` : ''} readOnly />
+                        </div>
+                    </CardContent>
+                </Card>
+
                  <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
@@ -217,3 +244,5 @@ export default function ProfilePage() {
         </div>
     );
 }
+
+    
