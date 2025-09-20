@@ -15,7 +15,7 @@ export const GetAddressFromCoordinatesInputSchema = z.object({
 });
 export type GetAddressFromCoordinatesInput = z.infer<typeof GetAddressFromCoordinatesInputSchema>;
 
-const getAddressFromCoordinatesTool = ai.defineTool(
+export const getAddressFromCoordinatesTool = ai.defineTool(
   {
     name: 'getAddressFromCoordinates',
     description: 'Returns a human-readable address from geographic coordinates.',

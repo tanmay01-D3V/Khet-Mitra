@@ -9,7 +9,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { getAddressFromCoordinates } from '@/ai/tools/reverse-geocoding';
+import { getAddressFromCoordinatesTool } from '@/ai/tools/reverse-geocoding';
 
 const RecommendCropsBasedOnSoilAnalysisInputSchema = z.object({
   soilTestResults: z.string().describe('The laboratory test results of the soil, including pH, nitrogen, phosphorus, potassium, and micronutrient levels.'),
@@ -49,7 +49,7 @@ const prompt = ai.definePrompt({
   name: 'recommendCropsBasedOnSoilAnalysisPrompt',
   input: {schema: RecommendCropsBasedOnSoilAnalysisInputSchema},
   output: {schema: RecommendCropsBasedOnSoilAnalysisOutputSchema},
-  tools: [getAddressFromCoordinates],
+  tools: [getAddressFromCoordinatesTool],
   prompt: `You are an expert agricultural advisor. Based on the soil test results and location provided, identify the local climatic conditions and recommend the most suitable crops to grow.
 
   Soil Test Results: {{{soilTestResults}}}
