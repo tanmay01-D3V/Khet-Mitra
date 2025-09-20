@@ -20,8 +20,6 @@ import { useTranslation } from '@/hooks/use-translation';
 
 
 const formSchema = z.object({
-  cropType: z.string().min(3, "Please enter a valid crop type."),
-  region: z.string().min(3, "Please enter a valid region."),
   soilReport: z.instanceof(File).refine((file) => file.size > 0, "Please upload your soil report."),
 });
 
@@ -36,8 +34,6 @@ export default function FertilizerRecommendationPage() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      cropType: '',
-      region: '',
       soilReport: undefined,
     },
   });
@@ -57,8 +53,6 @@ export default function FertilizerRecommendationPage() {
     try {
       const dataUri = await fileToDataUri(data.soilReport);
       const result = await recommendFertilizers({ 
-        cropType: data.cropType,
-        region: data.region,
         soilReportDataUri: dataUri 
       });
       setRecommendation(result);
@@ -89,34 +83,6 @@ export default function FertilizerRecommendationPage() {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="cropType"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('formCard.form.cropTypeLabel')}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('formCard.form.cropTypePlaceholder')} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="region"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t('formCard.form.regionLabel')}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('formCard.form.regionPlaceholder')} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
               <FormField
                 control={form.control}
                 name="soilReport"
