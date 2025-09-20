@@ -161,9 +161,17 @@ export default function FertilizerRecommendationPage() {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <div className="prose prose-sm max-w-none text-foreground">
-                        <p>{recommendation.fertilizerRecommendations}</p>
-                    </div>
+                    <ul className="space-y-4">
+                        {recommendation.fertilizerRecommendations.map((item, index) => (
+                            <li key={index} className="flex items-start gap-4">
+                                <span className="text-2xl">{item.emoji}</span>
+                                <div>
+                                    <p className="font-semibold text-foreground">{item.name}</p>
+                                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
                 </CardContent>
             </Card>
 
@@ -176,9 +184,17 @@ export default function FertilizerRecommendationPage() {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <div className="prose prose-sm max-w-none text-foreground">
-                        <p>{recommendation.insecticideRecommendations}</p>
-                    </div>
+                    <ul className="space-y-4">
+                        {recommendation.insecticideRecommendations.map((item, index) => (
+                            <li key={index} className="flex items-start gap-4">
+                                <span className="text-2xl">{item.emoji}</span>
+                                <div>
+                                    <p className="font-semibold text-foreground">{item.name}</p>
+                                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
                 </CardContent>
             </Card>
         </div>

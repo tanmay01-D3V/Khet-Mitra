@@ -135,12 +135,12 @@
         },
         "recommendationCard": {
              "fertilizer": {
-                "title": "Personalized Fertilizer Recommendation",
-                "description": "Follow these suggestions for optimal plant health and yield."
+                "title": "Fertilizer Recommendations",
+                "description": "For optimal plant health and yield."
             },
             "insecticide": {
-                "title": "Personalized Insecticide Recommendation",
-                "description": "Use these suggestions to protect your crops from pests and diseases."
+                "title": "Insecticide Recommendations",
+                "description": "To protect your crops from pests."
             }
         },
         "toast": {

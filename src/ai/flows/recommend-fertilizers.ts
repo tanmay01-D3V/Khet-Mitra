@@ -5,7 +5,7 @@
  * @fileOverview Provides fertilizer and insecticide recommendations tailored to the crop and soil conditions.
  *
  * - recommendFertilizersAndInsecticides - A function that provides fertilizer and insecticide recommendations.
- * - RecommendFertilizersAndInsecticidesInput - The input type for the recommendFertilizersAndInsecticides function.
+ * - RecommendFertilizersAndInsecticidesInput - The input type for the recommendFertilizersAndInsecticidesInput function.
  * - RecommendFertilizersAndInsecticidesOutput - The return type for the recommendFertilizersAndInsecticides function.
  */
 
@@ -23,13 +23,19 @@ const RecommendFertilizersAndInsecticidesInputSchema = z.object({
 });
 export type RecommendFertilizersAndInsecticidesInput = z.infer<typeof RecommendFertilizersAndInsecticidesInputSchema>;
 
+const RecommendationSchema = z.object({
+    name: z.string().describe('The name of the recommended product.'),
+    description: z.string().describe('A two-line description of why and how to use the product.'),
+    emoji: z.string().describe('A single emoji character related to the product or its purpose.'),
+});
+
 const RecommendFertilizersAndInsecticidesOutputSchema = z.object({
   fertilizerRecommendations: z
-    .string()
-    .describe('Specific fertilizer recommendations for the given crop and soil conditions.'),
+    .array(RecommendationSchema)
+    .describe('A list of specific fertilizer recommendations for the given crop and soil conditions.'),
   insecticideRecommendations: z
-    .string()
-    .describe('Specific insecticide recommendations based on any identified diseases or common pests for the crop and region.'),
+    .array(RecommendationSchema)
+    .describe('A list of specific insecticide recommendations based on any identified diseases or common pests for the crop and region.'),
 });
 export type RecommendFertilizersAndInsecticidesOutput = z.infer<typeof RecommendFertilizersAndInsecticidesOutputSchema>;
 
@@ -51,12 +57,14 @@ Crop Type: {{{cropType}}}
 Region: {{{region}}}
 {{/if}}
 
-Your primary goal is to provide both fertilizer and insecticide recommendations.
+Your primary goal is to provide a list of both fertilizer and insecticide recommendations.
 - If the user provides a Crop Type and/or Region, use that information to tailor your advice.
 - If the user does NOT provide a Crop Type or Region, you MUST first extract the crop type and region from the soil report document.
 - After determining the crop and region, analyze the soil data in the report.
-- Provide detailed fertilizer recommendations, including types, application methods, and timing.
-- Additionally, analyze the report for any signs of crop disease or infer common pests for the specified crop and region. Based on this, provide detailed insecticide recommendations, including product names, application methods, and timing.`,
+- For each recommendation, provide the product name, a concise two-line description of its benefits and application, and a relevant emoji.
+- For fertilizer recommendations, suggest products to balance soil nutrients.
+- For insecticide recommendations, analyze the report for any signs of crop disease or infer common pests for the specified crop and region, then suggest appropriate products.
+`,
 });
 
 const recommendFertilizersAndInsecticidesFlow = ai.defineFlow(
