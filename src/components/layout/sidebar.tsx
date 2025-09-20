@@ -19,6 +19,7 @@ import {
   MapPin,
   ShoppingCart,
   RadioReceiver,
+  Settings,
 } from 'lucide-react';
 import { Logo } from '../logo';
 import { cn } from '@/lib/utils';
@@ -58,6 +59,11 @@ const menuItems = [
     href: '/my-poll',
     icon: RadioReceiver,
     label: 'My Poll',
+  },
+  {
+    href: '/settings',
+    icon: Settings,
+    label: 'Settings',
   },
 ];
 
