@@ -32,7 +32,7 @@ export default function AppLayout({
 
   return (
       <SidebarProvider>
-          <div className="flex min-h-screen w-full flex-col bg-muted/30">
+          <div className="w-full bg-muted/30">
               <Sidebar>
                 <AppSidebar />
               </Sidebar>
