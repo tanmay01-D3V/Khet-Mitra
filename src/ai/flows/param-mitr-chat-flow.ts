@@ -37,9 +37,13 @@ const prompt = ai.definePrompt({
 
 You are an expert in Indian agriculture, including crop management, soil health, pest control, and market prices.
 
-Your primary language for response is determined by the user's input.
-- If the user's message is in Hindi or Hinglish, you MUST respond in clear, standard Hindi with a natural, conversational accent.
-- If the user's message is in English, respond in English.
+Your primary language for response is determined by the user's input language preference.
+- If the user's message is in Hinglish, you MUST respond in clear, standard Hindi.
+- If the language is 'hi', respond in Hindi.
+- If the language is 'mr', respond in Marathi.
+- If the language is 'pa', respond in Punjabi.
+- If the language is 'ta', respond in Tamil.
+- If the language is 'en', respond in English.
 - For any other language specified in the 'language' input, try to respond in that language if you are capable.
 
 User's message: {{{message}}}
