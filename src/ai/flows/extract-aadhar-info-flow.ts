@@ -1,7 +1,7 @@
 
 'use server';
 /**
- * @fileOverview Extracts name and Aadhaar number from an Aadhaar card image.
+ * @fileOverview Extracts name, Aadhaar number, and profile photo from an Aadhaar card image.
  *
  * - extractAadhaarInfo - A function that handles the Aadhaar information extraction.
  * - ExtractAadhaarInfoInput - The input type for the extractAadhaarInfo function.
@@ -23,6 +23,7 @@ export type ExtractAadhaarInfoInput = z.infer<typeof ExtractAadhaarInfoInputSche
 const ExtractAadhaarInfoOutputSchema = z.object({
   name: z.string().describe('The full name of the cardholder.'),
   aadhaarNumber: z.string().describe('The 12-digit Aadhaar number.'),
+  profilePhotoDataUri: z.string().optional().describe("The cardholder's profile photo as a data URI."),
 });
 export type ExtractAadhaarInfoOutput = z.infer<typeof ExtractAadhaarInfoOutputSchema>;
 
@@ -34,11 +35,11 @@ const prompt = ai.definePrompt({
   name: 'extractAadhaarInfoPrompt',
   input: { schema: ExtractAadhaarInfoInputSchema },
   output: { schema: ExtractAadhaarInfoOutputSchema },
-  prompt: `You are an expert OCR system. Analyze the provided image of an Indian Aadhaar card and extract the cardholder's full name and the 12-digit Aadhaar number.
+  prompt: `You are an expert OCR system. Analyze the provided image of an Indian Aadhaar card and extract the cardholder's full name, the 12-digit Aadhaar number, and crop the cardholder's photograph, returning it as a data URI.
 
   Image: {{media url=photoDataUri}}
 
-  Extract the name and the 12-digit Aadhaar number. The Aadhaar number might have spaces, please remove them.
+  Extract the name, the 12-digit Aadhaar number, and the profile photo. The Aadhaar number might have spaces, please remove them.
   `,
 });
 

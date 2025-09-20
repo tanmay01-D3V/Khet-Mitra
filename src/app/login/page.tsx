@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Upload, Camera } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { fileToDataUri } from '@/lib/utils';
-import { extractAadhaarInfo } from '@/ai/flows/extract-aadhar-info-flow';
+import { extractAadhaarInfo, ExtractAadhaarInfoOutput } from '@/ai/flows/extract-aadhar-info-flow';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -34,6 +34,7 @@ export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
   const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [extractedData, setExtractedData] = useState<ExtractAadhaarInfoOutput | null>(null);
 
 
   const form = useForm<FormValues>({
@@ -49,9 +50,11 @@ export default function LoginPage() {
     if (file) {
       setIsScanning(true);
       setImagePreview(URL.createObjectURL(file));
+      setExtractedData(null);
       try {
         const dataUri = await fileToDataUri(file);
         const result = await extractAadhaarInfo({ photoDataUri: dataUri });
+        setExtractedData(result);
         if (result.name && result.aadhaarNumber) {
           form.setValue('name', result.name);
           form.setValue('aadhaar', result.aadhaarNumber.replace(/\s/g, ''));
@@ -79,7 +82,7 @@ export default function LoginPage() {
     setIsLoggingIn(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    login({ name: data.name, aadhaar: data.aadhaar });
+    login({ name: data.name, aadhaar: data.aadhaar, photoUrl: extractedData?.profilePhotoDataUri });
     toast({
         title: "Logged in successfully!",
     });
@@ -139,7 +142,7 @@ export default function LoginPage() {
               <div className='space-y-4'>
                 <div className="relative h-40 w-full shrink-0 overflow-hidden rounded-lg border-2 border-dashed border-border flex items-center justify-center bg-muted">
                     {imagePreview ? (
-                    <Image src={imagePreview} alt={t('form.aadhaarPreviewAlt')} layout="fill" objectFit="contain" />
+                    <Image src={extractedData?.profilePhotoDataUri || imagePreview} alt={t('form.aadhaarPreviewAlt')} layout="fill" objectFit="contain" />
                     ) : (
                     <div className="text-center text-muted-foreground">
                         <Camera className="mx-auto h-8 w-8" />

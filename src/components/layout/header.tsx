@@ -10,11 +10,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { CircleUser, LogOut, Settings, Menu } from 'lucide-react';
+import { CircleUser, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '@/context/auth-context';
-import { SidebarTrigger, useSidebar } from '../ui/sidebar';
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
-import { AppSidebar } from './app-sidebar';
+import { useSidebar } from '../ui/sidebar';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+
 
 export function Header() {
   const { user, logout } = useAuth();
@@ -22,7 +22,6 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
-       {isMobile && <SidebarTrigger asChild><Menu /></SidebarTrigger>}
       <div className="ml-auto flex items-center gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -31,7 +30,10 @@ export function Header() {
               size="icon"
               className="overflow-hidden rounded-full"
             >
-              <CircleUser />
+              <Avatar className="h-9 w-9">
+                  <AvatarImage src={user?.photoUrl || `https://avatar.vercel.sh/${user?.name}.png`} alt={user?.name || 'User'} />
+                  <AvatarFallback>{user?.name?.[0].toUpperCase() || <CircleUser/>}</AvatarFallback>
+                </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
