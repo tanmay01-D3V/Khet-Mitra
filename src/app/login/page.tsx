@@ -89,7 +89,14 @@ export default function LoginPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center p-4">
-      <div id="login-bg"></div>
+      <Image 
+        id="login-bg"
+        src="https://picsum.photos/seed/wheat/1920/1080" 
+        alt="Wheat farm background" 
+        data-ai-hint="wheat farm"
+        fill
+        priority
+      />
 
       <Card className="w-full max-w-md bg-background/80 backdrop-blur-sm">
         <CardHeader className="text-center">
