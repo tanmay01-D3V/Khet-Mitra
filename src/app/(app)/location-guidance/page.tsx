@@ -171,7 +171,7 @@ export default function LocationGuidancePage() {
                         </div>
                         <Input
                           type="file"
-                          accept="image/*"
+                          accept="image/jpeg,image/png,image/webp"
                           onChange={handleFileChange}
                           className="max-w-xs"
                         />

@@ -105,7 +105,7 @@ export default function DiseaseIdentificationPage() {
                         </div>
                         <Input
                           type="file"
-                          accept="image/*"
+                          accept="image/jpeg,image/png,image/webp"
                           onChange={handleFileChange}
                           className="max-w-xs"
                         />

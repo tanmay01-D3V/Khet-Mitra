@@ -126,7 +126,7 @@ export default function FertilizerRecommendationPage() {
                     <FormControl>
                         <Input
                           type="file"
-                          accept=".pdf,.txt,.md,image/*"
+                          accept=".pdf,.txt,.md,image/jpeg,image/png,image/webp"
                           onChange={handleFileChange}
                         />
                     </FormControl>

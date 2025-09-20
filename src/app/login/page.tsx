@@ -158,7 +158,7 @@ export default function LoginPage() {
                   {t('form.scanButton')}
                   <input
                     type="file"
-                    accept="image/*"
+                    accept="image/jpeg,image/png,image/webp"
                     onChange={handleFileChange}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                     disabled={isScanning}
