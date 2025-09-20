@@ -20,7 +20,7 @@
     },
     "dashboard": {
         "welcomeTitle": "Welcome Back, {{name}}!",
-        "welcomeDescription": "<strong>Jai Jawan, Jai Kisan</strong> 🌱🌾",
+        "welcomeDescription": "<strong>Jai Jawan, Jai Kisan</strong>",
         "quickActions": {
             "title": "Quick Actions",
             "newScan": "New Scan",

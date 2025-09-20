@@ -33,24 +33,36 @@ const slogans = [
     "Working the land, feeding the world. 🌍❤️"
 ];
 
+const emojiPairs = ["🌱🌾", "🇮🇳💪", "🌻🚜", "📖✨", "🌍❤️"];
+
+
 export default function DashboardPage() {
   const { t } = useTranslation('dashboard');
   const { user } = useAuth();
   const [currentSloganIndex, setCurrentSloganIndex] = useState(0);
   const [isSloganVisible, setIsSloganVisible] = useState(true);
+  const [currentEmojiIndex, setCurrentEmojiIndex] = useState(0);
   
   const firstName = user?.name.split(' ')[0] || 'Farmer';
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const sloganInterval = setInterval(() => {
         setIsSloganVisible(false); // Start fade out
         setTimeout(() => {
             setCurrentSloganIndex((prevIndex) => (prevIndex + 1) % slogans.length);
             setIsSloganVisible(true); // Start fade in
         }, 500); // Time for fade-out transition
     }, 15000); // Change slogan every 15 seconds
+    
+    const emojiInterval = setInterval(() => {
+        setCurrentEmojiIndex((prevIndex) => (prevIndex + 1) % emojiPairs.length);
+    }, 5000); // Change emoji every 5 seconds
 
-    return () => clearInterval(interval);
+
+    return () => {
+        clearInterval(sloganInterval);
+        clearInterval(emojiInterval);
+    }
   }, []);
 
   const quickActions = [
@@ -112,10 +124,13 @@ export default function DashboardPage() {
       <Card className="bg-card/50 border-2 border-primary/20 shadow-lg">
         <CardHeader>
           <CardTitle className="text-4xl font-bold tracking-tight text-foreground">{t('welcomeTitle', { name: firstName })}</CardTitle>
-          <CardDescription
-            className="text-lg text-muted-foreground mt-2"
-            dangerouslySetInnerHTML={{ __html: t('welcomeDescription') }}
-          />
+          <div className="flex items-center gap-2">
+            <CardDescription
+              className="text-lg text-muted-foreground mt-2"
+              dangerouslySetInnerHTML={{ __html: t('welcomeDescription') }}
+            />
+            <span className="text-lg mt-2">{emojiPairs[currentEmojiIndex]}</span>
+          </div>
           <p className={`text-md text-muted-foreground mt-2 transition-opacity duration-500 ${isSloganVisible ? 'opacity-100' : 'opacity-0'}`}>
             {slogans[currentSloganIndex]}
           </p>
