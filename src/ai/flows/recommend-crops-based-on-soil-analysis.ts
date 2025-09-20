@@ -22,7 +22,7 @@ export type RecommendCropsBasedOnSoilAnalysisInput = z.infer<typeof RecommendCro
 
 const RecommendedCropSchema = z.object({
   name: z.string().describe('The name of the recommended crop.'),
-  marketRate: z.string().describe("The current wholesale market rate for the crop, in INR per quintal. e.g. '₹2275'"),
+  marketRate: z.string().describe("The current wholesale market rate for the crop, in INR per quintal. e.g. 'Rs 2275'"),
 });
 
 const RecommendCropsBasedOnSoilAnalysisOutputSchema = z.object({
@@ -56,7 +56,7 @@ const prompt = ai.definePrompt({
   
   Analyze the image to determine soil pH, nutrient levels, and other relevant data. Consider all factors, including the extracted soil data and the inferred climate when making your recommendations.
 
-  For each recommended crop, provide its name, and its current wholesale market rate in Indian Rupees (INR) using the rupee symbol (e.g., ₹2275).
+  For each recommended crop, provide its name, and its current wholesale market rate in Indian Rupees (INR) using the 'Rs ' prefix (e.g., Rs 2275).
 
   Provide a list of recommended crops and a summary of the soil analysis results.
   Format the response as a JSON object.

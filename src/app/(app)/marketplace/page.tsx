@@ -76,7 +76,7 @@ export default function MarketplacePage() {
               <CardContent className="p-6 pt-0 text-center">
                  <CardTitle className="mb-2">{t(`products.${product.nameKey}`)}</CardTitle>
                  <div className="flex items-baseline justify-center gap-2">
-                    <span className="text-3xl font-bold">₹{product.price}</span>
+                    <span className="text-3xl font-bold">Rs {product.price}</span>
                     <span className="text-muted-foreground">/ {t(`units.${product.unit}`)}</span>
                  </div>
               </CardContent>
