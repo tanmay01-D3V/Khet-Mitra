@@ -59,7 +59,7 @@ export function ChatWidget() {
     setIsLoading(true);
 
     try {
-      const result = await paramMitrChat({ message: input, language: language === 'hi' ? 'hi' : 'en' });
+      const result = await paramMitrChat({ message: input, language });
       const botMessage: Message = { text: result.response, sender: 'bot' };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {

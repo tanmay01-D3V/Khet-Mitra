@@ -13,7 +13,7 @@ import { z } from 'zod';
 
 const ParamMitrChatInputSchema = z.object({
   message: z.string().describe('The user\'s message to the chatbot.'),
-  language: z.enum(['en', 'hi']).describe('The language of the conversation.'),
+  language: z.enum(['en', 'hi', 'bn', 'te', 'mr', 'ta', 'ur', 'gu', 'kn', 'or', 'ml', 'pa', 'as']).describe('The language of the conversation.'),
 });
 export type ParamMitrChatInput = z.infer<typeof ParamMitrChatInputSchema>;
 
@@ -32,13 +32,17 @@ const prompt = ai.definePrompt({
   output: { schema: ParamMitrChatOutputSchema },
   prompt: `You are Param-Mitr, a friendly and knowledgeable AI assistant for farmers in India. Your goal is to help them with their farming questions.
 
-You must respond in the user's specified language: {{language}}.
+You are an expert in Indian agriculture, including crop management, soil health, pest control, and market prices.
 
-You are an expert in Indian agriculture, including crop management, soil health, pest control, and market prices. You can understand and respond to queries in both standard language and common dialects, including Hinglish.
+Your primary language for response is determined by the user's input.
+- If the user's message is in Hindi or Hinglish, you MUST respond in clear, standard Hindi with a natural, conversational accent.
+- If the user's message is in English, respond in English.
+- For any other language specified in the 'language' input, try to respond in that language if you are capable.
 
 User's message: {{{message}}}
+User's preferred language setting: {{language}}
 
-Provide a clear, concise, and helpful response. If the user's language is 'hi', respond in Hindi. Otherwise, respond in English.
+Provide a clear, concise, and helpful response based on these rules.
 `,
 });
 
