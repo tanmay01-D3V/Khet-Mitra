@@ -27,6 +27,7 @@ import {
   Settings,
   CircleUser,
   LogOut,
+  Users,
 } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 import { useAuth } from '@/context/auth-context';
@@ -54,6 +55,7 @@ export function AppSidebar() {
     { href: '/location-guidance', label: t('locationGuidance'), icon: <MapPin /> },
     { href: '/marketplace', label: t('marketplace'), icon: <ShoppingCart /> },
     { href: '/my-poll', label: t('myPoll'), icon: <RadioReceiver /> },
+    { href: '/chatroom', label: t('chatroom'), icon: <Users /> },
     { href: '/settings', label: t('settings'), icon: <Settings /> },
   ];
 

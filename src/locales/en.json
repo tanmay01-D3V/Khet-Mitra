@@ -9,7 +9,8 @@
         "marketplace": "Marketplace",
         "myPoll": "My Poll",
         "settings": "Settings",
-        "profile": "Profile"
+        "profile": "Profile",
+        "chatroom": "Chatroom"
     },
     "header": {
         "myAccount": "My Account",
@@ -91,9 +92,8 @@
             "description": "Provide your soil test results and location.",
             "form": {
                 "soilTestResultsLabel": "Soil Test Results",
-                "soilTestResultsPlaceholder": "e.g., pH: 6.5, Nitrogen: 25ppm, Phosphorus: 50ppm, Potassium: 100ppm...",
                 "locationLabel": "Your Location",
-                "locationPlaceholder": "Enter your city or region",
+                "locationPlaceholder": "e.g., 17.68, 74.01 or Satara, Maharashtra",
                 "getRecommendationsButton": "Get Recommendations",
                 "analyzingButton": "Analyzing..."
             }
@@ -158,7 +158,7 @@
             "description": "Enter your farm's location to get the weather forecast and crop advice.",
             "form": {
                 "locationLabel": "Your Location",
-                "locationPlaceholder": "Enter your city, region, or coordinates",
+                "locationPlaceholder": "e.g., 17.68, 74.01 or Satara, Maharashtra",
                 "getForecastButton": "Get Forecast & Advice",
                 "fetchingButton": "Fetching..."
             }
@@ -305,5 +305,49 @@
         "inputPlaceholder": "Ask me anything about farming...",
         "sendButton": "Send",
         "errorMessage": "Sorry, I couldn't process that. Please try again."
+    },
+    "chatroom": {
+        "title": "Farmer Chatroom",
+        "description": "Connect and chat with farmers in your local area.",
+        "initialCard": {
+            "title": "Join a Local Chatroom",
+            "description": "Find and join a chatroom with farmers near you to share knowledge and get advice.",
+            "button": "Find Nearby Chatrooms"
+        },
+        "locatingCard": {
+            "title": "Finding Your Location...",
+            "description": "We're using your location to find nearby chatrooms."
+        },
+        "joiningCard": {
+            "title": "Joining Chatroom...",
+            "description": "Connecting you to the local farmer community."
+        },
+        "chatroomCard": {
+            "title": "Farmers near {{location}}",
+            "description": "{{count}} members online",
+            "inputPlaceholder": "Type your message..."
+        },
+        "toast": {
+            "noGeolocation": {
+                "title": "Geolocation is not supported by your browser."
+            },
+            "locationFound": {
+                "title": "Location Found!",
+                "description": "Searching for chatrooms near {{location}}."
+            },
+            "addressError": {
+                "title": "Could not fetch address."
+            },
+            "permissionError": {
+                "title": "Unable to retrieve your location.",
+                "description": "Please ensure location services are enabled."
+            },
+            "voiceChat": {
+                "title": "Voice chat feature is coming soon!"
+            },
+             "voiceMessage": {
+                "title": "Voice messaging is coming soon!"
+            }
+        }
     }
 }
