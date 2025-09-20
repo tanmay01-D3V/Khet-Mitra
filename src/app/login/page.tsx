@@ -88,17 +88,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center p-4">
-      <Image 
-        id="login-bg"
-        src="https://picsum.photos/seed/wheat/1920/1080" 
-        alt="Wheat farm background" 
-        data-ai-hint="wheat farm"
-        fill
-        priority
-      />
-
-      <Card className="w-full max-w-md bg-background/80 backdrop-blur-sm">
+    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+      <Card className="w-full max-w-md">
         <CardHeader className="text-center">
             <div className="mx-auto mb-4">
                 <Logo />
@@ -141,7 +132,7 @@ export default function LoginPage() {
                   <span className="w-full border-t" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-background/80 px-2 text-muted-foreground">{t('or')}</span>
+                  <span className="bg-card px-2 text-muted-foreground">{t('or')}</span>
                 </div>
               </div>
 
