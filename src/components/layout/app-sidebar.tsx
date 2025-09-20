@@ -100,13 +100,6 @@ export function AppSidebar() {
           <DropdownMenuContent side="right" align="start" className="w-56">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-             <DropdownMenuItem asChild>
-              <Link href="/profile">
-                <CircleUser className="mr-2 h-4 w-4" />
-                <span>Profile</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>
               <LogOut className="mr-2 h-4 w-4" />
               <span>Log out</span>
