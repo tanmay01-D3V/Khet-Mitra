@@ -1,1 +1,108 @@
-https://storage.googleapis.com/aai-web-samples/codestudio/khet-mitra/login-bg.jpg
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 40 10% 98%; /* Very Light Beige */
+    --foreground: 30 25% 15%; /* Dark Brown */
+    --card: 40 10% 98%; /* Lighter Beige */
+    --card-foreground: 30 25% 15%;
+    --popover: 40 10% 98%;
+    --popover-foreground: 30 25% 15%;
+    --primary: 95 40% 35%; /* Earthy Green */
+    --primary-foreground: 95 40% 95%; /* Light Green */
+    --secondary: 40 20% 90%;
+    --secondary-foreground: 30 25% 15%;
+    --muted: 40 15% 85%;
+    --muted-foreground: 30 15% 40%;
+    --accent: 95 30% 55%; /* Lighter Earthy Green */
+    --accent-foreground: 30 25% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 15% 80%;
+    --input: 40 20% 90%;
+    --ring: 95 40% 35%;
+    --chart-1: 95 40% 35%;
+    --chart-2: 95 30% 55%;
+    --chart-3: 30 25% 25%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 40 10% 98%; /* Very Light Beige */
+    --sidebar-foreground: 30 25% 15%; /* Dark Brown */
+    --sidebar-primary: 95 40% 35%; /* Earthy Green */
+    --sidebar-primary-foreground: 95 40% 95%; /* Light Green */
+    --sidebar-accent: 40 15% 92%; /* Slightly darker beige */
+    --sidebar-accent-foreground: 30 25% 10%;
+    --sidebar-border: 40 15% 88%;
+    --sidebar-ring: 95 40% 35%;
+  }
+
+  .dark {
+    --background: 0 0% 0%; /* Black */
+    --foreground: 40 10% 85%; /* Light Beige */
+    --card: 20 10% 12%; /* Dark Brown */
+    --card-foreground: 40 10% 85%;
+    --popover: 20 5% 15%;
+    --popover-foreground: 40 10% 85%;
+    --primary: 95 40% 60%; /* Light Green */
+    --primary-foreground: 95 40% 10%;
+    --secondary: 20 5% 20%;
+    --secondary-foreground: 40 10% 85%;
+    --muted: 20 5% 15%;
+    --muted-foreground: 40 10% 60%;
+    --accent: 95 30% 50%; /* Darker Green */
+    --accent-foreground: 40 10% 95%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 20 5% 20%;
+    --input: 20 5% 20%;
+    --ring: 95 40% 60%;
+    --chart-1: 95 40% 60%;
+    --chart-2: 95 30% 50%;
+    --chart-3: 40 10% 80%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 20 5% 8%; /* Even Darker Brown */
+    --sidebar-foreground: 40 10% 80%;
+    --sidebar-primary: 95 40% 60%;
+    --sidebar-primary-foreground: 95 40% 10%;
+    --sidebar-accent: 20 5% 12%;
+    --sidebar-accent-foreground: 40 10% 95%;
+    --sidebar-border: 20 5% 15%;
+    --sidebar-ring: 95 40% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+#login-bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    background-color: #0c0a09;
+    opacity: 0.8;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='0.5' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-sprout'%3E%3Cpath d='M7 20h10'/%3E%3Cpath d='M12 20V4'/%3E%3Cpath d='M12 4c1.1 0 2-1.8 2-4'/%3E%3Cpath d='M12 4c-1.1 0-2-1.8-2-4'/%3E%3Cpath d='M12 12c1.1 0 2-1.8 2-4'/%3E%3Cpath d='M12 12c-1.1 0-2-1.8-2-4'/%3E%3Cpath d='M12 8c1.1 0 2-1.8 2-4'/%3E%3Cpath d='M12 8c-1.1 0-2-1.8-2-4'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='0.5' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-tractor'%3E%3Cpath d='M3 4h9l1 7'/%3E%3Cpath d='M4 11V4'/%3E%3Cpath d='M8 11V4'/%3E%3Cpath d='M18 5c-.6 0-1 .4-1 1v5.6'/%3E%3Cpath d='m10 11 11 .1'/%3E%3Ccircle cx='7' cy='15' r='2'/%3E%3Ccircle cx='18' cy='15' r='2'/%3E%3Cpath d='M9 15h7'/%3E%3Cpath d='M10 18h6'/%3E%3C/svg%3E");
+    background-position: 20px 20px, 120px 120px;
+    background-size: 100px 100px, 100px 100px;
+    background-repeat: repeat;
+}
