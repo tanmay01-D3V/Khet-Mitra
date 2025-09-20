@@ -4,7 +4,7 @@
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarProvider, Sidebar, SidebarInset } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/layout/app-sidebar';
 import { Header } from '@/components/layout/header';
 
@@ -33,11 +33,13 @@ export default function AppLayout({
   return (
       <SidebarProvider>
           <div className="min-h-screen w-full bg-muted/30">
-              <AppSidebar />
-              <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+              <Sidebar>
+                <AppSidebar />
+              </Sidebar>
+              <SidebarInset>
                   <Header />
                   <main className="flex-1 p-4 sm:p-6">{children}</main>
-              </div>
+              </SidebarInset>
           </div>
       </SidebarProvider>
   );
