@@ -90,7 +90,7 @@ Open your browser and navigate to `http://localhost:9002` to start using Khet-Mi
 
 ## 📂 Project Structure
 
-The project is organized as follows:
+The project is organized as follow:
 - `src/app/`: Contains the main pages and layouts of the Next.js application.
 - `src/ai/`:
   - `flows/`: All Genkit AI workflows that power the intelligent features.
